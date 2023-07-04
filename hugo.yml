@@ -2,3 +2,4 @@ baseURL: 'http://luckyzerg.cc/'
 languageCode: ch-en
 title: 飞飞飞
 theme: PaperMod
+publishDir: docs
