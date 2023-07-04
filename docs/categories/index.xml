@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on 飞飞飞</title>
-    <link>http://luckyzerg.cc/categories/</link>
+    <link>https://morz.cc/categories/</link>
     <description>Recent content in Categories on 飞飞飞</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ch-en</language><atom:link href="http://luckyzerg.cc/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>ch-en</language><atom:link href="https://morz.cc/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
