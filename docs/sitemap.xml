@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://morz.cc/</loc>
     <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/hugo/</loc>
+    <loc>https://morz.cc/hugo/</loc>
     <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/hugo/init/</loc>
+    <loc>https://morz.cc/hugo/init/</loc>
     <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/archives/</loc>
+    <loc>https://morz.cc/archives/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://morz.cc/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://morz.cc/tags/</loc>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://morz.cc/about/</loc>
   </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>https://morz.cc/search/</loc>
   </url>
 </urlset>
