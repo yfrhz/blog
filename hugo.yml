@@ -1,5 +1,5 @@
-#baseURL: 'https://morz.cc/'
-baseURL: 'http://localhost:1313/'
+baseURL: 'https://morz.cc/'
+#baseURL: 'http://localhost:1313/'
 languageCode: ch-en
 title: Morz
 theme: PaperMod
