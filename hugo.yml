@@ -5,7 +5,27 @@ title: Morz
 theme: PaperMod
 publishDir: docs
 enableEmoji: true
-sectionPagesMenu: main
+
+menu:
+  main:
+    - identifier: "search"
+      name: "搜索"
+      url: "/search/"
+      weight: 100
+    - identifier: "categories"
+      name: "分类"
+      url: "/categories/"
+      weight: 200
+    - identifier: "tags"
+      name: "标签"
+      url: "/tags/"
+      weight: 300
+    - identifier: "about"
+      name: "关于"
+      url: "/about/"
+      weight: 400
+
+
 params:
   showtoc: true
   ShowAllPagesInArchive: true

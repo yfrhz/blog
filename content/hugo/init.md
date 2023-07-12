@@ -2,6 +2,7 @@
 title: "安装hugo"
 date: 2023-07-12T16:12:34+08:00
 draft: false
+categories: ['hugo']
 ---
 
 

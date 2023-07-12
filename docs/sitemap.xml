@@ -5,20 +5,22 @@
     <loc>https://morz.cc/</loc>
     <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
+    <loc>https://morz.cc/categories/hugo/</loc>
+    <lastmod>2023-07-12T16:12:34+08:00</lastmod>
+  </url><url>
     <loc>https://morz.cc/hugo/</loc>
     <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
     <loc>https://morz.cc/hugo/init/</loc>
     <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/archives/</loc>
-  </url><url>
     <loc>https://morz.cc/categories/</loc>
-  </url><url>
-    <loc>https://morz.cc/tags/</loc>
+    <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
     <loc>https://morz.cc/about/</loc>
   </url><url>
     <loc>https://morz.cc/search/</loc>
+  </url><url>
+    <loc>https://morz.cc/tags/</loc>
   </url>
 </urlset>
