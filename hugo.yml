@@ -1,5 +1,11 @@
-baseURL: 'https://morz.cc/'
+#baseURL: 'https://morz.cc/'
+baseURL: 'http://localhost:1313/'
 languageCode: ch-en
-title: 飞飞飞
+title: Morz
 theme: PaperMod
 publishDir: docs
+enableEmoji: true
+sectionPagesMenu: main
+params:
+  showtoc: true
+  ShowAllPagesInArchive: true
