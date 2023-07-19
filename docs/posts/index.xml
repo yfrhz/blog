@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on 飞飞飞</title>
+    <link>https://morz.cc/posts/</link>
+    <description>Recent content in Posts on 飞飞飞</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ch-en</language>
+    <lastBuildDate>Tue, 04 Jul 2023 23:27:41 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Abc</title>
+      <link>https://morz.cc/posts/abc/</link>
+      <pubDate>Tue, 04 Jul 2023 23:27:41 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/abc/</guid>
+      <description>Introduction This is bold text, and this is emphasized text.
+Visit the Hugo website!</description>
+    </item>
+    
+    <item>
+      <title>My First Post</title>
+      <link>https://morz.cc/posts/my-first-post/</link>
+      <pubDate>Tue, 04 Jul 2023 21:12:49 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/my-first-post/</guid>
+      <description>Introduction This is bold text, and this is emphasized text.
+Visit the Hugo website!</description>
+    </item>
+    
+  </channel>
+</rss>
