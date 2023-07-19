@@ -9,7 +9,6 @@ categories: ['flutter']
 
 ### 相关文档
 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
-
  - [官方文档](https://drift.simonbinder.eu/)
  - [GitHub](https://github.com/simolus3/drift)
  - [Pub](https://pub.dev/packages/drift)
@@ -21,5 +20,9 @@ categories: ['flutter']
 # 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。
 $ dart run build_runner build
 ```
+
+### 问题
+1. Tables can't override primaryKey and use autoIncrement() \
+   设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。
 
 
