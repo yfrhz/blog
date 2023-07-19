@@ -24,5 +24,7 @@ $ dart run build_runner build
 ### 问题
 1. Tables can't override primaryKey and use autoIncrement() \
    设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。
+2. 数据文件路径（安卓虚拟机）\
+   /data/user/0/{包名}/app_flutter/db.sqlite
 
 
