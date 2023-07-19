@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>类型 on Morz</title>
+    <title>标签 on Morz</title>
     <link>https://morz.cc/tags/</link>
-    <description>Recent content in 类型 on Morz</description>
+    <description>Recent content in 标签 on Morz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ch-en</language><atom:link href="https://morz.cc/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
