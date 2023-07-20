@@ -33,8 +33,12 @@
 记录下 Hogu 的安装过程
 安装 当然是看 官方安装文档 啊，不然真的看博客啊。
 配置 配置就有得说了，官网的东西有点乱。
-目录结构 刚刚安装完的结构应该是这样的：
-（未完待续）</description>
+问题 部署后出现缺失样式，F12控制台出现如下提示
+1 Failed to find a valid digest in the &amp;#39;integrity&amp;#39; attribute for resource &amp;#39;xx&amp;#39; with computed SHA-256 integrity &amp;#39;xxx&amp;#39;. The resource has been blocked. 因为win和mac的结尾符号不同CRLF和LF，导致hash后css校验失败
+需要在项目中添加 .gitattributes 文件，添加内容：
+1 text=auto eol=lf 然后将这个修改commit一下。
+使用如下命令转换项目中已经存在的CRLF：
+1 2 git rm --cached -r . # Remove every file from git&amp;#39;s index. git reset --hard # Rewrite git&amp;#39;s index to pick up all the new line endings.</description>
     </item>
     
     
