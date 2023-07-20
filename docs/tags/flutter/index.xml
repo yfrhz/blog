@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>flutter on 沫子</title>
+    <link>https://morz.cc/tags/flutter/</link>
+    <description>Recent content in flutter on 沫子</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-en</language><atom:link href="https://morz.cc/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🐵Flutter</title>
+      <link>https://morz.cc/posts/flutter/</link>
+      <pubDate>Wed, 19 Jul 2023 23:40:15 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/flutter/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

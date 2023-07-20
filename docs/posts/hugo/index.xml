@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>🐱 Hugo on 沫子</title>
+    <link>https://morz.cc/posts/hugo/</link>
+    <description>Recent content in 🐱 Hugo on 沫子</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-en</language>
+    <lastBuildDate>Wed, 12 Jul 2023 16:12:34 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>安装hugo</title>
+      <link>https://morz.cc/posts/hugo/init/</link>
+      <pubDate>Wed, 12 Jul 2023 16:12:34 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/hugo/init/</guid>
+      <description>前言 一直想自己搭建个博客做记录，偶然间了解到静态站。
+由于会Vue3，最开始打算使用vue-press的，但是调查发现，有三个主流的静态博客工具。也有现成的静态托管方案。
+于是乎，在对比了jekyll、hugo、hexo后，果断的选择了hugo（反正都没用过，就选星星最多的）。
+遂，域名，空间，博客一把梭。
+记录下 Hogu 的安装过程
+安装 当然是看 官方安装文档 啊，不然真的看博客啊。
+配置 配置就有得说了，官网的东西有点乱。
+目录结构 刚刚安装完的结构应该是这样的：
+（未完待续）</description>
+    </item>
+    
+  </channel>
+</rss>

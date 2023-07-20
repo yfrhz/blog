@@ -1,6 +1,6 @@
 ---
-title: "搜索" # in any language you want
-layout: "search" # is necessary
+title: "🔍搜索"
+layout: "search" 
 summary: "search"
 placeholder: "你想找啥"
 ---

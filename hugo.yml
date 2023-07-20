@@ -1,31 +1,70 @@
 baseURL: 'https://morz.cc/'
 #baseURL: 'http://localhost:1313/'
-languageCode: ch-en
-title: Morz
+languageCode: zh-en
+title: 沫子
 theme: PaperMod
 publishDir: docs
 enableEmoji: true
+enableRobotsTXT: true
+paginate: 15
+
+minify:
+  disableXML: true
 
 menu:
   main:
     - identifier: "search"
-      name: "搜索"
-      url: "/search/"
+      name: "🔍搜索"
+      url: "search"
       weight: 100
-    - identifier: "categories"
-      name: "分类"
-      url: "/categories/"
+    - identifier: "home"
+      name: "🏠主页"
+      url: "/"
       weight: 200
-    - identifier: "tags"
-      name: "标签"
-      url: "/tags/"
+    - identifier: "posts"
+      name: "📚文章"
+      url: "posts"
       weight: 300
-    - identifier: "about"
-      name: "关于"
-      url: "/about/"
+    - identifier: "archives"
+      name: "⏱时间轴"
+      url: "archives"
       weight: 400
+    - identifier: "tags"
+      name: "🔖标签"
+      url: "tags"
+      weight: 500
+    - identifier: "about"
+      name: "🙋🏻‍♂️关于"
+      url: "about"
+      weight: 600
 
 
 params:
-  showtoc: true
+  author: Carl
+  ShowToc: true
   ShowAllPagesInArchive: true
+  ShowLastMod: true
+  TocOpen: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCounts: true
+  VisitCount: true
+
+  label:
+    text: 沫子
+    icon: "favicon128x128.ico"
+    iconHeight: 35
+
+  assets:
+    favicon: "favicon128x128.ico"
+    favicon16x16: "favicon16x16.ico"
+    favicon32x32: "favicon32x32.ico"
+    apple_touch_icon: "favicon64x64.ico"
+    safari_pinned_tab: "favicon128x128.ico"
+
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: darcula
