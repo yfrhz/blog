@@ -38,4 +38,5 @@ text=auto eol=lf
 git rm --cached -r .  # Remove every file from git's index.
 git reset --hard      # Rewrite git's index to pick up all the new line endings.
 ```
+然后删除全部public下的全部文件，重新hugo\
 这样就好啦~
