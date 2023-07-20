@@ -5,13 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>🔍搜索 | 沫子</title>
+<title>Hugo页面样式加载失败 | 沫子</title>
 <meta name="keywords" content="">
-<meta name="description" content="search">
+<meta name="description" content="现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错：">
 <meta name="author" content="Carl">
-<link rel="canonical" href="https://morz.cc/search/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style"><link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
-<script defer crossorigin="anonymous" src="/assets/js/search.js"></script>
+<link rel="canonical" href="https://morz.cc/posts/hugo/integrity/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://morz.cc/ico/favicon128x128.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://morz.cc/ico/favicon16x16.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="https://morz.cc/ico/favicon32x32.ico">
@@ -56,16 +57,18 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-<meta property="og:title" content="🔍搜索" />
-<meta property="og:description" content="search" />
+<meta property="og:title" content="Hugo页面样式加载失败" />
+<meta property="og:description" content="现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://morz.cc/search/" /><meta property="article:section" content="" />
-
-
+<meta property="og:url" content="https://morz.cc/posts/hugo/integrity/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-20T16:12:34+08:00" />
+<meta property="article:modified_time" content="2023-07-20T16:12:34+08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="🔍搜索"/>
-<meta name="twitter:description" content="search"/>
+<meta name="twitter:title" content="Hugo页面样式加载失败"/>
+<meta name="twitter:description" content="现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错："/>
 
 
 <script type="application/ld+json">
@@ -76,8 +79,20 @@
     {
       "@type": "ListItem",
       "position":  1 ,
-      "name": "🔍搜索",
-      "item": "https://morz.cc/search/"
+      "name": "📚文章",
+      "item": "https://morz.cc/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "🐱Hugo",
+      "item": "https://morz.cc/posts/hugo/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Hugo页面样式加载失败",
+      "item": "https://morz.cc/posts/hugo/integrity/"
     }
   ]
 }
@@ -86,24 +101,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "🔍搜索",
-  "name": "🔍搜索",
-  "description": "search",
+  "headline": "Hugo页面样式加载失败",
+  "name": "Hugo页面样式加载失败",
+  "description": "现象 在本地运行测试好好的，发布到托管环境格式就乱了。\n检查 打开控制台后，发现console下有一条报错：",
   "keywords": [
     
   ],
-  "articleBody": "",
-  "wordCount" : "0",
+  "articleBody": "现象 在本地运行测试好好的，发布到托管环境格式就乱了。\n检查 打开控制台后，发现console下有一条报错：\n",
+  "wordCount" : "4",
   "inLanguage": "zh",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
+  "datePublished": "2023-07-20T16:12:34+08:00",
+  "dateModified": "2023-07-20T16:12:34+08:00",
   "author":{
     "@type": "Person",
     "name": "Carl"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://morz.cc/search/"
+    "@id": "https://morz.cc/posts/hugo/integrity/"
   },
   "publisher": {
     "@type": "Organization",
@@ -117,7 +132,7 @@
 </script>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -161,7 +176,7 @@
         <ul id="menu">
             <li>
                 <a href="https://morz.cc/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
-                    <span class="active">🔍搜索</span>
+                    <span>🔍搜索</span>
                 </a>
             </li>
             <li>
@@ -194,21 +209,105 @@
 </header>
 <main class="main">
 
-<header class="page-header">
-    <h1>🔍搜索 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/hugo/">🐱Hugo</a></div>
+    <h1 class="post-title">
+      Hugo页面样式加载失败
     </h1>
-    <div class="post-meta"></div>
-</header>
+    <div class="post-meta"><span title='2023-07-20 16:12:34 +0800 CST'>七月 20, 2023</span>&nbsp;·&nbsp;Carl
 
-<div id="searchbox">
-    <input id="searchInput" autofocus placeholder="你想找啥"
-        aria-label="search" type="search" autocomplete="off">
-    <ul id="searchResults" aria-label="search results"></ul>
 </div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e7%8e%b0%e8%b1%a1" aria-label="现象">现象</a></li>
+                <li>
+                    <a href="#%e6%a3%80%e6%9f%a5" aria-label="检查">检查</a>
+                </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+  <div class="post-content"><h3 id="现象">现象<a hidden class="anchor" aria-hidden="true" href="#现象">#</a></h3>
+<p>在本地运行测试好好的，发布到托管环境格式就乱了。</p>
+<h3 id="检查">检查<a hidden class="anchor" aria-hidden="true" href="#检查">#</a></h3>
+<p>打开控制台后，发现console下有一条报错：</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
     
 <footer class="footer">
@@ -278,6 +377,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

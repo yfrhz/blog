@@ -1,6 +1,6 @@
 baseURL: 'https://morz.cc/'
 #baseURL: 'http://localhost:1313/'
-languageCode: zh-en
+defaultContentLanguage: zh
 title: 沫子
 theme: PaperMod
 publishDir: docs
@@ -52,15 +52,16 @@ params:
 
   label:
     text: 沫子
-    icon: "favicon128x128.ico"
+    icon: "ico/favicon128x128.ico"
     iconHeight: 35
 
   assets:
-    favicon: "favicon128x128.ico"
-    favicon16x16: "favicon16x16.ico"
-    favicon32x32: "favicon32x32.ico"
-    apple_touch_icon: "favicon64x64.ico"
-    safari_pinned_tab: "favicon128x128.ico"
+    favicon: "ico/favicon128x128.ico"
+    favicon16x16: "ico/favicon16x16.ico"
+    favicon32x32: "ico/favicon32x32.ico"
+    apple_touch_icon: "ico/favicon64x64.ico"
+    safari_pinned_tab: "ico/favicon128x128.ico"
+    disableFingerprinting: true
 
 markup:
   highlight:

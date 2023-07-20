@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>🐱 Hugo on 沫子</title>
+    <title>🐱Hugo on 沫子</title>
     <link>https://morz.cc/posts/hugo/</link>
-    <description>Recent content in 🐱 Hugo on 沫子</description>
+    <description>Recent content in 🐱Hugo on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-en</language>
-    <lastBuildDate>Wed, 12 Jul 2023 16:12:34 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh</language>
+    <lastBuildDate>Thu, 20 Jul 2023 16:12:34 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>安装hugo</title>
+      <title>Hugo页面样式加载失败</title>
+      <link>https://morz.cc/posts/hugo/integrity/</link>
+      <pubDate>Thu, 20 Jul 2023 16:12:34 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/hugo/integrity/</guid>
+      <description>现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错：</description>
+    </item>
+    
+    <item>
+      <title>安装Hugo</title>
       <link>https://morz.cc/posts/hugo/init/</link>
       <pubDate>Wed, 12 Jul 2023 16:12:34 +0800</pubDate>
       
@@ -20,12 +30,7 @@
 记录下 Hogu 的安装过程
 安装 当然是看 官方安装文档 啊，不然真的看博客啊。
 配置 配置就有得说了，官网的东西有点乱。
-问题 部署后出现缺失样式，F12控制台出现如下提示
-1 Failed to find a valid digest in the &amp;#39;integrity&amp;#39; attribute for resource &amp;#39;xx&amp;#39; with computed SHA-256 integrity &amp;#39;xxx&amp;#39;. The resource has been blocked. 因为win和mac的结尾符号不同CRLF和LF，导致hash后css校验失败
-需要在项目中添加 .gitattributes 文件，添加内容：
-1 text=auto eol=lf 然后将这个修改commit一下。
-使用如下命令转换项目中已经存在的CRLF：
-1 2 git rm --cached -r . # Remove every file from git&amp;#39;s index. git reset --hard # Rewrite git&amp;#39;s index to pick up all the new line endings.</description>
+使用 我还不太熟，用熟了再补充</description>
     </item>
     
   </channel>

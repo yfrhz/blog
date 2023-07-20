@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>🐱 Hugo | 沫子</title>
+<title>🐱Hugo | 沫子</title>
 <meta name="keywords" content="hugo">
-<meta name="description" content="🐱 Hugo - 沫子">
+<meta name="description" content="🐱Hugo - 沫子">
 <meta name="author" content="Carl">
 <link rel="canonical" href="https://morz.cc/posts/hugo/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.fe97c559e6b2c78c43dfae6e1a114986b1eb2aa7b435a1e5c5425d7a862788e9.css" integrity="sha256-/pfFWeayx4xD365uGhFJhrHrKqe0NaHlxUJdeoYniOk=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://morz.cc/favicon128x128.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://morz.cc/favicon16x16.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="https://morz.cc/favicon32x32.ico">
-<link rel="apple-touch-icon" href="https://morz.cc/favicon64x64.ico">
-<link rel="mask-icon" href="https://morz.cc/favicon128x128.ico">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://morz.cc/ico/favicon128x128.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://morz.cc/ico/favicon16x16.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://morz.cc/ico/favicon32x32.ico">
+<link rel="apple-touch-icon" href="https://morz.cc/ico/favicon64x64.ico">
+<link rel="mask-icon" href="https://morz.cc/ico/favicon128x128.ico">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://morz.cc/posts/hugo/index.xml">
@@ -56,13 +56,13 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-<meta property="og:title" content="🐱 Hugo" />
+<meta property="og:title" content="🐱Hugo" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://morz.cc/posts/hugo/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="🐱 Hugo"/>
+<meta name="twitter:title" content="🐱Hugo"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -80,7 +80,7 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "🐱 Hugo",
+      "name": "🐱Hugo",
       "item": "https://morz.cc/posts/hugo/"
     }
   ]
@@ -104,7 +104,7 @@
     <nav class="nav">
         <div class="logo">
             <a href="https://morz.cc/" accesskey="h" title="沫子 (Alt + H)">
-                <img src="https://morz.cc/favicon128x128.ico" alt="" aria-label="logo"
+                <img src="https://morz.cc/ico/favicon128x128.ico" alt="" aria-label="logo"
                     height="35">沫子</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
@@ -164,15 +164,28 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://morz.cc/">Home</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a></div>
   <h1>
-    🐱 Hugo
+    🐱Hugo
   </h1>
 </header>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>安装hugo
+    <h2>Hugo页面样式加载失败
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错：</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-20 16:12:34 +0800 CST'>七月 20, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to Hugo页面样式加载失败" href="https://morz.cc/posts/hugo/integrity/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>安装Hugo
     </h2>
   </header>
   <div class="entry-content">
@@ -183,15 +196,10 @@
 记录下 Hogu 的安装过程
 安装 当然是看 官方安装文档 啊，不然真的看博客啊。
 配置 配置就有得说了，官网的东西有点乱。
-问题 部署后出现缺失样式，F12控制台出现如下提示
-1 Failed to find a valid digest in the &#39;integrity&#39; attribute for resource &#39;xx&#39; with computed SHA-256 integrity &#39;xxx&#39;. The resource has been blocked. 因为win和mac的结尾符号不同CRLF和LF，导致hash后css校验失败
-需要在项目中添加 .gitattributes 文件，添加内容：
-1 text=auto eol=lf 然后将这个修改commit一下。
-使用如下命令转换项目中已经存在的CRLF：
-1 2 git rm --cached -r . # Remove every file from git&#39;s index. git reset --hard # Rewrite git&#39;s index to pick up all the new line endings....</p>
+使用 我还不太熟，用熟了再补充</p>
   </div>
-  <footer class="entry-footer"><span title='2023-07-12 16:12:34 +0800 CST'>July 12, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to 安装hugo" href="https://morz.cc/posts/hugo/init/"></a>
+  <footer class="entry-footer"><span title='2023-07-12 16:12:34 +0800 CST'>七月 12, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 安装Hugo" href="https://morz.cc/posts/hugo/init/"></a>
 </article>
     </main>
     
