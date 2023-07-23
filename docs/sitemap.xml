@@ -3,24 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://morz.cc/</loc>
-    <lastmod>2023-07-20T16:12:34+08:00</lastmod>
+    <lastmod>2023-07-23T22:20:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/hugo/</loc>
-    <lastmod>2023-07-20T16:12:34+08:00</lastmod>
+    <loc>https://morz.cc/posts/flutter/</loc>
+    <lastmod>2023-07-23T22:20:15+08:00</lastmod>
   </url><url>
     <loc>https://morz.cc/posts/</loc>
+    <lastmod>2023-07-23T22:20:15+08:00</lastmod>
+  </url><url>
+    <loc>https://morz.cc/posts/flutter/widget/</loc>
+    <lastmod>2023-07-23T22:20:15+08:00</lastmod>
+  </url><url>
+    <loc>https://morz.cc/posts/flutter/get/</loc>
+    <lastmod>2023-07-23T21:40:15+08:00</lastmod>
+  </url><url>
+    <loc>https://morz.cc/posts/hugo/</loc>
     <lastmod>2023-07-20T16:12:34+08:00</lastmod>
   </url><url>
     <loc>https://morz.cc/posts/hugo/integrity/</loc>
     <lastmod>2023-07-20T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/flutter/</loc>
-    <lastmod>2023-07-19T23:40:15+08:00</lastmod>
-  </url><url>
     <loc>https://morz.cc/posts/flutter/drift/</loc>
-    <lastmod>2023-07-19T23:40:15+08:00</lastmod>
-  </url><url>
-    <loc>https://morz.cc/posts/flutter/get/</loc>
     <lastmod>2023-07-19T23:40:15+08:00</lastmod>
   </url><url>
     <loc>https://morz.cc/posts/hugo/setup/</loc>
