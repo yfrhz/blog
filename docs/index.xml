@@ -15,7 +15,7 @@
       <guid>https://morz.cc/posts/flutter/widget/</guid>
       <description>简介 用于记录一些乱七八糟的Widget（速查表）
 布局 Expanded 可以设置元素的占用空间比例大小。
-1 2 3 4 5 const Expanded({ Key key, int flex = 1, @required Widget child, }) flex 占比大小，默认是100% 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex) child 即需要分配的Widget 例子参考 博客</description>
+1 2 3 4 5 const Expanded({ Key key, int flex = 1, @required Widget child, }) flex 占比大小，默认是100% 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex) child 即需要分配的Widget 例子:参考博客</description>
     </item>
     
     <item>

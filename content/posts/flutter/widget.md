@@ -25,5 +25,5 @@ const Expanded({
   - 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex)
 - child 即需要分配的Widget
 
-例子参考 [博客](https://juejin.cn/post/7245106927512322109)
+例子:[参考博客](https://juejin.cn/post/7245106927512322109)
     
