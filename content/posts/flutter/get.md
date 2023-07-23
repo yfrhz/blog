@@ -11,6 +11,7 @@ draft: false
 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
 - [GitHub](https://github.com/jonataslaw/getx)
 - [Pub](https://pub.dev/packages/get)
+
 Pub上的文档挺全的
 
 ### 使用
