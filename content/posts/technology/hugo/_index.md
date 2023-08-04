@@ -1,5 +1,5 @@
 ---
-title: "🐱Hugo"
+title: "🥕Hugo"
 tags:
   - hugo
 ---

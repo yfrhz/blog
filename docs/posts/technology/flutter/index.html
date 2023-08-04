@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>📚文章 | 沫子</title>
-<meta name="keywords" content="">
-<meta name="description" content="📚文章 - 沫子">
+<title>🥔Flutter | 沫子</title>
+<meta name="keywords" content="flutter">
+<meta name="description" content="🥔Flutter - 沫子">
 <meta name="author" content="Carl">
-<link rel="canonical" href="https://morz.cc/posts/">
+<link rel="canonical" href="https://morz.cc/posts/technology/flutter/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://morz.cc/ico/favicon128x128.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://morz.cc/ico/favicon16x16.ico">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://morz.cc/ico/favicon128x128.ico">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://morz.cc/posts/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://morz.cc/posts/technology/flutter/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,13 +56,13 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-<meta property="og:title" content="📚文章" />
+<meta property="og:title" content="🥔Flutter" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://morz.cc/posts/" />
+<meta property="og:url" content="https://morz.cc/posts/technology/flutter/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="📚文章"/>
+<meta name="twitter:title" content="🥔Flutter"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -76,6 +76,18 @@
       "position":  1 ,
       "name": "📚文章",
       "item": "https://morz.cc/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "🐵技术",
+      "item": "https://morz.cc/posts/technology/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "🥔Flutter",
+      "item": "https://morz.cc/posts/technology/flutter/"
     }
   ]
 }
@@ -136,7 +148,7 @@
             </li>
             <li>
                 <a href="https://morz.cc/posts" title="📚文章">
-                    <span class="active">📚文章</span>
+                    <span>📚文章</span>
                 </a>
             </li>
             <li>
@@ -158,22 +170,55 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://morz.cc/">主页</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/technology/">🐵技术</a></div>
   <h1>
-    📚文章
+    🥔Flutter
   </h1>
 </header>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>🐵技术
+    <h2>Widget记录
     </h2>
   </header>
   <div class="entry-content">
-    <p></p>
+    <p>简介 用于记录一些乱七八糟的Widget（速查表）
+布局 Expanded 可以设置元素的占用空间比例大小。
+1 2 3 4 5 const Expanded({ Key key, int flex = 1, @required Widget child, }) flex 占比大小，默认是100% 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex) child 即需要分配的Widget 例子:参考博客</p>
   </div>
   <footer class="entry-footer"><span title='2023-07-23 22:20:15 +0800 CST'>七月 23, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to 🐵技术" href="https://morz.cc/posts/technology/"></a>
+  <a class="entry-link" aria-label="post link to Widget记录" href="https://morz.cc/posts/technology/flutter/widget/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>GetX使用说明
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简介 正所谓，Flutter不能失去GetX，就像西方不是失去耶路撒冷。GetX作为Flutter的轮椅般的存在，是使用Flutter中必不可少的一个组件。
+相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
+GitHub Pub Pub上的文档挺全的
+使用 </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-23 21:40:15 +0800 CST'>七月 23, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to GetX使用说明" href="https://morz.cc/posts/technology/flutter/get/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Drift使用说明
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简介 作为Flutter的半orm框架，Drift确实达到了好用的程度。本文不去对比其他框架，仅就使用过程中的一些坑或者技巧做一点小小的记录。
+相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
+官方文档 GitHub Pub 使用 参考文档，先这样，然后这样，再那样，就好啦～
+1 2 # 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。 $ dart run build_runner build 问题 Tables can’t override primaryKey and use autoIncrement() 设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。 数据文件路径（安卓虚拟机）
+/data/user/0/{包名}/app_flutter/db.sqlite </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-19 23:40:15 +0800 CST'>七月 19, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to Drift使用说明" href="https://morz.cc/posts/technology/flutter/drift/"></a>
 </article>
     </main>
     

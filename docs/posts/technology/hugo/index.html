@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>📚文章 | 沫子</title>
-<meta name="keywords" content="">
-<meta name="description" content="📚文章 - 沫子">
+<title>🥕Hugo | 沫子</title>
+<meta name="keywords" content="hugo">
+<meta name="description" content="🥕Hugo - 沫子">
 <meta name="author" content="Carl">
-<link rel="canonical" href="https://morz.cc/posts/">
+<link rel="canonical" href="https://morz.cc/posts/technology/hugo/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://morz.cc/ico/favicon128x128.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://morz.cc/ico/favicon16x16.ico">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://morz.cc/ico/favicon128x128.ico">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://morz.cc/posts/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://morz.cc/posts/technology/hugo/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,13 +56,13 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-<meta property="og:title" content="📚文章" />
+<meta property="og:title" content="🥕Hugo" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://morz.cc/posts/" />
+<meta property="og:url" content="https://morz.cc/posts/technology/hugo/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="📚文章"/>
+<meta name="twitter:title" content="🥕Hugo"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -76,6 +76,18 @@
       "position":  1 ,
       "name": "📚文章",
       "item": "https://morz.cc/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "🐵技术",
+      "item": "https://morz.cc/posts/technology/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "🥕Hugo",
+      "item": "https://morz.cc/posts/technology/hugo/"
     }
   ]
 }
@@ -136,7 +148,7 @@
             </li>
             <li>
                 <a href="https://morz.cc/posts" title="📚文章">
-                    <span class="active">📚文章</span>
+                    <span>📚文章</span>
                 </a>
             </li>
             <li>
@@ -158,22 +170,46 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://morz.cc/">主页</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/technology/">🐵技术</a></div>
   <h1>
-    📚文章
+    🥕Hugo
   </h1>
 </header>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>🐵技术
+    <h2>Hugo页面样式加载失败
     </h2>
   </header>
   <div class="entry-content">
-    <p></p>
+    <p>现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错： 说css的校验失效，导致资源被锁定。所以格式全部都乱了。
+原因 由于Linux使用的是LF作为换行符，Windows使用CRLF作为换行符号。所以在跨环境时，换行符会发生变化。
+而由于hugo是每次都会重新生成css，导致跨环境之后的校验失效。
+解决方案 不跨环境（这不是废话） 找到校验的代码，我的是在这里，themes/PaperMod/layouts/partials/head.html
+当然，不同的主题可能位置不一样，但是结构应该和下面类似： 找到后有两个方法： 可以直接将74行的代码复制到第72行（也就是去掉了integrity校验） 也可以基于70行的判断，在项目配置文件中添加 params.assets.disableFingerprinting: true 来跳过校验 </p>
   </div>
-  <footer class="entry-footer"><span title='2023-07-23 22:20:15 +0800 CST'>七月 23, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to 🐵技术" href="https://morz.cc/posts/technology/"></a>
+  <footer class="entry-footer"><span title='2023-07-20 16:12:34 +0800 CST'>七月 20, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to Hugo页面样式加载失败" href="https://morz.cc/posts/technology/hugo/integrity/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>安装Hugo
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 一直想自己搭建个博客做记录，偶然间了解到静态站。
+由于会Vue3，最开始打算使用vue-press的，但是调查发现，有三个主流的静态博客工具。也有现成的静态托管方案。
+于是乎，在对比了jekyll、hugo、hexo后，果断的选择了hugo（反正都没用过，就选星星最多的）。
+遂，域名，空间，博客一把梭。
+记录下 Hogu 的安装过程
+安装 当然是看 官方安装文档 啊，不然真的看博客啊。
+配置 配置就有得说了，官网的东西有点乱。
+使用 我还不太熟，用熟了再补充</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-12 16:12:34 +0800 CST'>七月 12, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 安装Hugo" href="https://morz.cc/posts/technology/hugo/setup/"></a>
 </article>
     </main>
     
