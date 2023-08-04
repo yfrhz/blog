@@ -63,6 +63,12 @@ params:
     safari_pinned_tab: "ico/favicon128x128.ico"
     disableFingerprinting: true
 
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
 markup:
   highlight:
     codeFences: true
