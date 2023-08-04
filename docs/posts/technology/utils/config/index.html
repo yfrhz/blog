@@ -146,8 +146,8 @@ ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使�
   "keywords": [
     
   ],
-  "articleBody": "一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）\n但是合适的场景会更省心一点。\n后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。\nini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用\n后缀：.ini\n适用：层次简单的配置项，一般只有一层嵌套。\n1 2 3 4 5 6 7 ; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低\n后缀：.xml\n建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)\n1 2 3 4 5 6 7 8 9 v1 v2 ccc property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀\n后缀：.property\n建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除\n1 2 3 4 5 # 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）\n后缀：.yml\n建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。\n1 2 3 4 5 6 7 8 9 10 11 # 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多 后缀：.toml\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 a = \"a\" b = \"b\" c.x = \"c.x\" c.y = \"c.y\" [d] x = \"d.x\" y = \"d.y\" [[e]] x = \"e[0].x\" y = \"e[0].y\" hocon 介绍：伸缩性强，能表述组，复杂层次结构，xml的简化版本 后缀: .conf\n1 2 3 4 5 6 7 8 9 10 11 g1:{ g11:{ } g12={ } g13{ } g14:123 g15=456 } ",
-  "wordCount" : "177",
+  "articleBody": "一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）\n但是合适的场景会更省心一点。\n后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。\nini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用\n后缀：.ini\n适用：层次简单的配置项，一般只有一层嵌套。\n1 2 3 4 5 6 7 ; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低\n后缀：.xml\n建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)\n1 2 3 4 5 6 7 8 9 v1 v2 ccc property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀\n后缀：.property\n建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除\n1 2 3 4 5 # 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）\n后缀：.yml\n建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。\n1 2 3 4 5 6 7 8 9 10 11 # 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多\n后缀：.toml\n建议：昂，我不用这个，不知道怎么建议，看这个语法就不想用，比较懒。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 a = \"a\" b = \"b\" c.x = \"c.x\" c.y = \"c.y\" [d] x = \"d.x\" y = \"d.y\" [[e]] x = \"e[0].x\" y = \"e[0].y\" hocon 介绍：伸缩性强，能表述组，复杂层次结构，xml的简化版本，也可以直接降级为property 后缀: .conf\n建议：有大块的配置很适合，分组很清晰，多叉多级的复杂配置建议使用这个。\n1 2 3 4 5 6 7 8 9 10 11 g1:{ g11:{ } g12={ } g13{ } g14:123 g15=456 } ",
+  "wordCount" : "179",
   "inLanguage": "zh",
   "datePublished": "2023-08-04T10:50:34+08:00",
   "dateModified": "2023-08-04T10:50:34+08:00",
@@ -456,8 +456,9 @@ ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使�
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="toml">toml<a hidden class="anchor" aria-hidden="true" href="#toml">#</a></h3>
-<p>介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多
-后缀：.toml</p>
+<p>介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多<br>
+后缀：.toml<br>
+建议：昂，我不用这个，不知道怎么建议，看这个语法就不想用，比较懒。</p>
 <div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
@@ -493,8 +494,9 @@ ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使�
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="hocon">hocon<a hidden class="anchor" aria-hidden="true" href="#hocon">#</a></h3>
-<p>介绍：伸缩性强，能表述组，复杂层次结构，xml的简化版本
-后缀: .conf</p>
+<p>介绍：伸缩性强，能表述组，复杂层次结构，xml的简化版本，也可以直接降级为property <br>
+后缀: .conf<br>
+建议：有大块的配置很适合，分组很清晰，多叉多级的复杂配置建议使用这个。</p>
 <div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
