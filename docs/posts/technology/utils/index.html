@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head>
-	<meta name="generator" content="Hugo 0.115.1"><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>沫子</title>
-
-<meta name="description" content="">
+<title>🍌杂项 | 沫子</title>
+<meta name="keywords" content="">
+<meta name="description" content="🍌杂项 - 沫子">
 <meta name="author" content="Carl">
-<link rel="canonical" href="https://morz.cc/">
+<link rel="canonical" href="https://morz.cc/posts/technology/utils/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://morz.cc/ico/favicon128x128.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://morz.cc/ico/favicon16x16.ico">
@@ -19,7 +18,7 @@
 <link rel="mask-icon" href="https://morz.cc/ico/favicon128x128.ico">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://morz.cc/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://morz.cc/posts/technology/utils/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -57,25 +56,39 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-<meta property="og:title" content="" />
+<meta property="og:title" content="🍌杂项" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://morz.cc/" />
+<meta property="og:url" content="https://morz.cc/posts/technology/utils/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
+<meta name="twitter:title" content="🍌杂项"/>
 <meta name="twitter:description" content=""/>
+
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "沫子",
-  "url": "https://morz.cc/",
-  "description": "",
-  "thumbnailUrl": "https://morz.cc/ico/favicon128x128.ico",
-  "sameAs": [
-      
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://morz.cc/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "🐵技术",
+      "item": "https://morz.cc/posts/technology/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "🍌杂项",
+      "item": "https://morz.cc/posts/technology/utils/"
+    }
   ]
 }
 </script>
@@ -130,7 +143,7 @@
             </li>
             <li>
                 <a href="https://morz.cc/" title="🏠主页">
-                    <span class="active">🏠主页</span>
+                    <span>🏠主页</span>
                 </a>
             </li>
             <li>
@@ -157,12 +170,13 @@
     </nav>
 </header>
 <main class="main"> 
-<div class="post-content"><p>呐，这就是平平无奇的主页了&hellip;</p>
+<header class="page-header"><div class="breadcrumbs"><a href="https://morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/technology/">🐵技术</a></div>
+  <h1>
+    🍌杂项
+  </h1>
+</header>
 
-
-</div>
-
-<article class="first-entry"> 
+<article class="post-entry"> 
   <header class="entry-header">
     <h2>各种各样的配置文件类型
     </h2>
@@ -184,87 +198,6 @@ ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使�
   </div>
   <footer class="entry-footer"><span title='2023-08-04 10:50:34 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl</footer>
   <a class="entry-link" aria-label="post link to 各种各样的配置文件类型" href="https://morz.cc/posts/technology/utils/config/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Widget记录
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>简介 用于记录一些乱七八糟的Widget（速查表）
-布局 Expanded 可以设置元素的占用空间比例大小。
-1 2 3 4 5 const Expanded({ Key key, int flex = 1, @required Widget child, }) flex 占比大小，默认是100% 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex) child 即需要分配的Widget 例子:参考博客</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-07-23 22:20:15 +0800 CST'>七月 23, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to Widget记录" href="https://morz.cc/posts/technology/flutter/widget/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>GetX使用说明
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>简介 正所谓，Flutter不能失去GetX，就像西方不是失去耶路撒冷。GetX作为Flutter的轮椅般的存在，是使用Flutter中必不可少的一个组件。
-相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
-GitHub Pub Pub上的文档挺全的
-使用 </p>
-  </div>
-  <footer class="entry-footer"><span title='2023-07-23 21:40:15 +0800 CST'>七月 23, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to GetX使用说明" href="https://morz.cc/posts/technology/flutter/get/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Hugo页面样式加载失败
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>现象 在本地运行测试好好的，发布到托管环境格式就乱了。
-检查 打开控制台后，发现console下有一条报错： 说css的校验失效，导致资源被锁定。所以格式全部都乱了。
-原因 由于Linux使用的是LF作为换行符，Windows使用CRLF作为换行符号。所以在跨环境时，换行符会发生变化。
-而由于hugo是每次都会重新生成css，导致跨环境之后的校验失效。
-解决方案 不跨环境（这不是废话） 找到校验的代码，我的是在这里，themes/PaperMod/layouts/partials/head.html
-当然，不同的主题可能位置不一样，但是结构应该和下面类似： 找到后有两个方法： 可以直接将74行的代码复制到第72行（也就是去掉了integrity校验） 也可以基于70行的判断，在项目配置文件中添加 params.assets.disableFingerprinting: true 来跳过校验 </p>
-  </div>
-  <footer class="entry-footer"><span title='2023-07-20 16:12:34 +0800 CST'>七月 20, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to Hugo页面样式加载失败" href="https://morz.cc/posts/technology/hugo/integrity/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Drift使用说明
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>简介 作为Flutter的半orm框架，Drift确实达到了好用的程度。本文不去对比其他框架，仅就使用过程中的一些坑或者技巧做一点小小的记录。
-相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
-官方文档 GitHub Pub 使用 参考文档，先这样，然后这样，再那样，就好啦～
-1 2 # 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。 $ dart run build_runner build 问题 Tables can’t override primaryKey and use autoIncrement() 设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。 数据文件路径（安卓虚拟机）
-/data/user/0/{包名}/app_flutter/db.sqlite </p>
-  </div>
-  <footer class="entry-footer"><span title='2023-07-19 23:40:15 +0800 CST'>七月 19, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to Drift使用说明" href="https://morz.cc/posts/technology/flutter/drift/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>安装Hugo
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 一直想自己搭建个博客做记录，偶然间了解到静态站。
-由于会Vue3，最开始打算使用vue-press的，但是调查发现，有三个主流的静态博客工具。也有现成的静态托管方案。
-于是乎，在对比了jekyll、hugo、hexo后，果断的选择了hugo（反正都没用过，就选星星最多的）。
-遂，域名，空间，博客一把梭。
-记录下 Hogu 的安装过程
-安装 当然是看 官方安装文档 啊，不然真的看博客啊。
-配置 配置就有得说了，官网的东西有点乱。
-使用 我还不太熟，用熟了再补充</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-07-12 16:12:34 +0800 CST'>七月 12, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to 安装Hugo" href="https://morz.cc/posts/technology/hugo/setup/"></a>
 </article>
     </main>
     
