@@ -6,7 +6,16 @@
     <description>Recent content in 🍌杂项 on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 04 Aug 2023 10:50:34 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/utils/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Aug 2023 09:52:53 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/utils/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>备忘录</title>
+      <link>https://morz.cc/posts/technology/utils/notebook/</link>
+      <pubDate>Wed, 09 Aug 2023 09:52:53 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/technology/utils/notebook/</guid>
+      <description>一些网址 zlib</description>
+    </item>
+    
     <item>
       <title>各种各样的配置文件类型</title>
       <link>https://morz.cc/posts/technology/utils/config/</link>
