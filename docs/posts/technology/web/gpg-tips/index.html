@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>gpg小纪 | 沫子</title>
+<title>gpg小记 | 沫子</title>
 <meta name="keywords" content="">
 <meta name="description" content="从公钥服务器接收失败 命令：
 1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
@@ -61,7 +61,7 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-<meta property="og:title" content="gpg小纪" />
+<meta property="og:title" content="gpg小记" />
 <meta property="og:description" content="从公钥服务器接收失败 命令：
 1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
 gpg: keyserver receive failed: Server indicated a failure
@@ -74,7 +74,7 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
 <meta property="article:modified_time" content="2023-10-06T10:24:36+08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="gpg小纪"/>
+<meta name="twitter:title" content="gpg小记"/>
 <meta name="twitter:description" content="从公钥服务器接收失败 命令：
 1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
 gpg: keyserver receive failed: Server indicated a failure
@@ -109,7 +109,7 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
     {
       "@type": "ListItem",
       "position":  4 ,
-      "name": "gpg小纪",
+      "name": "gpg小记",
       "item": "https://morz.cc/posts/technology/web/gpg-tips/"
     }
   ]
@@ -119,8 +119,8 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "gpg小纪",
-  "name": "gpg小纪",
+  "headline": "gpg小记",
+  "name": "gpg小记",
   "description": "从公钥服务器接收失败 命令：\n1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：\ngpg: keyserver receive failed: Server indicated a failure\ngpg: 从公钥服务器接收失败：Server indicated a failure\n解决方案\n由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 ",
   "keywords": [
     
@@ -231,7 +231,7 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/technology/">🐵技术</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/technology/web/">🍑网站</a></div>
     <h1 class="post-title">
-      gpg小纪
+      gpg小记
     </h1>
     <div class="post-meta"><span title='2023-10-06 10:24:36 +0800 CST'>十月 6, 2023</span>&nbsp;·&nbsp;Carl
 

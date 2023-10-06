@@ -1,5 +1,5 @@
 ---
-title: "gpg小纪"
+title: "gpg小记"
 date: 2023-10-06T10:24:36+08:00
 draft: false
 ---
