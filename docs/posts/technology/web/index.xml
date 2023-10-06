@@ -6,7 +6,21 @@
     <description>Recent content in 🍑网站 on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 04 Aug 2023 10:50:34 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/web/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Oct 2023 10:24:36 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>gpg小纪</title>
+      <link>https://morz.cc/posts/technology/web/gpg-tips/</link>
+      <pubDate>Fri, 06 Oct 2023 10:24:36 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/technology/web/gpg-tips/</guid>
+      <description>从公钥服务器接收失败 命令：
+1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
+gpg: keyserver receive failed: Server indicated a failure
+gpg: 从公钥服务器接收失败：Server indicated a failure
+解决方案
+由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 </description>
+    </item>
+    
     <item>
       <title>整合react到spring中</title>
       <link>https://morz.cc/posts/technology/web/all-in-one/</link>
