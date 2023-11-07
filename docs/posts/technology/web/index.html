@@ -195,14 +195,21 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>整合react到spring中
+    <h2>整合前端（umi）到后端（spring-boot）中
     </h2>
   </header>
   <div class="entry-content">
-    <p>背景 toB业务，最终交付的是一个客户端（jar），现在需要将其</p>
+    <p>背景 toB业务，最终交付的是一个客户端，需要提供前端控制页面，需要将前端也进行编译打包到同一个zip中，并且需要兼容jenkins，一步打包到位。
+原理 由于使用umi开发前端，所以正式使用之前先得进行编译。需要使用maven触发编译，打包为zip需要使用assembly插件
+再将js文件打包进行项目目录，由于是直接使用，没有nginx的容器， 需要spring-web充当容器，对前端资源进行转发。同时，spring-web也提供后端接口。
+实现 原理可行，开始实现
+目录结构 项目目录结构基于Maven项目，前端文件放哪都行，只要后面路径配置得一直就没啥问题。
+主要目录结构如下：
+bin …启动脚本 config …配置 assembly assembly.xml react(前端代码) src main …其他文件 resources public …其他文件 target pom.xml 配置 1. 修改umi配置输出目录 修改配置文件.umirc.ts， 添加配置项 outputPath: &#39;../src/main/resources/public/&#39;
+1 2 3 4 5 // .umirc.ts export default defineConfig({ // 其他配置 outputPath: &#39;../src/main/resources/public/&#39;, }); 2. 修改maven配置文件 添加react编译插件，用于编译umi项目 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 &lt;plugin&gt; &lt;groupId&gt;com....</p>
   </div>
   <footer class="entry-footer"><span title='2023-08-04 10:50:34 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to 整合react到spring中" href="https://morz.cc/posts/technology/web/all-in-one/"></a>
+  <a class="entry-link" aria-label="post link to 整合前端（umi）到后端（spring-boot）中" href="https://morz.cc/posts/technology/web/all-in-one/"></a>
 </article>
     </main>
     
