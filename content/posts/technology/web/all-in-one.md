@@ -92,6 +92,7 @@ export default defineConfig({
 </plugin>
 ```
 - 添加assembly打包插件,并且指明assembly脚本路径
+
 ```xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -118,6 +119,7 @@ export default defineConfig({
 ```
 
 #### 3. 编写assembly脚本
+
 ```xml
 <assembly
 	xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
@@ -196,7 +198,7 @@ export default defineConfig({
 
 然后等待片刻，打包完成\
 打包后的压缩包
-![](/img/fontend/package.png)
+![](/img/fontend/zip.png)
 编译后的前端
-![](/img/fontend/package.png)
+![](/img/fontend/public.png)
 
