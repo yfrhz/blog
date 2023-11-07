@@ -6,7 +6,23 @@
     <description>Recent content in 🍑网站 on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 06 Oct 2023 10:24:36 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/web/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Nov 2023 17:48:52 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用ckeditor发送邮件</title>
+      <link>https://morz.cc/posts/technology/web/ckeditor-to-email/</link>
+      <pubDate>Tue, 07 Nov 2023 17:48:52 +0800</pubDate>
+      
+      <guid>https://morz.cc/posts/technology/web/ckeditor-to-email/</guid>
+      <description>背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。
+最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。
+多年老坑:
+Possible to make editor.getData() returns content with inline styles?
+环境 前端脚手架: umi node: V18 安装CkEditor CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。
+打开Quick start 可以安装步骤构建一个简单的富文本编辑器。
+但是显然这个简单的文本编辑器满足不了我的需求，但是有个在线构建说明 可以满足。\
+打开在线构建页面 选择Classic模式 然后按照需求选择插件，默认选择中的Cloud Services是高级功能，要加钱，不要可以去掉，下面右上角有PREMIUM 标记的插件也是要加钱的。 然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口） 选择语言 然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加license key的提示，可以返回第二步修改 下载完成后是一个zip，解压后打开sample/index.html查看效果，如果合适，则开始引入项目。 安装必须组件 1 2 3 4 // ckeditor react 组件 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic // 将class转换为内联style,发邮件的时候用 yarn add juice 将build目录下全部文件拷贝到src/components/ckeditor下,并添加CkeditorUtil.ts 和 index.tsx 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 // CkeditorUtil.</description>
+    </item>
+    
     <item>
       <title>gpg小记</title>
       <link>https://morz.cc/posts/technology/web/gpg-tips/</link>
@@ -19,19 +35,6 @@ gpg: keyserver receive failed: Server indicated a failure
 gpg: 从公钥服务器接收失败：Server indicated a failure
 解决方案
 由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 </description>
-    </item>
-    
-    <item>
-      <title>使用ckeditor发送邮件</title>
-      <link>https://morz.cc/posts/technology/web/ckeditor-to-email/</link>
-      <pubDate>Fri, 04 Aug 2023 10:50:34 +0800</pubDate>
-      
-      <guid>https://morz.cc/posts/technology/web/ckeditor-to-email/</guid>
-      <description>背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。
-最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。
-多年老坑:
-Possible to make editor.getData() returns content with inline styles?
-环境 前端脚手架: umi node: V18 安装CkEditor </description>
     </item>
     
     <item>
