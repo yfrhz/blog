@@ -9,4 +9,6 @@ weight: false
 ---
 
 ### 一些网址
-[zlib](https://singlelogin.re/)
+
+1. [zlib](https://singlelogin.re/)
+2. [geekdaxue](https://geekdaxue.co/)
