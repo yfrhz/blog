@@ -3,10 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://morz.cc/</loc>
-    <lastmod>2023-12-06T13:23:15+08:00</lastmod>
+    <lastmod>2024-05-17T13:12:15+08:00</lastmod>
   </url><url>
     <loc>https://morz.cc/posts/</loc>
-    <lastmod>2023-12-06T13:23:15+08:00</lastmod>
+    <lastmod>2024-05-17T13:12:15+08:00</lastmod>
+  </url><url>
+    <loc>https://morz.cc/posts/pen/</loc>
+    <lastmod>2024-05-17T13:12:15+08:00</lastmod>
+  </url><url>
+    <loc>https://morz.cc/posts/pen/byl-1/</loc>
+    <lastmod>2024-05-17T13:12:15+08:00</lastmod>
   </url><url>
     <loc>https://morz.cc/posts/quant/</loc>
     <lastmod>2023-12-06T13:23:15+08:00</lastmod>
@@ -84,10 +90,6 @@
     <loc>https://morz.cc/search/</loc>
   </url><url>
     <loc>https://morz.cc/categories/</loc>
-  </url><url>
-    <loc>https://morz.cc/posts/pen/</loc>
-  </url><url>
-    <loc>https://morz.cc/posts/pen/byl-1/</loc>
   </url><url>
     <loc>https://morz.cc/about/</loc>
   </url>
