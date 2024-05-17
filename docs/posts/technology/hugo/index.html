@@ -19,6 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://morz.cc/posts/technology/hugo/index.xml">
+<link rel="alternate" hreflang="zh" href="https://morz.cc/posts/technology/hugo/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,6 +57,9 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+
+  
+
 <meta property="og:title" content="🥕Hugo" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
@@ -133,6 +137,8 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -189,7 +195,7 @@
 解决方案 不跨环境（这不是废话） 找到校验的代码，我的是在这里，themes/PaperMod/layouts/partials/head.html
 当然，不同的主题可能位置不一样，但是结构应该和下面类似： 找到后有两个方法： 可以直接将74行的代码复制到第72行（也就是去掉了integrity校验） 也可以基于70行的判断，在项目配置文件中添加 params.assets.disableFingerprinting: true 来跳过校验 </p>
   </div>
-  <footer class="entry-footer"><span title='2023-07-20 16:12:34 +0800 CST'>七月 20, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <footer class="entry-footer">&lt;span title=&#39;2023-07-20 16:12:34 &#43;0800 CST&#39;&gt;七月 20, 2023&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Carl</footer>
   <a class="entry-link" aria-label="post link to Hugo页面样式加载失败" href="https://morz.cc/posts/technology/hugo/integrity/"></a>
 </article>
 
@@ -208,13 +214,13 @@
 配置 配置就有得说了，官网的东西有点乱。
 使用 我还不太熟，用熟了再补充</p>
   </div>
-  <footer class="entry-footer"><span title='2023-07-12 16:12:34 +0800 CST'>七月 12, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <footer class="entry-footer">&lt;span title=&#39;2023-07-12 16:12:34 &#43;0800 CST&#39;&gt;七月 12, 2023&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Carl</footer>
   <a class="entry-link" aria-label="post link to 安装Hugo" href="https://morz.cc/posts/technology/hugo/setup/"></a>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://morz.cc/">沫子</a></span>
+    <span>&copy; 2024 <a href="https://morz.cc/">沫子</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

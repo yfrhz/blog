@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>博弈论-第一篇 | 沫子</title>
+<meta name="keywords" content="">
+<meta name="description" content="问题 如何找到多方中的最优解（最大化利益） 如何促成一次合作 如何在合作中约束各方不作弊 囚徒困境与纳什均衡 我们先来看一个小故事
+1 2 3 4 5 6 7 8 9 警察抓住了两名惯盗，张三和李四。 但狡猾的惯盗并没有留下过多证据，如果两人都辩称没有参与其他盗窃案，则由于证据不住而只能定义为普通盗窃，各判处三年有期徒刑。 在陷入困难之际，检察官想到了一个办法。 检察官先来到张三的羁押房，表示如果李四认罪，而他不认罪，在并案数罚的情况下李四自首能获得减刑，只判五年，而他由于拒不招供，则会判处十年徒刑。 这样一来，如果他相信李四会认罪，最好他自己也认罪，判五年总比判十年来得好。 检查官又表示，如果他能认罪，并作为污点证人指控李四，由于是大案，那么会将他的刑期减为一年。 这样似乎对张三最好的做法就是认罪。 可是回头，检察官又对李四说了同样的话。 最终，他们都被判了四年。 这便是囚徒困境。两人都认为选择了能使自己更受益策略而获得双败结果。 让我们来用图表展示这个关系
+李四认罪 李四不认罪 张三认罪 5,5 1,10 张三不认罪 10,1 3,3 从图中可以看出，不论对方是否认罪，自己选择认罪的收益更高。 而双方都认罪的选择，称为达到了博弈的纳什均衡
+在博弈论中，纳什均衡是这么定义的
+1 在各方面都选择了同一种策略的情况下，没有一方能通过独自改变策略而获益。此时的策略搭配和后续的结果，就被成为纳什均衡。 合作与竞争 上面的小故事只是简单的介绍了囚徒困境与纳什均衡，通常只要双方好好沟通，互相妥协，就能好好收场。
+但不幸的是，往往达成协议后会有一方反悔，究其原因是，如果合作达成的方案并非纳什均衡，当其中一方改变想法时，的确就能获得对其自身更好的结果。\
+一般而言，达成合作有两大挑战
+找到方式达成协议 找到方式让每个参与放都不改变主意 能解决这两个挑战的主要方式有三种
+群体性共识 如果大家都认为合作中作弊是不道德的，并且这个思想像饿了要吃饭一样基础，就能避免许多社会困境。 权威公平第三方 由外部的专业第三方来促成合作并约束各方守护公平。 自运行的机制 各方依赖详尽的策略规约，自动将合作状态调整为纳什均衡。 下面会一一审视这三种方法
+群体性共识 依稀记得，福建省有个案件，张三欠李四的钱不还，欠条被损毁了，法庭见调解无效，让张三对妈祖发誓没有欠钱。结果张三当庭承认了欠款，并在妈祖的见证下并重新约定了还款时间。
+可能这也算是权威公平第三方吧
+群体性共识的前提，就是共识群体性，当合作方并不在共识范围内，那么并不能不能保证共识还能生效，西方的神就管不了东方的天。
+权威公平第三方 旅游旺季的时候看到新闻，某酒店因为节假日房价上涨，于是要求在节前在第三方平台上预购的游客，要么这退房，要么补差价。
+而游客没有办法只能向平台投诉。而平台处理结果也不尽人意。最终由于高峰期一房难求，导致游客补了差价。
+所以对于权威公平第三方而言，需要其本身有强大权威，公平与约束力，否则并不能有效约束参与方进行策略切换，而损害其他参与方的利益。
+自运行的机制 将纳什均衡作为一种能够自动运行的机制，让合作期间没有作弊的动机。由于处于纳什均衡下，任意一方改变策略并没有任何好处。合作方放就没有必要进行任何改动。
+但是如果需要合作的情景不属于纳什均衡，任意一方都可能想小小的改变一下，打破协议，获取更多的好处。
+文章主要是详解第三种方法（当然是第三种了，文章名都叫博弈论了，不会指望在这里能看到社会学和法学的东西吧）
+公平分配 大中取小 先衡量局势，考虑各种不同的选择造成的最大损失或最坏结果是什么，再决定如何让损失最小。追求最佳的可行性，而不是最佳的可能性。
+我切你选 一个简单的公平策略就是 我切你选 举个简单的例子">
+<meta name="author" content="Carl">
+<link rel="canonical" href="https://morz.cc/posts/pen/byl-1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://morz.cc/ico/favicon128x128.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://morz.cc/ico/favicon16x16.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://morz.cc/ico/favicon32x32.ico">
+<link rel="apple-touch-icon" href="https://morz.cc/ico/favicon64x64.ico">
+<link rel="mask-icon" href="https://morz.cc/ico/favicon128x128.ico">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://morz.cc/posts/pen/byl-1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+
+  
+
+<meta property="og:title" content="博弈论-第一篇" />
+<meta property="og:description" content="问题 如何找到多方中的最优解（最大化利益） 如何促成一次合作 如何在合作中约束各方不作弊 囚徒困境与纳什均衡 我们先来看一个小故事
+1 2 3 4 5 6 7 8 9 警察抓住了两名惯盗，张三和李四。 但狡猾的惯盗并没有留下过多证据，如果两人都辩称没有参与其他盗窃案，则由于证据不住而只能定义为普通盗窃，各判处三年有期徒刑。 在陷入困难之际，检察官想到了一个办法。 检察官先来到张三的羁押房，表示如果李四认罪，而他不认罪，在并案数罚的情况下李四自首能获得减刑，只判五年，而他由于拒不招供，则会判处十年徒刑。 这样一来，如果他相信李四会认罪，最好他自己也认罪，判五年总比判十年来得好。 检查官又表示，如果他能认罪，并作为污点证人指控李四，由于是大案，那么会将他的刑期减为一年。 这样似乎对张三最好的做法就是认罪。 可是回头，检察官又对李四说了同样的话。 最终，他们都被判了四年。 这便是囚徒困境。两人都认为选择了能使自己更受益策略而获得双败结果。 让我们来用图表展示这个关系
+李四认罪 李四不认罪 张三认罪 5,5 1,10 张三不认罪 10,1 3,3 从图中可以看出，不论对方是否认罪，自己选择认罪的收益更高。 而双方都认罪的选择，称为达到了博弈的纳什均衡
+在博弈论中，纳什均衡是这么定义的
+1 在各方面都选择了同一种策略的情况下，没有一方能通过独自改变策略而获益。此时的策略搭配和后续的结果，就被成为纳什均衡。 合作与竞争 上面的小故事只是简单的介绍了囚徒困境与纳什均衡，通常只要双方好好沟通，互相妥协，就能好好收场。
+但不幸的是，往往达成协议后会有一方反悔，究其原因是，如果合作达成的方案并非纳什均衡，当其中一方改变想法时，的确就能获得对其自身更好的结果。\
+一般而言，达成合作有两大挑战
+找到方式达成协议 找到方式让每个参与放都不改变主意 能解决这两个挑战的主要方式有三种
+群体性共识 如果大家都认为合作中作弊是不道德的，并且这个思想像饿了要吃饭一样基础，就能避免许多社会困境。 权威公平第三方 由外部的专业第三方来促成合作并约束各方守护公平。 自运行的机制 各方依赖详尽的策略规约，自动将合作状态调整为纳什均衡。 下面会一一审视这三种方法
+群体性共识 依稀记得，福建省有个案件，张三欠李四的钱不还，欠条被损毁了，法庭见调解无效，让张三对妈祖发誓没有欠钱。结果张三当庭承认了欠款，并在妈祖的见证下并重新约定了还款时间。
+可能这也算是权威公平第三方吧
+群体性共识的前提，就是共识群体性，当合作方并不在共识范围内，那么并不能不能保证共识还能生效，西方的神就管不了东方的天。
+权威公平第三方 旅游旺季的时候看到新闻，某酒店因为节假日房价上涨，于是要求在节前在第三方平台上预购的游客，要么这退房，要么补差价。
+而游客没有办法只能向平台投诉。而平台处理结果也不尽人意。最终由于高峰期一房难求，导致游客补了差价。
+所以对于权威公平第三方而言，需要其本身有强大权威，公平与约束力，否则并不能有效约束参与方进行策略切换，而损害其他参与方的利益。
+自运行的机制 将纳什均衡作为一种能够自动运行的机制，让合作期间没有作弊的动机。由于处于纳什均衡下，任意一方改变策略并没有任何好处。合作方放就没有必要进行任何改动。
+但是如果需要合作的情景不属于纳什均衡，任意一方都可能想小小的改变一下，打破协议，获取更多的好处。
+文章主要是详解第三种方法（当然是第三种了，文章名都叫博弈论了，不会指望在这里能看到社会学和法学的东西吧）
+公平分配 大中取小 先衡量局势，考虑各种不同的选择造成的最大损失或最坏结果是什么，再决定如何让损失最小。追求最佳的可行性，而不是最佳的可能性。
+我切你选 一个简单的公平策略就是 我切你选 举个简单的例子" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://morz.cc/posts/pen/byl-1/" /><meta property="article:section" content="posts" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="博弈论-第一篇"/>
+<meta name="twitter:description" content="问题 如何找到多方中的最优解（最大化利益） 如何促成一次合作 如何在合作中约束各方不作弊 囚徒困境与纳什均衡 我们先来看一个小故事
+1 2 3 4 5 6 7 8 9 警察抓住了两名惯盗，张三和李四。 但狡猾的惯盗并没有留下过多证据，如果两人都辩称没有参与其他盗窃案，则由于证据不住而只能定义为普通盗窃，各判处三年有期徒刑。 在陷入困难之际，检察官想到了一个办法。 检察官先来到张三的羁押房，表示如果李四认罪，而他不认罪，在并案数罚的情况下李四自首能获得减刑，只判五年，而他由于拒不招供，则会判处十年徒刑。 这样一来，如果他相信李四会认罪，最好他自己也认罪，判五年总比判十年来得好。 检查官又表示，如果他能认罪，并作为污点证人指控李四，由于是大案，那么会将他的刑期减为一年。 这样似乎对张三最好的做法就是认罪。 可是回头，检察官又对李四说了同样的话。 最终，他们都被判了四年。 这便是囚徒困境。两人都认为选择了能使自己更受益策略而获得双败结果。 让我们来用图表展示这个关系
+李四认罪 李四不认罪 张三认罪 5,5 1,10 张三不认罪 10,1 3,3 从图中可以看出，不论对方是否认罪，自己选择认罪的收益更高。 而双方都认罪的选择，称为达到了博弈的纳什均衡
+在博弈论中，纳什均衡是这么定义的
+1 在各方面都选择了同一种策略的情况下，没有一方能通过独自改变策略而获益。此时的策略搭配和后续的结果，就被成为纳什均衡。 合作与竞争 上面的小故事只是简单的介绍了囚徒困境与纳什均衡，通常只要双方好好沟通，互相妥协，就能好好收场。
+但不幸的是，往往达成协议后会有一方反悔，究其原因是，如果合作达成的方案并非纳什均衡，当其中一方改变想法时，的确就能获得对其自身更好的结果。\
+一般而言，达成合作有两大挑战
+找到方式达成协议 找到方式让每个参与放都不改变主意 能解决这两个挑战的主要方式有三种
+群体性共识 如果大家都认为合作中作弊是不道德的，并且这个思想像饿了要吃饭一样基础，就能避免许多社会困境。 权威公平第三方 由外部的专业第三方来促成合作并约束各方守护公平。 自运行的机制 各方依赖详尽的策略规约，自动将合作状态调整为纳什均衡。 下面会一一审视这三种方法
+群体性共识 依稀记得，福建省有个案件，张三欠李四的钱不还，欠条被损毁了，法庭见调解无效，让张三对妈祖发誓没有欠钱。结果张三当庭承认了欠款，并在妈祖的见证下并重新约定了还款时间。
+可能这也算是权威公平第三方吧
+群体性共识的前提，就是共识群体性，当合作方并不在共识范围内，那么并不能不能保证共识还能生效，西方的神就管不了东方的天。
+权威公平第三方 旅游旺季的时候看到新闻，某酒店因为节假日房价上涨，于是要求在节前在第三方平台上预购的游客，要么这退房，要么补差价。
+而游客没有办法只能向平台投诉。而平台处理结果也不尽人意。最终由于高峰期一房难求，导致游客补了差价。
+所以对于权威公平第三方而言，需要其本身有强大权威，公平与约束力，否则并不能有效约束参与方进行策略切换，而损害其他参与方的利益。
+自运行的机制 将纳什均衡作为一种能够自动运行的机制，让合作期间没有作弊的动机。由于处于纳什均衡下，任意一方改变策略并没有任何好处。合作方放就没有必要进行任何改动。
+但是如果需要合作的情景不属于纳什均衡，任意一方都可能想小小的改变一下，打破协议，获取更多的好处。
+文章主要是详解第三种方法（当然是第三种了，文章名都叫博弈论了，不会指望在这里能看到社会学和法学的东西吧）
+公平分配 大中取小 先衡量局势，考虑各种不同的选择造成的最大损失或最坏结果是什么，再决定如何让损失最小。追求最佳的可行性，而不是最佳的可能性。
+我切你选 一个简单的公平策略就是 我切你选 举个简单的例子"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://morz.cc/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "🖊️随笔",
+      "item": "https://morz.cc/posts/pen/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "博弈论-第一篇",
+      "item": "https://morz.cc/posts/pen/byl-1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "博弈论-第一篇",
+  "name": "博弈论-第一篇",
+  "description": "问题 如何找到多方中的最优解（最大化利益） 如何促成一次合作 如何在合作中约束各方不作弊 囚徒困境与纳什均衡 我们先来看一个小故事\n1 2 3 4 5 6 7 8 9 警察抓住了两名惯盗，张三和李四。 但狡猾的惯盗并没有留下过多证据，如果两人都辩称没有参与其他盗窃案，则由于证据不住而只能定义为普通盗窃，各判处三年有期徒刑。 在陷入困难之际，检察官想到了一个办法。 检察官先来到张三的羁押房，表示如果李四认罪，而他不认罪，在并案数罚的情况下李四自首能获得减刑，只判五年，而他由于拒不招供，则会判处十年徒刑。 这样一来，如果他相信李四会认罪，最好他自己也认罪，判五年总比判十年来得好。 检查官又表示，如果他能认罪，并作为污点证人指控李四，由于是大案，那么会将他的刑期减为一年。 这样似乎对张三最好的做法就是认罪。 可是回头，检察官又对李四说了同样的话。 最终，他们都被判了四年。 这便是囚徒困境。两人都认为选择了能使自己更受益策略而获得双败结果。 让我们来用图表展示这个关系\n李四认罪 李四不认罪 张三认罪 5,5 1,10 张三不认罪 10,1 3,3 从图中可以看出，不论对方是否认罪，自己选择认罪的收益更高。 而双方都认罪的选择，称为达到了博弈的纳什均衡\n在博弈论中，纳什均衡是这么定义的\n1 在各方面都选择了同一种策略的情况下，没有一方能通过独自改变策略而获益。此时的策略搭配和后续的结果，就被成为纳什均衡。 合作与竞争 上面的小故事只是简单的介绍了囚徒困境与纳什均衡，通常只要双方好好沟通，互相妥协，就能好好收场。\n但不幸的是，往往达成协议后会有一方反悔，究其原因是，如果合作达成的方案并非纳什均衡，当其中一方改变想法时，的确就能获得对其自身更好的结果。\\\n一般而言，达成合作有两大挑战\n找到方式达成协议 找到方式让每个参与放都不改变主意 能解决这两个挑战的主要方式有三种\n群体性共识 如果大家都认为合作中作弊是不道德的，并且这个思想像饿了要吃饭一样基础，就能避免许多社会困境。 权威公平第三方 由外部的专业第三方来促成合作并约束各方守护公平。 自运行的机制 各方依赖详尽的策略规约，自动将合作状态调整为纳什均衡。 下面会一一审视这三种方法\n群体性共识 依稀记得，福建省有个案件，张三欠李四的钱不还，欠条被损毁了，法庭见调解无效，让张三对妈祖发誓没有欠钱。结果张三当庭承认了欠款，并在妈祖的见证下并重新约定了还款时间。\n可能这也算是权威公平第三方吧\n群体性共识的前提，就是共识群体性，当合作方并不在共识范围内，那么并不能不能保证共识还能生效，西方的神就管不了东方的天。\n权威公平第三方 旅游旺季的时候看到新闻，某酒店因为节假日房价上涨，于是要求在节前在第三方平台上预购的游客，要么这退房，要么补差价。\n而游客没有办法只能向平台投诉。而平台处理结果也不尽人意。最终由于高峰期一房难求，导致游客补了差价。\n所以对于权威公平第三方而言，需要其本身有强大权威，公平与约束力，否则并不能有效约束参与方进行策略切换，而损害其他参与方的利益。\n自运行的机制 将纳什均衡作为一种能够自动运行的机制，让合作期间没有作弊的动机。由于处于纳什均衡下，任意一方改变策略并没有任何好处。合作方放就没有必要进行任何改动。\n但是如果需要合作的情景不属于纳什均衡，任意一方都可能想小小的改变一下，打破协议，获取更多的好处。\n文章主要是详解第三种方法（当然是第三种了，文章名都叫博弈论了，不会指望在这里能看到社会学和法学的东西吧）\n公平分配 大中取小 先衡量局势，考虑各种不同的选择造成的最大损失或最坏结果是什么，再决定如何让损失最小。追求最佳的可行性，而不是最佳的可能性。\n我切你选 一个简单的公平策略就是 我切你选 举个简单的例子",
+  "keywords": [
+    
+  ],
+  "articleBody": "问题 如何找到多方中的最优解（最大化利益） 如何促成一次合作 如何在合作中约束各方不作弊 囚徒困境与纳什均衡 我们先来看一个小故事\n1 2 3 4 5 6 7 8 9 警察抓住了两名惯盗，张三和李四。 但狡猾的惯盗并没有留下过多证据，如果两人都辩称没有参与其他盗窃案，则由于证据不住而只能定义为普通盗窃，各判处三年有期徒刑。 在陷入困难之际，检察官想到了一个办法。 检察官先来到张三的羁押房，表示如果李四认罪，而他不认罪，在并案数罚的情况下李四自首能获得减刑，只判五年，而他由于拒不招供，则会判处十年徒刑。 这样一来，如果他相信李四会认罪，最好他自己也认罪，判五年总比判十年来得好。 检查官又表示，如果他能认罪，并作为污点证人指控李四，由于是大案，那么会将他的刑期减为一年。 这样似乎对张三最好的做法就是认罪。 可是回头，检察官又对李四说了同样的话。 最终，他们都被判了四年。 这便是囚徒困境。两人都认为选择了能使自己更受益策略而获得双败结果。 让我们来用图表展示这个关系\n李四认罪 李四不认罪 张三认罪 5,5 1,10 张三不认罪 10,1 3,3 从图中可以看出，不论对方是否认罪，自己选择认罪的收益更高。 而双方都认罪的选择，称为达到了博弈的纳什均衡\n在博弈论中，纳什均衡是这么定义的\n1 在各方面都选择了同一种策略的情况下，没有一方能通过独自改变策略而获益。此时的策略搭配和后续的结果，就被成为纳什均衡。 合作与竞争 上面的小故事只是简单的介绍了囚徒困境与纳什均衡，通常只要双方好好沟通，互相妥协，就能好好收场。\n但不幸的是，往往达成协议后会有一方反悔，究其原因是，如果合作达成的方案并非纳什均衡，当其中一方改变想法时，的确就能获得对其自身更好的结果。\\\n一般而言，达成合作有两大挑战\n找到方式达成协议 找到方式让每个参与放都不改变主意 能解决这两个挑战的主要方式有三种\n群体性共识 如果大家都认为合作中作弊是不道德的，并且这个思想像饿了要吃饭一样基础，就能避免许多社会困境。 权威公平第三方 由外部的专业第三方来促成合作并约束各方守护公平。 自运行的机制 各方依赖详尽的策略规约，自动将合作状态调整为纳什均衡。 下面会一一审视这三种方法\n群体性共识 依稀记得，福建省有个案件，张三欠李四的钱不还，欠条被损毁了，法庭见调解无效，让张三对妈祖发誓没有欠钱。结果张三当庭承认了欠款，并在妈祖的见证下并重新约定了还款时间。\n可能这也算是权威公平第三方吧\n群体性共识的前提，就是共识群体性，当合作方并不在共识范围内，那么并不能不能保证共识还能生效，西方的神就管不了东方的天。\n权威公平第三方 旅游旺季的时候看到新闻，某酒店因为节假日房价上涨，于是要求在节前在第三方平台上预购的游客，要么这退房，要么补差价。\n而游客没有办法只能向平台投诉。而平台处理结果也不尽人意。最终由于高峰期一房难求，导致游客补了差价。\n所以对于权威公平第三方而言，需要其本身有强大权威，公平与约束力，否则并不能有效约束参与方进行策略切换，而损害其他参与方的利益。\n自运行的机制 将纳什均衡作为一种能够自动运行的机制，让合作期间没有作弊的动机。由于处于纳什均衡下，任意一方改变策略并没有任何好处。合作方放就没有必要进行任何改动。\n但是如果需要合作的情景不属于纳什均衡，任意一方都可能想小小的改变一下，打破协议，获取更多的好处。\n文章主要是详解第三种方法（当然是第三种了，文章名都叫博弈论了，不会指望在这里能看到社会学和法学的东西吧）\n公平分配 大中取小 先衡量局势，考虑各种不同的选择造成的最大损失或最坏结果是什么，再决定如何让损失最小。追求最佳的可行性，而不是最佳的可能性。\n我切你选 一个简单的公平策略就是 我切你选 举个简单的例子\n1 2 3 4 兄弟两人要分一块蛋糕，他们猜拳后决定由哥哥先切，弟弟来选。 哥哥为了让自己获得更多的蛋糕，而会尽可能和将蛋糕分成两份自己都可以接受的大小，这样弟弟无论选择哪一份，哥哥获得另一份都是可以接受的。 而弟弟则会在哥哥切好的两份中选择一份更好的。将自己认为不好的给哥哥。 这样双方都觉得公平，而不需要依赖不吃蛋糕的父母来进行分配。 不过在这个例子中有个忽略的细节，假设哥哥更喜欢吃奶油，弟弟更喜欢吃面包，那又需要如何分配才能保证哥哥和弟弟的利益最大化呢？\n",
+  "wordCount" : "81",
+  "inLanguage": "zh",
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Carl"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://morz.cc/posts/pen/byl-1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "沫子",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://morz.cc/ico/favicon128x128.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://morz.cc/" accesskey="h" title="沫子 (Alt + H)">
+                <img src="https://morz.cc/ico/favicon128x128.ico" alt="" aria-label="logo"
+                    height="35">沫子</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://morz.cc/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://morz.cc/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://morz.cc/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://morz.cc/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://morz.cc/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://morz.cc/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://morz.cc/posts/pen/">🖊️随笔</a></div>
+    <h1 class="post-title">
+      博弈论-第一篇
+    </h1>
+    <div class="post-meta">Carl
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e9%97%ae%e9%a2%98" aria-label="问题">问题</a></li>
+                <li>
+                    <a href="#%e5%9b%9a%e5%be%92%e5%9b%b0%e5%a2%83%e4%b8%8e%e7%ba%b3%e4%bb%80%e5%9d%87%e8%a1%a1" aria-label="囚徒困境与纳什均衡">囚徒困境与纳什均衡</a></li>
+                <li>
+                    <a href="#%e5%90%88%e4%bd%9c%e4%b8%8e%e7%ab%9e%e4%ba%89" aria-label="合作与竞争">合作与竞争</a><ul>
+                        
+                <li>
+                    <a href="#%e7%be%a4%e4%bd%93%e6%80%a7%e5%85%b1%e8%af%86" aria-label="群体性共识">群体性共识</a></li>
+                <li>
+                    <a href="#%e6%9d%83%e5%a8%81%e5%85%ac%e5%b9%b3%e7%ac%ac%e4%b8%89%e6%96%b9" aria-label="权威公平第三方">权威公平第三方</a></li>
+                <li>
+                    <a href="#%e8%87%aa%e8%bf%90%e8%a1%8c%e7%9a%84%e6%9c%ba%e5%88%b6" aria-label="自运行的机制">自运行的机制</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%85%ac%e5%b9%b3%e5%88%86%e9%85%8d" aria-label="公平分配">公平分配</a><ul>
+                        
+                <li>
+                    <a href="#%e5%a4%a7%e4%b8%ad%e5%8f%96%e5%b0%8f" aria-label="大中取小">大中取小</a></li>
+                <li>
+                    <a href="#%e6%88%91%e5%88%87%e4%bd%a0%e9%80%89" aria-label="我切你选">我切你选</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+  <div class="post-content"><h3 id="问题">问题<a hidden class="anchor" aria-hidden="true" href="#问题">#</a></h3>
+<ol>
+<li>如何找到多方中的最优解（最大化利益）</li>
+<li>如何促成一次合作</li>
+<li>如何在合作中约束各方不作弊</li>
+</ol>
+<h3 id="囚徒困境与纳什均衡">囚徒困境与纳什均衡<a hidden class="anchor" aria-hidden="true" href="#囚徒困境与纳什均衡">#</a></h3>
+<p>我们先来看一个小故事</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>警察抓住了两名惯盗，张三和李四。 
+</span></span><span style="display:flex;"><span>但狡猾的惯盗并没有留下过多证据，如果两人都辩称没有参与其他盗窃案，则由于证据不住而只能定义为普通盗窃，各判处三年有期徒刑。
+</span></span><span style="display:flex;"><span>在陷入困难之际，检察官想到了一个办法。
+</span></span><span style="display:flex;"><span>检察官先来到张三的羁押房，表示如果李四认罪，而他不认罪，在并案数罚的情况下李四自首能获得减刑，只判五年，而他由于拒不招供，则会判处十年徒刑。
+</span></span><span style="display:flex;"><span>这样一来，如果他相信李四会认罪，最好他自己也认罪，判五年总比判十年来得好。
+</span></span><span style="display:flex;"><span>检查官又表示，如果他能认罪，并作为污点证人指控李四，由于是大案，那么会将他的刑期减为一年。
+</span></span><span style="display:flex;"><span>这样似乎对张三最好的做法就是认罪。
+</span></span><span style="display:flex;"><span>可是回头，检察官又对李四说了同样的话。
+</span></span><span style="display:flex;"><span>最终，他们都被判了四年。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这便是囚徒困境。两人都认为选择了能使自己更受益策略而获得双败结果。
+让我们来用图表展示这个关系</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>李四认罪</th>
+<th>李四不认罪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>张三认罪</td>
+<td>5,5</td>
+<td>1,10</td>
+</tr>
+<tr>
+<td>张三不认罪</td>
+<td>10,1</td>
+<td>3,3</td>
+</tr>
+</tbody>
+</table>
+<p>从图中可以看出，不论对方是否认罪，自己选择认罪的收益更高。
+而双方都认罪的选择，称为达到了博弈的<strong>纳什均衡</strong></p>
+<p>在博弈论中，纳什均衡是这么定义的</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>在各方面都选择了同一种策略的情况下，没有一方能通过独自改变策略而获益。此时的策略搭配和后续的结果，就被成为纳什均衡。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="合作与竞争">合作与竞争<a hidden class="anchor" aria-hidden="true" href="#合作与竞争">#</a></h3>
+<p>上面的小故事只是简单的介绍了囚徒困境与纳什均衡，通常只要双方好好沟通，互相妥协，就能好好收场。<br>
+但不幸的是，往往达成协议后会有一方反悔，究其原因是，如果合作达成的方案并非纳什均衡，当其中一方改变想法时，的确就能获得对其自身更好的结果。\</p>
+<p>一般而言，达成合作有两大挑战</p>
+<ol>
+<li>找到方式达成协议</li>
+<li>找到方式让每个参与放都不改变主意</li>
+</ol>
+<p>能解决这两个挑战的主要方式有三种</p>
+<ol>
+<li>群体性共识
+如果大家都认为合作中作弊是不道德的，并且这个思想像饿了要吃饭一样基础，就能避免许多社会困境。</li>
+<li>权威公平第三方
+由外部的专业第三方来促成合作并约束各方守护公平。</li>
+<li>自运行的机制
+各方依赖详尽的策略规约，自动将合作状态调整为纳什均衡。</li>
+</ol>
+<p>下面会一一审视这三种方法</p>
+<h4 id="群体性共识">群体性共识<a hidden class="anchor" aria-hidden="true" href="#群体性共识">#</a></h4>
+<p>依稀记得，福建省有个案件，张三欠李四的钱不还，欠条被损毁了，法庭见调解无效，让张三对妈祖发誓没有欠钱。结果张三当庭承认了欠款，并在妈祖的见证下并重新约定了还款时间。<br>
+可能这也算是<strong>权威公平第三方吧</strong><br>
+群体性共识的前提，就是共识群体性，当合作方并不在共识范围内，那么并不能不能保证共识还能生效，西方的神就管不了东方的天。</p>
+<h4 id="权威公平第三方">权威公平第三方<a hidden class="anchor" aria-hidden="true" href="#权威公平第三方">#</a></h4>
+<p>旅游旺季的时候看到新闻，某酒店因为节假日房价上涨，于是要求在节前在第三方平台上预购的游客，要么这退房，要么补差价。<br>
+而游客没有办法只能向平台投诉。而平台处理结果也不尽人意。最终由于高峰期一房难求，导致游客补了差价。<br>
+所以对于<strong>权威公平第三方</strong>而言，需要其本身有强大权威，公平与约束力，否则并不能有效约束参与方进行策略切换，而损害其他参与方的利益。</p>
+<h4 id="自运行的机制">自运行的机制<a hidden class="anchor" aria-hidden="true" href="#自运行的机制">#</a></h4>
+<p>将纳什均衡作为一种能够自动运行的机制，让合作期间没有作弊的动机。由于处于纳什均衡下，任意一方改变策略并没有任何好处。合作方放就没有必要进行任何改动。<br>
+但是如果需要合作的情景不属于纳什均衡，任意一方都可能想小小的改变一下，打破协议，获取更多的好处。</p>
+<p>文章主要是详解第三种方法（当然是第三种了，文章名都叫博弈论了，不会指望在这里能看到社会学和法学的东西吧）</p>
+<h3 id="公平分配">公平分配<a hidden class="anchor" aria-hidden="true" href="#公平分配">#</a></h3>
+<h4 id="大中取小">大中取小<a hidden class="anchor" aria-hidden="true" href="#大中取小">#</a></h4>
+<p>先衡量局势，考虑各种不同的选择造成的最大损失或最坏结果是什么，再决定如何让损失最小。追求最佳的可行性，而不是最佳的可能性。</p>
+<h4 id="我切你选">我切你选<a hidden class="anchor" aria-hidden="true" href="#我切你选">#</a></h4>
+<p>一个简单的公平策略就是 <strong>我切你选</strong> 举个简单的例子</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>兄弟两人要分一块蛋糕，他们猜拳后决定由哥哥先切，弟弟来选。
+</span></span><span style="display:flex;"><span>哥哥为了让自己获得更多的蛋糕，而会尽可能和将蛋糕分成两份自己都可以接受的大小，这样弟弟无论选择哪一份，哥哥获得另一份都是可以接受的。
+</span></span><span style="display:flex;"><span>而弟弟则会在哥哥切好的两份中选择一份更好的。将自己认为不好的给哥哥。
+</span></span><span style="display:flex;"><span>这样双方都觉得公平，而不需要依赖不吃蛋糕的父母来进行分配。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>不过在这个例子中有个忽略的细节，假设哥哥更喜欢吃奶油，弟弟更喜欢吃面包，那又需要如何分配才能保证哥哥和弟弟的利益最大化呢？</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://morz.cc/">沫子</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -26,6 +26,7 @@ Possible to make editor.getData() returns content with inline styles?
 <link rel="mask-icon" href="https://morz.cc/ico/favicon128x128.ico">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://morz.cc/posts/technology/web/ckeditor-to-email/">
 <noscript>
     <style>
         #theme-toggle,
@@ -63,6 +64,9 @@ Possible to make editor.getData() returns content with inline styles?
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+
+  
+
 <meta property="og:title" content="使用ckeditor发送邮件" />
 <meta property="og:description" content="背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。
 最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。
@@ -195,6 +199,8 @@ Possible to make editor.getData() returns content with inline styles?
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -239,7 +245,7 @@ Possible to make editor.getData() returns content with inline styles?
     <h1 class="post-title">
       使用ckeditor发送邮件
     </h1>
-    <div class="post-meta"><span title='2023-11-07 17:48:52 +0800 CST'>十一月 7, 2023</span>&nbsp;·&nbsp;Carl
+    <div class="post-meta">&lt;span title=&#39;2023-11-07 17:48:52 &#43;0800 CST&#39;&gt;十一月 7, 2023&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Carl
 
 </div>
   </header> <aside id="toc-container" class="toc-container wide">
@@ -652,7 +658,7 @@ Possible to make editor.getData() returns content with inline styles?
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://morz.cc/">沫子</a></span>
+    <span>&copy; 2024 <a href="https://morz.cc/">沫子</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
