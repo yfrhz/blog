@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>🍌杂项 on 沫子</title>
-    <link>https://morz.cc/posts/technology/utils/</link>
+    <link>https://blog.morz.cc/posts/technology/utils/</link>
     <description>Recent content in 🍌杂项 on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 09 Aug 2023 09:52:53 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/utils/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Aug 2023 09:52:53 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/posts/technology/utils/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>备忘录</title>
-      <link>https://morz.cc/posts/technology/utils/notebook/</link>
+      <link>https://blog.morz.cc/posts/technology/utils/notebook/</link>
       <pubDate>Wed, 09 Aug 2023 09:52:53 +0800</pubDate>
       
-      <guid>https://morz.cc/posts/technology/utils/notebook/</guid>
+      <guid>https://blog.morz.cc/posts/technology/utils/notebook/</guid>
       <description>一些网址 zlib geekdaxue </description>
     </item>
     
     <item>
       <title>各种各样的配置文件类型</title>
-      <link>https://morz.cc/posts/technology/utils/config/</link>
+      <link>https://blog.morz.cc/posts/technology/utils/config/</link>
       <pubDate>Fri, 04 Aug 2023 10:50:34 +0800</pubDate>
       
-      <guid>https://morz.cc/posts/technology/utils/config/</guid>
+      <guid>https://blog.morz.cc/posts/technology/utils/config/</guid>
       <description>一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）
 但是合适的场景会更省心一点。
 后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。

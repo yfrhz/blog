@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Flutter on 沫子</title>
-    <link>https://morz.cc/tags/flutter/</link>
+    <link>https://blog.morz.cc/tags/flutter/</link>
     <description>Recent content in Flutter on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 23 Jul 2023 22:20:15 +0800</lastBuildDate><atom:link href="https://morz.cc/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2023 22:20:15 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

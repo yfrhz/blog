@@ -2,95 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://morz.cc/</loc>
+    <loc>https://blog.morz.cc/</loc>
+    <lastmod>2024-05-20T10:14:41+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.morz.cc/posts/</loc>
+    <lastmod>2024-05-20T10:14:41+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.morz.cc/posts/pen/</loc>
+    <lastmod>2024-05-20T10:14:41+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.morz.cc/posts/pen/byl-2/</loc>
+    <lastmod>2024-05-20T10:14:41+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.morz.cc/posts/pen/byl-1/</loc>
     <lastmod>2024-05-17T13:12:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/</loc>
-    <lastmod>2024-05-17T13:12:15+08:00</lastmod>
-  </url><url>
-    <loc>https://morz.cc/posts/pen/</loc>
-    <lastmod>2024-05-17T13:12:15+08:00</lastmod>
-  </url><url>
-    <loc>https://morz.cc/posts/pen/byl-1/</loc>
-    <lastmod>2024-05-17T13:12:15+08:00</lastmod>
-  </url><url>
-    <loc>https://morz.cc/posts/quant/</loc>
+    <loc>https://blog.morz.cc/posts/quant/</loc>
     <lastmod>2023-12-06T13:23:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/web/</loc>
+    <loc>https://blog.morz.cc/posts/technology/web/</loc>
     <lastmod>2023-11-07T17:48:52+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/</loc>
+    <loc>https://blog.morz.cc/posts/technology/</loc>
     <lastmod>2023-11-07T17:48:52+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/web/ckeditor-to-email/</loc>
+    <loc>https://blog.morz.cc/posts/technology/web/ckeditor-to-email/</loc>
     <lastmod>2023-11-07T17:48:52+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/web/gpg-tips/</loc>
+    <loc>https://blog.morz.cc/posts/technology/web/gpg-tips/</loc>
     <lastmod>2023-10-06T10:24:36+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/utils/</loc>
+    <loc>https://blog.morz.cc/posts/technology/utils/</loc>
     <lastmod>2023-08-09T09:52:53+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/utils/notebook/</loc>
+    <loc>https://blog.morz.cc/posts/technology/utils/notebook/</loc>
     <lastmod>2023-08-09T09:52:53+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/ml/</loc>
+    <loc>https://blog.morz.cc/posts/ml/</loc>
     <lastmod>2023-08-04T18:44:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/ml/random-forest/</loc>
+    <loc>https://blog.morz.cc/posts/ml/random-forest/</loc>
     <lastmod>2023-08-04T18:44:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/quant/illustrator/</loc>
+    <loc>https://blog.morz.cc/posts/quant/illustrator/</loc>
     <lastmod>2023-08-04T13:57:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/quant/factor/</loc>
+    <loc>https://blog.morz.cc/posts/quant/factor/</loc>
     <lastmod>2023-08-04T13:57:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/utils/config/</loc>
+    <loc>https://blog.morz.cc/posts/technology/utils/config/</loc>
     <lastmod>2023-08-04T10:50:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/web/all-in-one/</loc>
+    <loc>https://blog.morz.cc/posts/technology/web/all-in-one/</loc>
     <lastmod>2023-08-04T10:50:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/tags/</loc>
+    <loc>https://blog.morz.cc/tags/</loc>
     <lastmod>2023-07-23T22:20:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/tags/flutter/</loc>
+    <loc>https://blog.morz.cc/tags/flutter/</loc>
     <lastmod>2023-07-23T22:20:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/flutter/widget/</loc>
+    <loc>https://blog.morz.cc/posts/technology/flutter/widget/</loc>
     <lastmod>2023-07-23T22:20:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/flutter/</loc>
+    <loc>https://blog.morz.cc/posts/technology/flutter/</loc>
     <lastmod>2023-07-23T22:20:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/flutter/get/</loc>
+    <loc>https://blog.morz.cc/posts/technology/flutter/get/</loc>
     <lastmod>2023-07-23T21:40:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/tags/hugo/</loc>
+    <loc>https://blog.morz.cc/tags/hugo/</loc>
     <lastmod>2023-07-20T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/hugo/integrity/</loc>
+    <loc>https://blog.morz.cc/posts/technology/hugo/integrity/</loc>
     <lastmod>2023-07-20T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/hugo/</loc>
+    <loc>https://blog.morz.cc/posts/technology/hugo/</loc>
     <lastmod>2023-07-20T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/flutter/drift/</loc>
+    <loc>https://blog.morz.cc/posts/technology/flutter/drift/</loc>
     <lastmod>2023-07-19T23:40:15+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/posts/technology/hugo/setup/</loc>
+    <loc>https://blog.morz.cc/posts/technology/hugo/setup/</loc>
     <lastmod>2023-07-12T16:12:34+08:00</lastmod>
   </url><url>
-    <loc>https://morz.cc/archives/</loc>
+    <loc>https://blog.morz.cc/archives/</loc>
   </url><url>
-    <loc>https://morz.cc/posts/music/</loc>
+    <loc>https://blog.morz.cc/posts/music/</loc>
   </url><url>
-    <loc>https://morz.cc/search/</loc>
+    <loc>https://blog.morz.cc/search/</loc>
   </url><url>
-    <loc>https://morz.cc/categories/</loc>
+    <loc>https://blog.morz.cc/categories/</loc>
   </url><url>
-    <loc>https://morz.cc/about/</loc>
+    <loc>https://blog.morz.cc/about/</loc>
   </url>
 </urlset>

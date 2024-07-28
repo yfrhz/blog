@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>🍼机器学习 on 沫子</title>
-    <link>https://morz.cc/posts/ml/</link>
+    <link>https://blog.morz.cc/posts/ml/</link>
     <description>Recent content in 🍼机器学习 on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 04 Aug 2023 18:44:15 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/ml/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Aug 2023 18:44:15 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/posts/ml/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>随机森林</title>
-      <link>https://morz.cc/posts/ml/random-forest/</link>
+      <link>https://blog.morz.cc/posts/ml/random-forest/</link>
       <pubDate>Fri, 04 Aug 2023 18:44:15 +0800</pubDate>
       
-      <guid>https://morz.cc/posts/ml/random-forest/</guid>
+      <guid>https://blog.morz.cc/posts/ml/random-forest/</guid>
       <description>一、介绍 在有背景和明确目的的情况下，一个决策的制定，往往会依赖于多个环境条件或其衍生条件，各个条件间可能互相影响和依赖，而随机森林就是将各个条件对结果的影响具象化表现。
 二、组成 从一个简单的例子开始：
 1 和女朋友约会，需要到达约会地点。 上面这个描述中，我们可以很清楚的知道。背景是约会，而目则是到达约会地点。

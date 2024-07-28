@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>🐵技术 on 沫子</title>
-    <link>https://morz.cc/posts/technology/</link>
+    <link>https://blog.morz.cc/posts/technology/</link>
     <description>Recent content in 🐵技术 on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 07 Nov 2023 17:48:52 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Nov 2023 17:48:52 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/posts/technology/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

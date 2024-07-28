@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>🥕Hugo on 沫子</title>
-    <link>https://morz.cc/posts/technology/hugo/</link>
+    <link>https://blog.morz.cc/posts/technology/hugo/</link>
     <description>Recent content in 🥕Hugo on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 20 Jul 2023 16:12:34 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/technology/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Jul 2023 16:12:34 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/posts/technology/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo页面样式加载失败</title>
-      <link>https://morz.cc/posts/technology/hugo/integrity/</link>
+      <link>https://blog.morz.cc/posts/technology/hugo/integrity/</link>
       <pubDate>Thu, 20 Jul 2023 16:12:34 +0800</pubDate>
       
-      <guid>https://morz.cc/posts/technology/hugo/integrity/</guid>
+      <guid>https://blog.morz.cc/posts/technology/hugo/integrity/</guid>
       <description>现象 在本地运行测试好好的，发布到托管环境格式就乱了。
 检查 打开控制台后，发现console下有一条报错： 说css的校验失效，导致资源被锁定。所以格式全部都乱了。
 原因 由于Linux使用的是LF作为换行符，Windows使用CRLF作为换行符号。所以在跨环境时，换行符会发生变化。
@@ -23,10 +23,10 @@
     
     <item>
       <title>安装Hugo</title>
-      <link>https://morz.cc/posts/technology/hugo/setup/</link>
+      <link>https://blog.morz.cc/posts/technology/hugo/setup/</link>
       <pubDate>Wed, 12 Jul 2023 16:12:34 +0800</pubDate>
       
-      <guid>https://morz.cc/posts/technology/hugo/setup/</guid>
+      <guid>https://blog.morz.cc/posts/technology/hugo/setup/</guid>
       <description>前言 一直想自己搭建个博客做记录，偶然间了解到静态站。
 由于会Vue3，最开始打算使用vue-press的，但是调查发现，有三个主流的静态博客工具。也有现成的静态托管方案。
 于是乎，在对比了jekyll、hugo、hexo后，果断的选择了hugo（反正都没用过，就选星星最多的）。

@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>📚文章 on 沫子</title>
-    <link>https://morz.cc/posts/</link>
+    <link>https://blog.morz.cc/posts/</link>
     <description>Recent content in 📚文章 on 沫子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 17 May 2024 13:12:15 +0800</lastBuildDate><atom:link href="https://morz.cc/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 May 2024 10:14:41 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/posts/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
