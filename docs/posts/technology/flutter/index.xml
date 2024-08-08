@@ -15,7 +15,7 @@
       <guid>https://blog.morz.cc/posts/technology/flutter/widget/</guid>
       <description>简介 用于记录一些乱七八糟的Widget（速查表）
 布局 Expanded 可以设置元素的占用空间比例大小。
-1 2 3 4 5 const Expanded({ Key key, int flex = 1, @required Widget child, }) flex 占比大小，默认是100% 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex) child 即需要分配的Widget 例子:参考博客</description>
+const Expanded({ Key key, int flex = 1, @required Widget child, }) flex 占比大小，默认是100% 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex) child 即需要分配的Widget 例子:参考博客</description>
     </item>
     
     <item>
@@ -39,7 +39,7 @@ GitHub Pub Pub上的文档挺全的
       <description>简介 作为Flutter的半orm框架，Drift确实达到了好用的程度。本文不去对比其他框架，仅就使用过程中的一些坑或者技巧做一点小小的记录。
 相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
 官方文档 GitHub Pub 使用 参考文档，先这样，然后这样，再那样，就好啦～
-1 2 # 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。 $ dart run build_runner build 问题 Tables can&amp;rsquo;t override primaryKey and use autoIncrement() 设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。 数据文件路径（安卓虚拟机）
+# 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。 $ dart run build_runner build 问题 Tables can&amp;rsquo;t override primaryKey and use autoIncrement() 设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。 数据文件路径（安卓虚拟机）
 /data/user/0/{包名}/app_flutter/db.sqlite </description>
     </item>
     

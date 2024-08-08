@@ -8,11 +8,11 @@
 <title>gpg小记 | 沫子</title>
 <meta name="keywords" content="">
 <meta name="description" content="从公钥服务器接收失败 命令：
-1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
+apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
 gpg: keyserver receive failed: Server indicated a failure
 gpg: 从公钥服务器接收失败：Server indicated a failure
 解决方案
-由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 ">
+由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 ">
 <meta name="author" content="Carl">
 <link rel="canonical" href="https://blog.morz.cc/posts/technology/web/gpg-tips/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
@@ -63,11 +63,11 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
 <meta property="og:title" content="gpg小记" />
 <meta property="og:description" content="从公钥服务器接收失败 命令：
-1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
+apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
 gpg: keyserver receive failed: Server indicated a failure
 gpg: 从公钥服务器接收失败：Server indicated a failure
 解决方案
-由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 " />
+由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.morz.cc/posts/technology/web/gpg-tips/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-10-06T10:24:36+08:00" />
@@ -76,11 +76,11 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="gpg小记"/>
 <meta name="twitter:description" content="从公钥服务器接收失败 命令：
-1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
+apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
 gpg: keyserver receive failed: Server indicated a failure
 gpg: 从公钥服务器接收失败：Server indicated a failure
 解决方案
-由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 "/>
+由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 "/>
 
 
 <script type="application/ld+json">
@@ -121,12 +121,12 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
   "@type": "BlogPosting",
   "headline": "gpg小记",
   "name": "gpg小记",
-  "description": "从公钥服务器接收失败 命令：\n1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：\ngpg: keyserver receive failed: Server indicated a failure\ngpg: 从公钥服务器接收失败：Server indicated a failure\n解决方案\n由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 ",
+  "description": "从公钥服务器接收失败 命令：\napt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：\ngpg: keyserver receive failed: Server indicated a failure\ngpg: 从公钥服务器接收失败：Server indicated a failure\n解决方案\n由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 ",
   "keywords": [
     
   ],
-  "articleBody": "从公钥服务器接收失败 命令：\n1 apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：\ngpg: keyserver receive failed: Server indicated a failure\ngpg: 从公钥服务器接收失败：Server indicated a failure\n解决方案\n由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： 1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 1 nameserver 8.8.8.8 # Google DNS 或 1 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 1 2 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 ",
-  "wordCount" : "60",
+  "articleBody": "从公钥服务器接收失败 命令：\napt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：\ngpg: keyserver receive failed: Server indicated a failure\ngpg: 从公钥服务器接收失败：Server indicated a failure\n解决方案\n由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 ",
+  "wordCount" : "54",
   "inLanguage": "zh",
   "datePublished": "2023-10-06T10:24:36+08:00",
   "dateModified": "2023-10-06T10:24:36+08:00",
@@ -313,61 +313,25 @@ gpg: 从公钥服务器接收失败：Server indicated a failure
 </script>
   <div class="post-content"><h2 id="从公钥服务器接收失败">从公钥服务器接收失败<a hidden class="anchor" aria-hidden="true" href="#从公钥服务器接收失败">#</a></h2>
 <p>命令：</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>错误提示：<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx
+</span></span></code></pre></div><p>错误提示：<br>
 gpg: keyserver receive failed: Server indicated a failure<br>
 gpg: 从公钥服务器接收失败：Server indicated a failure<br>
 解决方案</p>
 <ol>
 <li>由于<code>keyserver.ubuntu.com</code>开放80端口，需要手动指定，否则会使用默认端口11371 <br>
 添加协议名和端口后为：
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx
+</span></span></code></pre></div></li>
 <li>如果方案1中继续报错，可能是由于域名解析失败导致，可以在<code>/etc/resolv.conf</code>中修改dns配置为
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  nameserver 8.8.8.8 <span style="color:#007f7f"># Google DNS</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>或
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  nameserver 1.1.1.1 <span style="color:#007f7f"># Cloudflare</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  nameserver 8.8.8.8 <span style="color:#75715e"># Google DNS</span>
+</span></span></code></pre></div>或
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  nameserver 1.1.1.1 <span style="color:#75715e"># Cloudflare</span>
+</span></span></code></pre></div></li>
 <li>如果不可修改DNS或者修改后依旧失败，则可以使用<code>ping</code>来获取<code>keyserver.ubuntu.com</code>的真实IP，再替换到域名
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  ping keyserver.ubuntu.com <span style="color:#007f7f">#获取ip，我获取的是 185.125.188.27</span>
-</span></span><span style="display:flex;"><span>  apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx <span style="color:#007f7f">#使用IP替换域名</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  ping keyserver.ubuntu.com <span style="color:#75715e">#获取ip，我获取的是 185.125.188.27</span>
+</span></span><span style="display:flex;"><span>  apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx <span style="color:#75715e">#使用IP替换域名</span>
+</span></span></code></pre></div></li>
 </ol>
 
 

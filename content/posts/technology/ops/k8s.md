@@ -249,7 +249,7 @@ wget https://www.haproxy.org/download/2.8/src/haproxy-2.8.3.tar.gz
 # 2.解压
 tar zxvf haproxy-2.8.3.tar.gz
 
-# 3.#编译
+# 3.编译
 cd haproxy-2.8.3/
 make TARGET=linux-glibc PREFIX=/data/haproxy
 make install PREFIX=/data/haproxy
@@ -312,14 +312,15 @@ systemctl enable haproxy.service
 systemctl start haproxy.service
 ```
 ### 3.配置并使用
-#### 3.1 配置 kubeadm 主节点
+#### 3.1 配置主节点
 ```shell
 # 1.生成默认配置文件
 kubeadm config print init-defaults > kubeadm-master-config.yaml
 
 # 2.修改配置文件
 vim kubeadm-master-config.yaml
-# kubeadm-master-config.yaml -- 开始
+
+# ----- kubeadm-master-config.yaml -----
 kind: InitConfiguration
 advertiseAddress {master的ip}
 name             {master计算机名}
@@ -336,7 +337,7 @@ apiServer:
 networking:
   serviceSubnet: 10.96.0.0/12  #svc网络
   podSubnet: 10.244.0.0/16     #pod网络
-# kubeadm-master-config.yaml -- 结束
+# ----- kubeadm-master-config.yaml -----
 
 # 3.创建主节点  
 kubeadm reset
