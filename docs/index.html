@@ -2,7 +2,7 @@
 <html lang="zh" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.126.1"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.115.0"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -21,7 +21,6 @@
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://blog.morz.cc/index.xml">
 <link rel="alternate" type="application/json" href="https://blog.morz.cc/index.json">
-<link rel="alternate" hreflang="zh" href="https://blog.morz.cc/">
 <noscript>
     <style>
         #theme-toggle,
@@ -59,9 +58,6 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-
-  
-
 <meta property="og:title" content="" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
@@ -125,8 +121,6 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -170,6 +164,20 @@
 </div>
 
 <article class="first-entry"> 
+  <header class="entry-header">
+    <h2>空服务器部署K8S流程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。
+于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。
+1.环境准备 1.1 修改镜像源 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.写入通用源信息 cat &gt; /etc/apt/sources.list &lt;&lt; EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-08-04 10:50:34 +0800 CST'>八月 4, 2024</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 空服务器部署K8S流程" href="https://blog.morz.cc/posts/technology/ops/k8s/"></a>
+</article>
+
+<article class="post-entry"> 
   <header class="entry-header">
     <h2>博弈论-第二篇
     </h2>
@@ -410,25 +418,12 @@ GitHub Pub Pub上的文档挺全的
   <footer class="entry-footer"><span title='2023-07-19 23:40:15 +0800 CST'>七月 19, 2023</span>&nbsp;·&nbsp;Carl</footer>
   <a class="entry-link" aria-label="post link to Drift使用说明" href="https://blog.morz.cc/posts/technology/flutter/drift/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>安装Hugo
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 一直想自己搭建个博客做记录，偶然间了解到静态站。
-由于会Vue3，最开始打算使用vue-press的，但是调查发现，有三个主流的静态博客工具。也有现成的静态托管方案。
-于是乎，在对比了jekyll、hugo、hexo后，果断的选择了hugo（反正都没用过，就选星星最多的）。
-遂，域名，空间，博客一把梭。
-记录下 Hogu 的安装过程
-安装 当然是看 官方安装文档 啊，不然真的看博客啊。
-配置 配置就有得说了，官网的东西有点乱。
-使用 我还不太熟，用熟了再补充</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-07-12 16:12:34 +0800 CST'>七月 12, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to 安装Hugo" href="https://blog.morz.cc/posts/technology/hugo/setup/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://blog.morz.cc/page/2/">下一页&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">
