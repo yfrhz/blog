@@ -62,6 +62,7 @@ params:
     apple_touch_icon: "ico/favicon64x64.ico"
     safari_pinned_tab: "ico/favicon128x128.ico"
     disableFingerprinting: true
+    disableHLJS: true
 
 outputs:
   home:

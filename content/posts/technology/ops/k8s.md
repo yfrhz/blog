@@ -161,7 +161,7 @@ deb https://mirrors.aliyun.com/docker-ce/linux/ubuntu noble stable
 EOF
 
 # 3.更新软件源
-apt-get update
+apt update
 
 # 4.安装containerd组件
 apt -y install containerd.io
@@ -179,14 +179,14 @@ EOF
 # 6.重新初始化containerd的配置文件
 containerd config default | tee /etc/containerd/config.toml 
 # 修改Cgroup的管理者为systemd组件
-sed -ri 's#(SystemdCgroup = ).*$#\1true#' /etc/containerd/config.toml 
+sed -ri 's#^(\s*SystemdCgroup = ).*$#\1true#' /etc/containerd/config.toml 
 # 修改pause的基础镜像名称
-sed -ri 's#(sandbox_image = ).*$#\1"registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9"#' /etc/containerd/config.toml
+sed -ri 's#^(\s*sandbox_image = ).*$#\1"registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9"#' /etc/containerd/config.toml
 # 设置镜像保存路径
-sed -ri 's#(root = ).*$#\"/data/containerd/root"#' /etc/containerd/config.toml  #保存持久化数据,默认值/var/lib/containerd
-sed -ri 's#(state = ).*$#\1"/data/containerd/run"#' /etc/containerd/config.toml #保存运行时临时数据,默认值/run/containerd 
+sed -ri 's#^(\s*root = ).*$#\1"/data/containerd/root"#' /etc/containerd/config.toml  #保存持久化数据,默认值/var/lib/containerd
+sed -ri 's#^(\s*state = ).*$#\1"/data/containerd/run"#' /etc/containerd/config.toml #保存运行时临时数据,默认值/run/containerd 
 # 设置镜像仓库地址
-sed -ri 's#(config_path = ).*$#\1"/etc/containerd/certs.d"#' /etc/containerd/config.toml
+sed -ri 's#^(\s*config_path = ).*$#\1"/etc/containerd/certs.d"#' /etc/containerd/config.toml
 
 
 # 7.配置国内镜像（重要）
@@ -347,8 +347,7 @@ kubeadm init --config kubeadm-master-config.yaml
 #### 3.2 设置kube环境
 ```shell
 #root用户
-vim ~/.bashrc
-export KUBECONFIG=/etc/kubernetes/admin.conf
+echo 'KUBECONFIG=/etc/kubernetes/admin.conf' >> ~/.bashrc
 source ~/.bashrc
 #普通用户
 mkdir -p $HOME/.kube
@@ -396,10 +395,8 @@ kubeadm join {advertiseAddress}:6443 --token {token} \
 #### 3.6 节点去污
 master节点默认存在污点，不允许运行pod，需要去污
 ```shell
-# 指定节点名称
+# 去污
 kubectl taint node {NodeName} node-role.kubernetes.io/control-plane:-
-# 全部节点
-kubectl taint nodes --all node-role.kubernetes.io/control-plane:-
 ```
 
 ### 4. 安装kuboard监控
@@ -408,3 +405,19 @@ kubectl label nodes {NodeName} k8s.kuboard.cn/role=etcd
 kubectl apply -f https://addons.kuboard.cn/kuboard/kuboard-v3-swr.yaml
 ```
 ---
+
+### 5.其他问题
+```shell
+# 若flannel节点出现  Error registering network: failed to acquire lease: node "node" pod cidr not assigned 报错
+# 卸载flannel
+kubectl delete -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+# 需要修改kube配置
+vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+# 添加
+--allocate-node-cidrs=true
+--cluster-cidr=10.244.0.0/16 # 需要和init文件中配置的相同
+# 重启
+systemctl restart kubelet
+#再次安装
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+```
