@@ -3,7 +3,7 @@ baseURL: 'https://blog.morz.cc/'
 defaultContentLanguage: zh
 title: 墨渍
 theme: PaperMod
-publishDir: doc
+publishDir: docs
 enableEmoji: true
 enableRobotsTXT: true
 paginate: 15
