@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>各种各样的配置文件类型 | 墨渍</title>
+<meta name="keywords" content="">
+<meta name="description" content="一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）
+但是合适的场景会更省心一点。
+后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。
+ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用
+后缀：.ini
+适用：层次简单的配置项，一般只有一层嵌套。
+; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低
+后缀：.xml
+建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)
+&lt;!-- 注释是文本需要被左右两边包裹 --&gt; &lt;!-- 配置由节点组成，节点下可以是数值，也可以是节点，但是选择一种 --&gt; &lt;key&gt; &lt;aaa&gt;v1&lt;/aaa&gt; &lt;aaa&gt;v2&lt;/aaa&gt; &lt;bbb&gt; &lt;ccc&gt;ccc&lt;/ccc&gt; &lt;/bbb&gt; &lt;/key&gt; property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀
+后缀：.property
+建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除
+# 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）
+后缀：.yml
+建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。
+# 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多">
+<meta name="author" content="Carl">
+<link rel="canonical" href="https://blog.morz.cc/posts/technology/utils/config/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://blog.morz.cc/ico/favicon128x128.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.morz.cc/ico/favicon16x16.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.morz.cc/ico/favicon32x32.ico">
+<link rel="apple-touch-icon" href="https://blog.morz.cc/ico/favicon64x64.ico">
+<link rel="mask-icon" href="https://blog.morz.cc/ico/favicon128x128.ico">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+<meta property="og:title" content="各种各样的配置文件类型" />
+<meta property="og:description" content="一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）
+但是合适的场景会更省心一点。
+后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。
+ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用
+后缀：.ini
+适用：层次简单的配置项，一般只有一层嵌套。
+; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低
+后缀：.xml
+建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)
+&lt;!-- 注释是文本需要被左右两边包裹 --&gt; &lt;!-- 配置由节点组成，节点下可以是数值，也可以是节点，但是选择一种 --&gt; &lt;key&gt; &lt;aaa&gt;v1&lt;/aaa&gt; &lt;aaa&gt;v2&lt;/aaa&gt; &lt;bbb&gt; &lt;ccc&gt;ccc&lt;/ccc&gt; &lt;/bbb&gt; &lt;/key&gt; property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀
+后缀：.property
+建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除
+# 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）
+后缀：.yml
+建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。
+# 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.morz.cc/posts/technology/utils/config/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-04T10:50:34+08:00" />
+<meta property="article:modified_time" content="2023-08-04T10:50:34+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="各种各样的配置文件类型"/>
+<meta name="twitter:description" content="一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）
+但是合适的场景会更省心一点。
+后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。
+ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用
+后缀：.ini
+适用：层次简单的配置项，一般只有一层嵌套。
+; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低
+后缀：.xml
+建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)
+&lt;!-- 注释是文本需要被左右两边包裹 --&gt; &lt;!-- 配置由节点组成，节点下可以是数值，也可以是节点，但是选择一种 --&gt; &lt;key&gt; &lt;aaa&gt;v1&lt;/aaa&gt; &lt;aaa&gt;v2&lt;/aaa&gt; &lt;bbb&gt; &lt;ccc&gt;ccc&lt;/ccc&gt; &lt;/bbb&gt; &lt;/key&gt; property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀
+后缀：.property
+建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除
+# 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）
+后缀：.yml
+建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。
+# 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://blog.morz.cc/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "🐵技术",
+      "item": "https://blog.morz.cc/posts/technology/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "🍌杂项",
+      "item": "https://blog.morz.cc/posts/technology/utils/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "各种各样的配置文件类型",
+      "item": "https://blog.morz.cc/posts/technology/utils/config/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "各种各样的配置文件类型",
+  "name": "各种各样的配置文件类型",
+  "description": "一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）\n但是合适的场景会更省心一点。\n后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。\nini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用\n后缀：.ini\n适用：层次简单的配置项，一般只有一层嵌套。\n; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低\n后缀：.xml\n建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)\n\u0026lt;!-- 注释是文本需要被左右两边包裹 --\u0026gt; \u0026lt;!-- 配置由节点组成，节点下可以是数值，也可以是节点，但是选择一种 --\u0026gt; \u0026lt;key\u0026gt; \u0026lt;aaa\u0026gt;v1\u0026lt;/aaa\u0026gt; \u0026lt;aaa\u0026gt;v2\u0026lt;/aaa\u0026gt; \u0026lt;bbb\u0026gt; \u0026lt;ccc\u0026gt;ccc\u0026lt;/ccc\u0026gt; \u0026lt;/bbb\u0026gt; \u0026lt;/key\u0026gt; property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀\n后缀：.property\n建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除\n# 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）\n后缀：.yml\n建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。\n# 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多",
+  "keywords": [
+    
+  ],
+  "articleBody": "一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）\n但是合适的场景会更省心一点。\n后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。\nini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用\n后缀：.ini\n适用：层次简单的配置项，一般只有一层嵌套。\n; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低\n后缀：.xml\n建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)\nv1 v2 ccc property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀\n后缀：.property\n建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除\n# 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）\n后缀：.yml\n建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。\n# 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多\n后缀：.toml\n建议：昂，我不用这个，不知道怎么建议，看这个语法就不想用，比较懒。\na = \"a\" b = \"b\" c.x = \"c.x\" c.y = \"c.y\" [d] x = \"d.x\" y = \"d.y\" [[e]] x = \"e[0].x\" y = \"e[0].y\" hocon 介绍：伸缩性强，能表述组，复杂层次结构，xml的简化版本，也可以直接降级为property 后缀: .conf\n建议：有大块的配置很适合，分组很清晰，多叉多级的复杂配置建议使用这个。\ng1:{ g11:{ } g12={ } g13{ } g14:123 g15=456 } ",
+  "wordCount" : "122",
+  "inLanguage": "zh",
+  "datePublished": "2023-08-04T10:50:34+08:00",
+  "dateModified": "2023-08-04T10:50:34+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Carl"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.morz.cc/posts/technology/utils/config/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "墨渍",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.morz.cc/ico/favicon128x128.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.morz.cc/" accesskey="h" title="墨渍 (Alt + H)">
+                <img src="https://blog.morz.cc/ico/favicon128x128.ico" alt="" aria-label="logo"
+                    height="35">墨渍</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.morz.cc/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/technology/">🐵技术</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/technology/utils/">🍌杂项</a></div>
+    <h1 class="post-title">
+      各种各样的配置文件类型
+    </h1>
+    <div class="post-meta"><span title='2023-08-04 10:50:34 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%b8%80%e4%ba%9b%e5%b8%b8%e7%94%a8%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%b1%bb%e5%9e%8b%e4%bb%8b%e7%bb%8d" aria-label="一些常用配置文件类型介绍">一些常用配置文件类型介绍</a><ul>
+                        
+                <li>
+                    <a href="#ini" aria-label="ini">ini</a></li>
+                <li>
+                    <a href="#xml" aria-label="xml">xml</a></li>
+                <li>
+                    <a href="#property" aria-label="property">property</a></li>
+                <li>
+                    <a href="#yml" aria-label="yml">yml</a></li>
+                <li>
+                    <a href="#toml" aria-label="toml">toml</a></li>
+                <li>
+                    <a href="#hocon" aria-label="hocon">hocon</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+  <div class="post-content"><h2 id="一些常用配置文件类型介绍">一些常用配置文件类型介绍<a hidden class="anchor" aria-hidden="true" href="#一些常用配置文件类型介绍">#</a></h2>
+<p>适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）<br>
+但是合适的场景会更省心一点。<br>
+后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。</p>
+<h3 id="ini">ini<a hidden class="anchor" aria-hidden="true" href="#ini">#</a></h3>
+<p>介绍：最早的配置文件格式，解析简单，由win开始广泛使用<br>
+后缀：.ini<br>
+适用：层次简单的配置项，一般只有一层嵌套。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e">; 注释用分号表示，由节、键、值 组成</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">; 节类似于作用域，没有明确的结尾，</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[sction1] ; 节</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">vaue ; 键=值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[sction2] ; 第二个节开始</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">vaue ; 键=值</span>
+</span></span></code></pre></div><h3 id="xml">xml<a hidden class="anchor" aria-hidden="true" href="#xml">#</a></h3>
+<p>介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低<br>
+后缀：.xml<br>
+建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 注释是文本需要被左右两边包裹 --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 配置由节点组成，节点下可以是数值，也可以是节点，但是选择一种 --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;key&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;aaa&gt;</span>v1<span style="color:#f92672">&lt;/aaa&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;aaa&gt;</span>v2<span style="color:#f92672">&lt;/aaa&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;bbb&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;ccc&gt;</span>ccc<span style="color:#f92672">&lt;/ccc&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/bbb&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/key&gt;</span>
+</span></span></code></pre></div><h3 id="property">property<a hidden class="anchor" aria-hidden="true" href="#property">#</a></h3>
+<p>介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀<br>
+后缀：.property<br>
+建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 以#开始的行为注释行
+</span></span><span style="display:flex;"><span>a=1
+</span></span><span style="display:flex;"><span>a.b.a=2
+</span></span><span style="display:flex;"><span>a.b.a=3
+</span></span><span style="display:flex;"><span>b=3
+</span></span></code></pre></div><h3 id="yml">yml<a hidden class="anchor" aria-hidden="true" href="#yml">#</a></h3>
+<p>介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）<br>
+后缀：.yml<br>
+建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#75715e"># 以#开始的行为注释行</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用 - 来标记列表</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">key</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">a</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">b</span>: <span style="color:#ae81ff">v2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">list</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">s1</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">s2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">map</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">k1</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">k2</span>: <span style="color:#ae81ff">v2</span>
+</span></span></code></pre></div><h3 id="toml">toml<a hidden class="anchor" aria-hidden="true" href="#toml">#</a></h3>
+<p>介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多<br>
+后缀：.toml<br>
+建议：昂，我不用这个，不知道怎么建议，看这个语法就不想用，比较懒。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">a</span> = <span style="color:#e6db74">&#34;a&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">b</span> = <span style="color:#e6db74">&#34;b&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">x</span> = <span style="color:#e6db74">&#34;c.x&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">y</span> = <span style="color:#e6db74">&#34;c.y&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">d</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">x</span> = <span style="color:#e6db74">&#34;d.x&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">y</span> = <span style="color:#e6db74">&#34;d.y&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">e</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">x</span> = <span style="color:#e6db74">&#34;e[0].x&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">y</span> = <span style="color:#e6db74">&#34;e[0].y&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span></code></pre></div><h3 id="hocon">hocon<a hidden class="anchor" aria-hidden="true" href="#hocon">#</a></h3>
+<p>介绍：伸缩性强，能表述组，复杂层次结构，xml的简化版本，也可以直接降级为property <br>
+后缀: .conf<br>
+建议：有大块的配置很适合，分组很清晰，多叉多级的复杂配置建议使用这个。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>g1:{
+</span></span><span style="display:flex;"><span>  g11:{
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  g12={
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  g13{
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  g14:123
+</span></span><span style="display:flex;"><span>  g15=456
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://blog.morz.cc/">墨渍</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

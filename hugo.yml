@@ -1,9 +1,9 @@
 baseURL: 'https://blog.morz.cc/'
 #baseURL: 'http://localhost:1313/'
 defaultContentLanguage: zh
-title: 沫子
+title: 墨渍
 theme: PaperMod
-publishDir: docs
+publishDir: doc
 enableEmoji: true
 enableRobotsTXT: true
 paginate: 15
@@ -51,7 +51,7 @@ params:
   VisitCount: true
 
   label:
-    text: 沫子
+    text: 墨渍
     icon: "ico/favicon128x128.ico"
     iconHeight: 35
 

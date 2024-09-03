@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>🍌杂项 on 墨渍</title>
+    <link>https://blog.morz.cc/posts/technology/utils/</link>
+    <description>Recent content in 🍌杂项 on 墨渍</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Wed, 09 Aug 2023 09:52:53 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/posts/technology/utils/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>备忘录</title>
+      <link>https://blog.morz.cc/posts/technology/utils/notebook/</link>
+      <pubDate>Wed, 09 Aug 2023 09:52:53 +0800</pubDate>
+      
+      <guid>https://blog.morz.cc/posts/technology/utils/notebook/</guid>
+      <description>一些网址 zlib geekdaxue </description>
+    </item>
+    
+    <item>
+      <title>各种各样的配置文件类型</title>
+      <link>https://blog.morz.cc/posts/technology/utils/config/</link>
+      <pubDate>Fri, 04 Aug 2023 10:50:34 +0800</pubDate>
+      
+      <guid>https://blog.morz.cc/posts/technology/utils/config/</guid>
+      <description>一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）
+但是合适的场景会更省心一点。
+后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。
+ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用
+后缀：.ini
+适用：层次简单的配置项，一般只有一层嵌套。
+; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低
+后缀：.xml
+建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)
+&amp;lt;!-- 注释是文本需要被左右两边包裹 --&amp;gt; &amp;lt;!-- 配置由节点组成，节点下可以是数值，也可以是节点，但是选择一种 --&amp;gt; &amp;lt;key&amp;gt; &amp;lt;aaa&amp;gt;v1&amp;lt;/aaa&amp;gt; &amp;lt;aaa&amp;gt;v2&amp;lt;/aaa&amp;gt; &amp;lt;bbb&amp;gt; &amp;lt;ccc&amp;gt;ccc&amp;lt;/ccc&amp;gt; &amp;lt;/bbb&amp;gt; &amp;lt;/key&amp;gt; property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀
+后缀：.property
+建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除
+# 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）
+后缀：.yml
+建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。
+# 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多</description>
+    </item>
+    
+  </channel>
+</rss>

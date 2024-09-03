@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.115.0"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>墨渍</title>
+
+<meta name="description" content="">
+<meta name="author" content="Carl">
+<link rel="canonical" href="https://blog.morz.cc/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://blog.morz.cc/ico/favicon128x128.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.morz.cc/ico/favicon16x16.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.morz.cc/ico/favicon32x32.ico">
+<link rel="apple-touch-icon" href="https://blog.morz.cc/ico/favicon64x64.ico">
+<link rel="mask-icon" href="https://blog.morz.cc/ico/favicon128x128.ico">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://blog.morz.cc/index.xml">
+<link rel="alternate" type="application/json" href="https://blog.morz.cc/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+<meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://blog.morz.cc/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "墨渍",
+  "url": "https://blog.morz.cc/",
+  "description": "",
+  "thumbnailUrl": "https://blog.morz.cc/ico/favicon128x128.ico",
+  "sameAs": [
+      
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.morz.cc/" accesskey="h" title="墨渍 (Alt + H)">
+                <img src="https://blog.morz.cc/ico/favicon128x128.ico" alt="" aria-label="logo"
+                    height="35">墨渍</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.morz.cc/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/" title="🏠主页">
+                    <span class="active">🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<div class="post-content"><p>呐，这就是平平无奇的主页了&hellip;</p>
+
+
+</div>
+
+<article class="first-entry"> 
+  <header class="entry-header">
+    <h2>空服务器部署K8S流程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。
+于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。
+1.环境准备 1.1 修改镜像源 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.写入通用源信息 cat &gt; /etc/apt/sources.list &lt;&lt; EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb https://mirrors....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-08-04 10:50:34 +0800 CST'>八月 4, 2024</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 空服务器部署K8S流程" href="https://blog.morz.cc/posts/technology/ops/k8s/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>博弈论-第二篇
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>博弈的复杂性 在上一篇中，简单的介绍了下什么是博弈论，以及博弈论可以解决什么问题，但是实际生活中遇到的情况远比公式、模型复杂。
+比如在上一篇最后的问题中就涉及到了博弈中的利益权重。
+假设哥哥更喜欢吃奶油，弟弟更喜欢吃面包，那又需要如何分配才能保证哥哥和弟弟的利益最大化呢？ </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-05-20 10:14:41 +0800 CST'>五月 20, 2024</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 博弈论-第二篇" href="https://blog.morz.cc/posts/pen/byl-2/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>博弈论-第一篇
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>问题 如何找到多方中的最优解（最大化利益） 如何促成一次合作 如何在合作中约束各方不作弊 囚徒困境与纳什均衡 我们先来看一个小故事
+警察抓住了两名惯盗，张三和李四。 但狡猾的惯盗并没有留下过多证据，如果两人都辩称没有参与其他盗窃案，则由于证据不住而只能定义为普通盗窃，各判处三年有期徒刑。 在陷入困难之际，检察官想到了一个办法。 检察官先来到张三的羁押房，表示如果李四认罪，而他不认罪，在并案数罚的情况下李四自首能获得减刑，只判五年，而他由于拒不招供，则会判处十年徒刑。 这样一来，如果他相信李四会认罪，最好他自己也认罪，判五年总比判十年来得好。 检查官又表示，如果他能认罪，并作为污点证人指控李四，由于是大案，那么会将他的刑期减为一年。 这样似乎对张三最好的做法就是认罪。 可是回头，检察官又对李四说了同样的话。 最终，他们都被判了四年。 这便是囚徒困境。两人都认为选择了能使自己更受益策略而获得双败结果。 让我们来用图表展示这个关系
+李四认罪 李四不认罪 张三认罪 5,5 1,10 张三不认罪 10,1 3,3 从图中可以看出，不论对方是否认罪，自己选择认罪的收益更高。 而双方都认罪的选择，称为达到了博弈的纳什均衡
+在博弈论中，纳什均衡是这么定义的
+在各方面都选择了同一种策略的情况下，没有一方能通过独自改变策略而获益。此时的策略搭配和后续的结果，就被成为纳什均衡。 合作与竞争 上面的小故事只是简单的介绍了囚徒困境与纳什均衡，通常只要双方好好沟通，互相妥协，就能好好收场。
+但不幸的是，往往达成协议后会有一方反悔，究其原因是，如果合作达成的方案并非纳什均衡，当其中一方改变想法时，的确就能获得对其自身更好的结果。\
+一般而言，达成合作有两大挑战
+找到方式达成协议 找到方式让每个参与放都不改变主意 能解决这两个挑战的主要方式有三种
+群体性共识 如果大家都认为合作中作弊是不道德的，并且这个思想像饿了要吃饭一样基础，就能避免许多社会困境。 权威公平第三方 由外部的专业第三方来促成合作并约束各方守护公平。 自运行的机制 各方依赖详尽的策略规约，自动将合作状态调整为纳什均衡。 下面会一一审视这三种方法
+群体性共识 依稀记得，福建省有个案件，张三欠李四的钱不还，欠条被损毁了，法庭见调解无效，让张三对妈祖发誓没有欠钱。结果张三当庭承认了欠款，并在妈祖的见证下并重新约定了还款时间。
+可能这也算是权威公平第三方吧
+群体性共识的前提，就是共识群体性，当合作方并不在共识范围内，那么并不能不能保证共识还能生效，西方的神就管不了东方的天。
+权威公平第三方 旅游旺季的时候看到新闻，某酒店因为节假日房价上涨，于是要求在节前在第三方平台上预购的游客，要么这退房，要么补差价。
+而游客没有办法只能向平台投诉。而平台处理结果也不尽人意。最终由于高峰期一房难求，导致游客补了差价。
+所以对于权威公平第三方而言，需要其本身有强大权威，公平与约束力，否则并不能有效约束参与方进行策略切换，而损害其他参与方的利益。
+自运行的机制 将纳什均衡作为一种能够自动运行的机制，让合作期间没有作弊的动机。由于处于纳什均衡下，任意一方改变策略并没有任何好处。合作方放就没有必要进行任何改动。
+但是如果需要合作的情景不属于纳什均衡，任意一方都可能想小小的改变一下，打破协议，获取更多的好处。
+文章主要是详解第三种方法（当然是第三种了，文章名都叫博弈论了，不会指望在这里能看到社会学和法学的东西吧）
+公平分配 大中取小 先衡量局势，考虑各种不同的选择造成的最大损失或最坏结果是什么，再决定如何让损失最小。追求最佳的可行性，而不是最佳的可能性。
+我切你选 一个简单的公平策略就是 我切你选 举个简单的例子
+兄弟两人要分一块蛋糕，他们猜拳后决定由哥哥先切，弟弟来选。 哥哥为了让自己获得更多的蛋糕，而会尽可能和将蛋糕分成两份自己都可以接受的大小，这样弟弟无论选择哪一份，哥哥获得另一份都是可以接受的。 而弟弟则会在哥哥切好的两份中选择一份更好的。将自己认为不好的给哥哥。 这样双方都觉得公平，而不需要依赖不吃蛋糕的父母来进行分配。 不过在这个例子中有个忽略的细节，假设哥哥更喜欢吃奶油，弟弟更喜欢吃面包，那又需要如何分配才能保证哥哥和弟弟的利益最大化呢？</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-05-17 13:12:15 +0800 CST'>五月 17, 2024</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 博弈论-第一篇" href="https://blog.morz.cc/posts/pen/byl-1/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>使用ckeditor发送邮件
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。
+最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。
+多年老坑:
+Possible to make editor.getData() returns content with inline styles?
+环境 前端脚手架: umi node: V18 安装CkEditor CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。
+打开Quick start 可以安装步骤构建一个简单的富文本编辑器。
+但是显然这个简单的文本编辑器满足不了我的需求，但是有个在线构建说明 可以满足。\
+打开在线构建页面 选择Classic模式 然后按照需求选择插件，默认选择中的Cloud Services是高级功能，要加钱，不要可以去掉，下面右上角有PREMIUM 标记的插件也是要加钱的。 然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口） 选择语言 然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加license key的提示，可以返回第二步修改 下载完成后是一个zip，解压后打开sample/index.html查看效果，如果合适，则开始引入项目。 安装必须组件 // ckeditor react 组件 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic // 将class转换为内联style,发邮件的时候用 yarn add juice 将build目录下全部文件拷贝到src/components/ckeditor下,并添加CkeditorUtil.ts 和 index.tsx // CkeditorUtil.ts // 参考 https://github.com/ckeditor/ckeditor5/issues/1627 import juice from &#39;juice&#39;; // @ts-ignore export const CkeditorUtil = { getEditorStyles() { const cssTexts = [], rootCssTexts = []; for (const styleSheets of document....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-11-07 17:48:52 +0800 CST'>十一月 7, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 使用ckeditor发送邮件" href="https://blog.morz.cc/posts/technology/web/ckeditor-to-email/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>gpg小记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>从公钥服务器接收失败 命令：
+apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
+gpg: keyserver receive failed: Server indicated a failure
+gpg: 从公钥服务器接收失败：Server indicated a failure
+解决方案
+由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-06 10:24:36 +0800 CST'>十月 6, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to gpg小记" href="https://blog.morz.cc/posts/technology/web/gpg-tips/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>备忘录
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一些网址 zlib geekdaxue </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-09 09:52:53 +0800 CST'>八月 9, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 备忘录" href="https://blog.morz.cc/posts/technology/utils/notebook/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>随机森林
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一、介绍 在有背景和明确目的的情况下，一个决策的制定，往往会依赖于多个环境条件或其衍生条件，各个条件间可能互相影响和依赖，而随机森林就是将各个条件对结果的影响具象化表现。
+二、组成 从一个简单的例子开始：
+和女朋友约会，需要到达约会地点。 上面这个描述中，我们可以很清楚的知道。背景是约会，而目则是到达约会地点。
+基于正常情况（不考虑外星人），实现这个目标，我们有以下策略：
+公共交通 步行 自驾 打车 骑车 那么如何选择策略呢？可能有以下几个因素：
+天气 时间宽裕程度 交通便利性 目的地类型 约会计划 不同的条件会产生不同的决策，而不同的人基于自身因素也会对不同的条件产生不同的权重。各种权重和条件互相影响，最终导致选择了某一个决策。
+一个决策的产生，由环境背景、目标、条件及衍生条件、实现方案组成。
+而这些元素的定义域与值域组成了随机森林，使用随机森林可以预测在特定元素条件下最合适的决策。
+常用方法 </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-04 18:44:15 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 随机森林" href="https://blog.morz.cc/posts/ml/random-forest/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>技术面基本图形
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>头肩顶 头肩底 上升三角 下降三角 等边三角 旗形 箱体 缺口 </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-04 13:57:15 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 技术面基本图形" href="https://blog.morz.cc/posts/quant/illustrator/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>技术面基本指标
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>MACD 量价位图 加权平均线 K线 </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-04 13:57:15 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 技术面基本指标" href="https://blog.morz.cc/posts/quant/factor/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>各种各样的配置文件类型
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一些常用配置文件类型介绍 适用场景只是个建议，理论来说，所有场景都行（力大砖飞，手动无敌）
+但是合适的场景会更省心一点。
+后缀为默认后缀，本质上都是文本类型文件，一般服务器上都是叫.conf,具体看打开之后的格式。
+ini 介绍：最早的配置文件格式，解析简单，由win开始广泛使用
+后缀：.ini
+适用：层次简单的配置项，一般只有一层嵌套。
+; 注释用分号表示，由节、键、值 组成 ; 节类似于作用域，没有明确的结尾， [sction1] ; 节 key=vaue ; 键=值 [sction2] ; 第二个节开始 key=vaue ; 键=值 xml 介绍：最严格，程序解析简单，但是由于存在大量的关闭标签，导致新增配置项比较麻烦，配置效率低
+后缀：.xml
+建议：适用于默认配置或者存在自动格式化的场景(如果愿意手动对齐，放在服务器也是极好的)
+&lt;!-- 注释是文本需要被左右两边包裹 --&gt; &lt;!-- 配置由节点组成，节点下可以是数值，也可以是节点，但是选择一种 --&gt; &lt;key&gt; &lt;aaa&gt;v1&lt;/aaa&gt; &lt;aaa&gt;v2&lt;/aaa&gt; &lt;bbb&gt; &lt;ccc&gt;ccc&lt;/ccc&gt; &lt;/bbb&gt; &lt;/key&gt; property 介绍：主流配置方式，一行一个,结构简单，程序读取方便，存在嵌套结构时会出现大量重复前缀
+后缀：.property
+建议：比较适用于在服务器环境，或者简单基础配置解析的场景，适合配置项的新增和删除
+# 以#开始的行为注释行 a=1 a.b.a=2 a.b.a=3 b=3 yml 介绍：可读性很强,程序解析简单，但是配置层次关系依赖于缩进（注意：冒号后要空一格）
+后缀：.yml
+建议：适用于层次结构复杂，仅修改配置值，或者是有完善的格式化环境。
+# 以#开始的行为注释行 # 使用 - 来标记列表 key: a: v1 b: v2 list: - s1 - s2 map: k1: v1 k2: v2 toml 介绍：据说是yml的升级版本，像ini和yml的结合,语法有点多...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-04 10:50:34 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 各种各样的配置文件类型" href="https://blog.morz.cc/posts/technology/utils/config/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>整合前端（umi）到后端（spring-boot）中
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>背景 toB业务，最终交付的是一个客户端，需要提供前端控制页面，需要将前端也进行编译打包到同一个zip中，并且需要兼容jenkins，一步打包到位。
+原理 由于使用umi开发前端，所以正式使用之前先得进行编译。需要使用maven触发编译，打包为zip需要使用assembly插件
+再将js文件打包进行项目目录，由于是直接使用，没有nginx的容器， 需要spring-web充当容器，对前端资源进行转发。同时，spring-web也提供后端接口。
+实现 原理可行，开始实现
+目录结构 项目目录结构基于Maven项目，前端文件放哪都行，只要后面路径配置得一直就没啥问题。
+主要目录结构如下：
+bin …启动脚本 config …配置 assembly assembly.xml react(前端代码) src main …其他文件 resources public …其他文件 target pom.xml 配置 1. 修改umi配置输出目录 修改配置文件.umirc.ts， 添加配置项 outputPath: &#39;../src/main/resources/public/&#39;
+// .umirc.ts export default defineConfig({ // 其他配置 outputPath: &#39;../src/main/resources/public/&#39;, }); 2. 修改maven配置文件 添加react编译插件，用于编译umi项目 &lt;plugin&gt; &lt;groupId&gt;com.github.eirslett&lt;/groupId&gt; &lt;artifactId&gt;frontend-maven-plugin&lt;/artifactId&gt; &lt;version&gt;1.14.0&lt;/version&gt; &lt;configuration&gt; &lt;nodeDownloadRoot&gt;https://npm.taobao.org/mirrors/node/&lt;/nodeDownloadRoot&gt; &lt;npmDownloadRoot&gt;https://registry.npm.taobao.org/npm/-/&lt;/npmDownloadRoot&gt; &lt;installDirectory&gt;react&lt;/installDirectory&gt; &lt;workingDirectory&gt;react&lt;/workingDirectory&gt; &lt;nodeVersion&gt;v16.19.0&lt;/nodeVersion&gt; &lt;yarnVersion&gt;v1.22.10&lt;/yarnVersion&gt; &lt;/configuration&gt; &lt;executions&gt; &lt;!-- 构建时自动安装 node 和 yarn --&gt; &lt;execution&gt; &lt;id&gt;install node and yarn&lt;/id&gt; &lt;goals&gt; &lt;goal&gt;install-node-and-yarn&lt;/goal&gt; &lt;/goals&gt; &lt;/execution&gt; &lt;!...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-04 10:50:34 +0800 CST'>八月 4, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 整合前端（umi）到后端（spring-boot）中" href="https://blog.morz.cc/posts/technology/web/all-in-one/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Widget记录
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简介 用于记录一些乱七八糟的Widget（速查表）
+布局 Expanded 可以设置元素的占用空间比例大小。
+const Expanded({ Key key, int flex = 1, @required Widget child, }) flex 占比大小，默认是100% 多个Expanded并列时，单个Expanded占用空间为flex/sum(flex) child 即需要分配的Widget 例子:参考博客</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-23 22:20:15 +0800 CST'>七月 23, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to Widget记录" href="https://blog.morz.cc/posts/technology/flutter/widget/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>GetX使用说明
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简介 正所谓，Flutter不能失去GetX，就像西方不是失去耶路撒冷。GetX作为Flutter的轮椅般的存在，是使用Flutter中必不可少的一个组件。
+相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
+GitHub Pub Pub上的文档挺全的
+使用 </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-23 21:40:15 +0800 CST'>七月 23, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to GetX使用说明" href="https://blog.morz.cc/posts/technology/flutter/get/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Hugo页面样式加载失败
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错： 说css的校验失效，导致资源被锁定。所以格式全部都乱了。
+原因 由于Linux使用的是LF作为换行符，Windows使用CRLF作为换行符号。所以在跨环境时，换行符会发生变化。
+而由于hugo是每次都会重新生成css，导致跨环境之后的校验失效。
+解决方案 不跨环境（这不是废话） 找到校验的代码，我的是在这里，themes/PaperMod/layouts/partials/head.html
+当然，不同的主题可能位置不一样，但是结构应该和下面类似： 找到后有两个方法： 可以直接将74行的代码复制到第72行（也就是去掉了integrity校验） 也可以基于70行的判断，在项目配置文件中添加 params.assets.disableFingerprinting: true 来跳过校验 </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-20 16:12:34 +0800 CST'>七月 20, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to Hugo页面样式加载失败" href="https://blog.morz.cc/posts/technology/hugo/integrity/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Drift使用说明
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简介 作为Flutter的半orm框架，Drift确实达到了好用的程度。本文不去对比其他框架，仅就使用过程中的一些坑或者技巧做一点小小的记录。
+相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
+官方文档 GitHub Pub 使用 参考文档，先这样，然后这样，再那样，就好啦～
+# 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。 $ dart run build_runner build 问题 Tables can’t override primaryKey and use autoIncrement() 设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。 数据文件路径（安卓虚拟机）
+/data/user/0/{包名}/app_flutter/db.sqlite </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-19 23:40:15 +0800 CST'>七月 19, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to Drift使用说明" href="https://blog.morz.cc/posts/technology/flutter/drift/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://blog.morz.cc/page/2/">下一页&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://blog.morz.cc/">墨渍</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

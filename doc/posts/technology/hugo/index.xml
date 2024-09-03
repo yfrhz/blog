@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>🥕Hugo on 墨渍</title>
+    <link>https://blog.morz.cc/posts/technology/hugo/</link>
+    <description>Recent content in 🥕Hugo on 墨渍</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Thu, 20 Jul 2023 16:12:34 +0800</lastBuildDate><atom:link href="https://blog.morz.cc/posts/technology/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo页面样式加载失败</title>
+      <link>https://blog.morz.cc/posts/technology/hugo/integrity/</link>
+      <pubDate>Thu, 20 Jul 2023 16:12:34 +0800</pubDate>
+      
+      <guid>https://blog.morz.cc/posts/technology/hugo/integrity/</guid>
+      <description>现象 在本地运行测试好好的，发布到托管环境格式就乱了。
+检查 打开控制台后，发现console下有一条报错： 说css的校验失效，导致资源被锁定。所以格式全部都乱了。
+原因 由于Linux使用的是LF作为换行符，Windows使用CRLF作为换行符号。所以在跨环境时，换行符会发生变化。
+而由于hugo是每次都会重新生成css，导致跨环境之后的校验失效。
+解决方案 不跨环境（这不是废话） 找到校验的代码，我的是在这里，themes/PaperMod/layouts/partials/head.html
+当然，不同的主题可能位置不一样，但是结构应该和下面类似： 找到后有两个方法： 可以直接将74行的代码复制到第72行（也就是去掉了integrity校验） 也可以基于70行的判断，在项目配置文件中添加 params.assets.disableFingerprinting: true 来跳过校验 </description>
+    </item>
+    
+    <item>
+      <title>安装Hugo</title>
+      <link>https://blog.morz.cc/posts/technology/hugo/setup/</link>
+      <pubDate>Wed, 12 Jul 2023 16:12:34 +0800</pubDate>
+      
+      <guid>https://blog.morz.cc/posts/technology/hugo/setup/</guid>
+      <description>前言 一直想自己搭建个博客做记录，偶然间了解到静态站。
+由于会Vue3，最开始打算使用vue-press的，但是调查发现，有三个主流的静态博客工具。也有现成的静态托管方案。
+于是乎，在对比了jekyll、hugo、hexo后，果断的选择了hugo（反正都没用过，就选星星最多的）。
+遂，域名，空间，博客一把梭。
+记录下 Hogu 的安装过程
+安装 当然是看 官方安装文档 啊，不然真的看博客啊。
+配置 配置就有得说了，官网的东西有点乱。
+使用 我还不太熟，用熟了再补充</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>使用ckeditor发送邮件 | 墨渍</title>
+<meta name="keywords" content="">
+<meta name="description" content="背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。
+最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。
+多年老坑:
+Possible to make editor.getData() returns content with inline styles?
+环境 前端脚手架: umi node: V18 安装CkEditor CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。
+打开Quick start 可以安装步骤构建一个简单的富文本编辑器。
+但是显然这个简单的文本编辑器满足不了我的需求，但是有个在线构建说明 可以满足。\
+打开在线构建页面 选择Classic模式 然后按照需求选择插件，默认选择中的Cloud Services是高级功能，要加钱，不要可以去掉，下面右上角有PREMIUM 标记的插件也是要加钱的。 然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口） 选择语言 然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加license key的提示，可以返回第二步修改 下载完成后是一个zip，解压后打开sample/index.html查看效果，如果合适，则开始引入项目。 安装必须组件 // ckeditor react 组件 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic // 将class转换为内联style,发邮件的时候用 yarn add juice 将build目录下全部文件拷贝到src/components/ckeditor下,并添加CkeditorUtil.ts 和 index.tsx // CkeditorUtil.ts // 参考 https://github.com/ckeditor/ckeditor5/issues/1627 import juice from &#39;juice&#39;; // @ts-ignore export const CkeditorUtil = { getEditorStyles() { const cssTexts = [], rootCssTexts = []; for (const styleSheets of document.">
+<meta name="author" content="Carl">
+<link rel="canonical" href="https://blog.morz.cc/posts/technology/web/ckeditor-to-email/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://blog.morz.cc/ico/favicon128x128.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.morz.cc/ico/favicon16x16.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.morz.cc/ico/favicon32x32.ico">
+<link rel="apple-touch-icon" href="https://blog.morz.cc/ico/favicon64x64.ico">
+<link rel="mask-icon" href="https://blog.morz.cc/ico/favicon128x128.ico">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+<meta property="og:title" content="使用ckeditor发送邮件" />
+<meta property="og:description" content="背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。
+最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。
+多年老坑:
+Possible to make editor.getData() returns content with inline styles?
+环境 前端脚手架: umi node: V18 安装CkEditor CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。
+打开Quick start 可以安装步骤构建一个简单的富文本编辑器。
+但是显然这个简单的文本编辑器满足不了我的需求，但是有个在线构建说明 可以满足。\
+打开在线构建页面 选择Classic模式 然后按照需求选择插件，默认选择中的Cloud Services是高级功能，要加钱，不要可以去掉，下面右上角有PREMIUM 标记的插件也是要加钱的。 然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口） 选择语言 然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加license key的提示，可以返回第二步修改 下载完成后是一个zip，解压后打开sample/index.html查看效果，如果合适，则开始引入项目。 安装必须组件 // ckeditor react 组件 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic // 将class转换为内联style,发邮件的时候用 yarn add juice 将build目录下全部文件拷贝到src/components/ckeditor下,并添加CkeditorUtil.ts 和 index.tsx // CkeditorUtil.ts // 参考 https://github.com/ckeditor/ckeditor5/issues/1627 import juice from &#39;juice&#39;; // @ts-ignore export const CkeditorUtil = { getEditorStyles() { const cssTexts = [], rootCssTexts = []; for (const styleSheets of document." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.morz.cc/posts/technology/web/ckeditor-to-email/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-07T17:48:52+08:00" />
+<meta property="article:modified_time" content="2023-11-07T17:48:52+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用ckeditor发送邮件"/>
+<meta name="twitter:description" content="背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。
+最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。
+多年老坑:
+Possible to make editor.getData() returns content with inline styles?
+环境 前端脚手架: umi node: V18 安装CkEditor CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。
+打开Quick start 可以安装步骤构建一个简单的富文本编辑器。
+但是显然这个简单的文本编辑器满足不了我的需求，但是有个在线构建说明 可以满足。\
+打开在线构建页面 选择Classic模式 然后按照需求选择插件，默认选择中的Cloud Services是高级功能，要加钱，不要可以去掉，下面右上角有PREMIUM 标记的插件也是要加钱的。 然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口） 选择语言 然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加license key的提示，可以返回第二步修改 下载完成后是一个zip，解压后打开sample/index.html查看效果，如果合适，则开始引入项目。 安装必须组件 // ckeditor react 组件 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic // 将class转换为内联style,发邮件的时候用 yarn add juice 将build目录下全部文件拷贝到src/components/ckeditor下,并添加CkeditorUtil.ts 和 index.tsx // CkeditorUtil.ts // 参考 https://github.com/ckeditor/ckeditor5/issues/1627 import juice from &#39;juice&#39;; // @ts-ignore export const CkeditorUtil = { getEditorStyles() { const cssTexts = [], rootCssTexts = []; for (const styleSheets of document."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://blog.morz.cc/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "🐵技术",
+      "item": "https://blog.morz.cc/posts/technology/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "🍑网站",
+      "item": "https://blog.morz.cc/posts/technology/web/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "使用ckeditor发送邮件",
+      "item": "https://blog.morz.cc/posts/technology/web/ckeditor-to-email/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "使用ckeditor发送邮件",
+  "name": "使用ckeditor发送邮件",
+  "description": "背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。\n最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。\n多年老坑:\nPossible to make editor.getData() returns content with inline styles?\n环境 前端脚手架: umi node: V18 安装CkEditor CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。\n打开Quick start 可以安装步骤构建一个简单的富文本编辑器。\n但是显然这个简单的文本编辑器满足不了我的需求，但是有个在线构建说明 可以满足。\\\n打开在线构建页面 选择Classic模式 然后按照需求选择插件，默认选择中的Cloud Services是高级功能，要加钱，不要可以去掉，下面右上角有PREMIUM 标记的插件也是要加钱的。 然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口） 选择语言 然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加license key的提示，可以返回第二步修改 下载完成后是一个zip，解压后打开sample/index.html查看效果，如果合适，则开始引入项目。 安装必须组件 // ckeditor react 组件 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic // 将class转换为内联style,发邮件的时候用 yarn add juice 将build目录下全部文件拷贝到src/components/ckeditor下,并添加CkeditorUtil.ts 和 index.tsx // CkeditorUtil.ts // 参考 https://github.com/ckeditor/ckeditor5/issues/1627 import juice from \u0026#39;juice\u0026#39;; // @ts-ignore export const CkeditorUtil = { getEditorStyles() { const cssTexts = [], rootCssTexts = []; for (const styleSheets of document.",
+  "keywords": [
+    
+  ],
+  "articleBody": "背景 有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。\n最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。 鉴于在实现过程中发现了很多坑，在此记录一下。\n多年老坑:\nPossible to make editor.getData() returns content with inline styles?\n环境 前端脚手架: umi node: V18 安装CkEditor CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。\n打开Quick start 可以安装步骤构建一个简单的富文本编辑器。\n但是显然这个简单的文本编辑器满足不了我的需求，但是有个在线构建说明 可以满足。\\\n打开在线构建页面 选择Classic模式 然后按照需求选择插件，默认选择中的Cloud Services是高级功能，要加钱，不要可以去掉，下面右上角有PREMIUM 标记的插件也是要加钱的。 然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口） 选择语言 然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加license key的提示，可以返回第二步修改 下载完成后是一个zip，解压后打开sample/index.html查看效果，如果合适，则开始引入项目。 安装必须组件 // ckeditor react 组件 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic // 将class转换为内联style,发邮件的时候用 yarn add juice 将build目录下全部文件拷贝到src/components/ckeditor下,并添加CkeditorUtil.ts 和 index.tsx // CkeditorUtil.ts // 参考 https://github.com/ckeditor/ckeditor5/issues/1627 import juice from 'juice'; // @ts-ignore export const CkeditorUtil = { getEditorStyles() { const cssTexts = [], rootCssTexts = []; for (const styleSheets of document.styleSheets) { // @ts-ignore if (styleSheets.ownerNode.hasAttribute('data-cke')) { for (const cssRule of styleSheets['cssRules']) { if (cssRule.cssText.indexOf('.ck-content') !== -1) { cssTexts.push(cssRule.cssText); } else if (cssRule.cssText.indexOf(':root') !== -1) { rootCssTexts.push(cssRule.cssText); } } } } return cssTexts.length ? [...rootCssTexts, ...cssTexts].join(' ').trim() : ''; }, getContentWithLineStyles(editorContent: any) { // ck-content 参考 https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html#sharing-content-styles-between-frontend-and-backend // Important! // If you take a closer look at the content styles, you may notice they are prefixed with the .ck-content class selector. // This narrows their scope when used in CKEditor 5 so they do not affect the rest of the application. // To use them in the front–end, you will have to add the ck-content CSS class to the container of your content. // Otherwise the styles will not be applied. return juice.inlineContent(`${editorContent}`, this.getEditorStyles()); } }; // index.tsx import ClassicEditor from './ckeditor' import {CKEditor} from '@ckeditor/ckeditor5-react'; import {EventInfo} from \"@ckeditor/ckeditor5-utils\"; import {type Editor} from 'ckeditor5/src/core' export {CkeditorUtil} from \"./CkeditorUtil\" interface Prop { disabled?: boolean initData?: string, onReady?: (editor: ClassicEditor) =\u003e void, onBlur?: (data: string, event: EventInfo\u003cstring, any\u003e, editor: ClassicEditor) =\u003e void onFocus?: (data: string, event: EventInfo\u003cstring, any\u003e, editor: ClassicEditor) =\u003e void onChange?: (data: string, event: EventInfo\u003cstring, any\u003e, editor: ClassicEditor) =\u003e void autoSave?: (data: string, editor: Editor) =\u003e void } export {ClassicEditor}; export const ContentEditor = ({disabled = false, initData, autoSave, onReady, onBlur, onFocus, onChange}: Prop) =\u003e { return ( \u003cCKEditor disabled={disabled} editor={ClassicEditor} config={{ autosave: { save(editor) { if (autoSave) { autoSave(editor.data.get(), editor); } return Promise.resolve(); } }, }} data={initData} onReady={editor =\u003e { if (onReady) { onReady(editor); } }} onChange={(event, editor) =\u003e { if (onChange) { onChange(editor.getData(), event, editor); } }} onBlur={(event, editor) =\u003e { if (onBlur) { onBlur(editor.getData(), event, editor); } }} onFocus={(event, editor) =\u003e { if (onFocus) { onFocus(editor.getData(), event, editor); } }} /\u003e ) } 使用 配置完成后便可开始使用\nimport {ContentEditor, ClassicEditor, CkeditorUtil} from '@/components/ckeditor'; import {Button} from \"antd\"; export default function(){ const [classicEditor, setClassicEditor] = useState\u003cClassicEditor\u003e() const genInlineContent = () =\u003e { const originContent = classicEditor?.getData(); if (!originContent) { return; } // 将原始html转换为内联样式 // 不需要内联样式可以直接返回originContent return CkeditorUtil.getContentWithLineStyles(originContent); } const save = ()=\u003e{ console.log(genInlineContent()) } return( \u003c\u003e \u003cContentEditor onReady={(editor) =\u003e setClassicEditor(editor)}/\u003e \u003cButton onClick={save}\u003e保存\u003c/Button\u003e \u003c/\u003e ) } ",
+  "wordCount" : "429",
+  "inLanguage": "zh",
+  "datePublished": "2023-11-07T17:48:52+08:00",
+  "dateModified": "2023-11-07T17:48:52+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Carl"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.morz.cc/posts/technology/web/ckeditor-to-email/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "墨渍",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.morz.cc/ico/favicon128x128.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.morz.cc/" accesskey="h" title="墨渍 (Alt + H)">
+                <img src="https://blog.morz.cc/ico/favicon128x128.ico" alt="" aria-label="logo"
+                    height="35">墨渍</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.morz.cc/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.morz.cc/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/technology/">🐵技术</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/technology/web/">🍑网站</a></div>
+    <h1 class="post-title">
+      使用ckeditor发送邮件
+    </h1>
+    <div class="post-meta"><span title='2023-11-07 17:48:52 +0800 CST'>十一月 7, 2023</span>&nbsp;·&nbsp;Carl
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%83%8c%e6%99%af" aria-label="背景">背景</a></li>
+                <li>
+                    <a href="#%e7%8e%af%e5%a2%83" aria-label="环境">环境</a></li>
+                <li>
+                    <a href="#%e5%ae%89%e8%a3%85ckeditor" aria-label="安装CkEditor">安装CkEditor</a></li>
+                <li>
+                    <a href="#%e4%bd%bf%e7%94%a8" aria-label="使用">使用</a>
+                </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+  <div class="post-content"><h2 id="背景">背景<a hidden class="anchor" aria-hidden="true" href="#背景">#</a></h2>
+<p>有个需求，要给客户批量发邮件。需要包含复杂表格，不能用excel，需要直接展示。<br>
+最开始采用了WangEdit,简单快捷，但是表格功能不强，只能增减格子，于是又各种查，找到了ckeditor。
+鉴于在实现过程中发现了很多坑，在此记录一下。<br>
+多年老坑:<br>
+<a href="https://github.com/ckeditor/ckeditor5/issues/1627" target="_blank" rel="noopener">Possible to make editor.getData() returns content with inline styles?</a></p>
+<h2 id="环境">环境<a hidden class="anchor" aria-hidden="true" href="#环境">#</a></h2>
+<ul>
+<li>前端脚手架: umi</li>
+<li>node: V18</li>
+</ul>
+<h2 id="安装ckeditor">安装CkEditor<a hidden class="anchor" aria-hidden="true" href="#安装ckeditor">#</a></h2>
+<p>CKEditor有很多插件，不同的功能通过插件实现，安装的过程，就是将插件引入项目的过程。<br>
+打开<a href="https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/quick-start.html" target="_blank" rel="noopener">Quick start</a>
+可以安装步骤构建一个简单的富文本编辑器。<br>
+但是显然这个简单的文本编辑器满足不了我的需求，但是有个<a href="https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/quick-start-other.html#creating-custom-builds-with-online-builder" target="_blank" rel="noopener">在线构建说明</a>
+可以满足。\</p>
+<ol>
+<li>打开<a href="https://ckeditor.com/ckeditor-5/online-builder/" target="_blank" rel="noopener">在线构建页面</a>
+<ol>
+<li>选择Classic模式</li>
+<li>然后按照需求选择插件，默认选择中的<code>Cloud Services</code>是高级功能，要加钱，不要可以去掉，下面右上角有<code>PREMIUM</code>
+标记的插件也是要加钱的。</li>
+<li>然后选择哪些按钮常驻，哪些按钮隐藏（可以添加了插件，但是展示功能入口）</li>
+<li>选择语言</li>
+<li>然后就可以下载拉，如果选择的插件中有高级功能，会有一个要求添加<code>license key</code>的提示，可以返回第二步修改</li>
+</ol>
+</li>
+<li>下载完成后是一个zip，解压后打开<code>sample/index.html</code>查看效果，如果合适，则开始引入项目。
+<ol>
+<li>安装必须组件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  // ckeditor react 组件
+</span></span><span style="display:flex;"><span>  yarn add  @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic
+</span></span><span style="display:flex;"><span>  // 将class转换为内联style,发邮件的时候用
+</span></span><span style="display:flex;"><span>  yarn add juice
+</span></span></code></pre></div><ol start="2">
+<li>将<code>build</code>目录下全部文件拷贝到<code>src/components/ckeditor</code>下,并添加<code>CkeditorUtil.ts</code> 和 <code>index.tsx</code></li>
+</ol>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">// CkeditorUtil.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 参考 https://github.com/ckeditor/ckeditor5/issues/1627
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">juice</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;juice&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// @ts-ignore
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CkeditorUtil</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getEditorStyles() {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cssTexts</span> <span style="color:#f92672">=</span> [], <span style="color:#a6e22e">rootCssTexts</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">styleSheets</span> <span style="color:#66d9ef">of</span> document.<span style="color:#a6e22e">styleSheets</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// @ts-ignore
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">styleSheets</span>.<span style="color:#a6e22e">ownerNode</span>.<span style="color:#a6e22e">hasAttribute</span>(<span style="color:#e6db74">&#39;data-cke&#39;</span>)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cssRule</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">styleSheets</span>[<span style="color:#e6db74">&#39;cssRules&#39;</span>]) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">cssRule</span>.<span style="color:#a6e22e">cssText</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;.ck-content&#39;</span>) <span style="color:#f92672">!==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">cssTexts</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">cssRule</span>.<span style="color:#a6e22e">cssText</span>);
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">cssRule</span>.<span style="color:#a6e22e">cssText</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;:root&#39;</span>) <span style="color:#f92672">!==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">rootCssTexts</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">cssRule</span>.<span style="color:#a6e22e">cssText</span>);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cssTexts</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">?</span> [...<span style="color:#a6e22e">rootCssTexts</span>, ...<span style="color:#a6e22e">cssTexts</span>].<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39; &#39;</span>).<span style="color:#a6e22e">trim</span>() <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getContentWithLineStyles</span>(<span style="color:#a6e22e">editorContent</span>: <span style="color:#66d9ef">any</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ck-content 参考 https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html#sharing-content-styles-between-frontend-and-backend
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Important!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// If you take a closer look at the content styles, you may notice they are prefixed with the .ck-content class selector. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// This narrows their scope when used in CKEditor 5 so they do not affect the rest of the application. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// To use them in the front–end, you will have to add the ck-content CSS class to the container of your content. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Otherwise the styles will not be applied.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">juice</span>.<span style="color:#a6e22e">inlineContent</span>(<span style="color:#e6db74">`&lt;div class=&#34;ck-content&#34;&gt;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">editorContent</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;div&gt;`</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getEditorStyles</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#75715e">// index.tsx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ClassicEditor</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./ckeditor&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">CKEditor</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@ckeditor/ckeditor5-react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">EventInfo</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@ckeditor/ckeditor5-utils&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Editor</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;ckeditor5/src/core&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> {<span style="color:#a6e22e">CkeditorUtil</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;./CkeditorUtil&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Prop</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">disabled?</span>: <span style="color:#66d9ef">boolean</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">initData?</span>: <span style="color:#66d9ef">string</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">onReady</span><span style="color:#f92672">?:</span> (<span style="color:#a6e22e">editor</span>: <span style="color:#66d9ef">ClassicEditor</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">onBlur</span><span style="color:#f92672">?:</span> (<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">event</span>: <span style="color:#66d9ef">EventInfo</span>&lt;<span style="color:#f92672">string</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">any</span>&gt;, <span style="color:#a6e22e">editor</span>: <span style="color:#66d9ef">ClassicEditor</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">onFocus</span><span style="color:#f92672">?:</span> (<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">event</span>: <span style="color:#66d9ef">EventInfo</span>&lt;<span style="color:#f92672">string</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">any</span>&gt;, <span style="color:#a6e22e">editor</span>: <span style="color:#66d9ef">ClassicEditor</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">onChange</span><span style="color:#f92672">?:</span> (<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">event</span>: <span style="color:#66d9ef">EventInfo</span>&lt;<span style="color:#f92672">string</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">any</span>&gt;, <span style="color:#a6e22e">editor</span>: <span style="color:#66d9ef">ClassicEditor</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">autoSave</span><span style="color:#f92672">?:</span> (<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">editor</span>: <span style="color:#66d9ef">Editor</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> {<span style="color:#a6e22e">ClassicEditor</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContentEditor</span> <span style="color:#f92672">=</span> ({<span style="color:#a6e22e">disabled</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">initData</span>, <span style="color:#a6e22e">autoSave</span>, <span style="color:#a6e22e">onReady</span>, <span style="color:#a6e22e">onBlur</span>, <span style="color:#a6e22e">onFocus</span>, <span style="color:#a6e22e">onChange</span>}<span style="color:#f92672">:</span> <span style="color:#a6e22e">Prop</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">CKEditor</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">disabled</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">disabled</span>}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">editor</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">ClassicEditor</span>}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">config</span><span style="color:#f92672">=</span>{{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">autosave</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">save</span>(<span style="color:#a6e22e">editor</span>) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">autoSave</span>) {
+</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">autoSave</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">data</span>.<span style="color:#66d9ef">get</span>(), <span style="color:#a6e22e">editor</span>);
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Promise</span>.<span style="color:#a6e22e">resolve</span>();
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                },
+</span></span><span style="display:flex;"><span>            }}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">initData</span>}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">onReady</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">editor</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">onReady</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">onReady</span>(<span style="color:#a6e22e">editor</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">editor</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">onChange</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">onChange</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getData</span>(), <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">editor</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">onBlur</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">editor</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">onBlur</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">onBlur</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getData</span>(), <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">editor</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">onFocus</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">editor</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">onFocus</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">onFocus</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getData</span>(), <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">editor</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /&gt;
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="使用">使用<a hidden class="anchor" aria-hidden="true" href="#使用">#</a></h2>
+<p>配置完成后便可开始使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">ContentEditor</span>, <span style="color:#a6e22e">ClassicEditor</span>, <span style="color:#a6e22e">CkeditorUtil</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@/components/ckeditor&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">Button</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;antd&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">classicEditor</span>, <span style="color:#a6e22e">setClassicEditor</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>&lt;<span style="color:#f92672">ClassicEditor</span>&gt;()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">genInlineContent</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">originContent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">classicEditor</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">getData</span>();
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">originContent</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// 将原始html转换为内联样式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>       <span style="color:#75715e">// 不需要内联样式可以直接返回originContent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>       <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">CkeditorUtil</span>.<span style="color:#a6e22e">getContentWithLineStyles</span>(<span style="color:#a6e22e">originContent</span>);
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">save</span> <span style="color:#f92672">=</span> ()<span style="color:#f92672">=&gt;</span>{
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">genInlineContent</span>())
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(
+</span></span><span style="display:flex;"><span>        &lt;&gt;
+</span></span><span style="display:flex;"><span>           &lt;<span style="color:#f92672">ContentEditor</span> <span style="color:#a6e22e">onReady</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">editor</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">setClassicEditor</span>(<span style="color:#a6e22e">editor</span>)}/&gt;
+</span></span><span style="display:flex;"><span>           &lt;<span style="color:#f92672">Button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">save</span>}&gt;<span style="color:#960050;background-color:#1e0010">保存</span>&lt;/<span style="color:#f92672">Button</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/&gt;
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://blog.morz.cc/">墨渍</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
