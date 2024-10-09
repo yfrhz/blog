@@ -20,7 +20,7 @@ cat /etc/os-release
 # 系统版本号，需要与国内源对应，否则可能会出问题。
 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置
 
-# 3.写入通用源信息
+# 3.1 写入通用源信息（ubuntu）
 cat > /etc/apt/sources.list << EOF
 deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
 deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
@@ -34,6 +34,17 @@ deb-src https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted univers
 deb https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
 deb-src https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
 
+EOF
+
+# 3.2 写入通用源信息（yum）
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
 
 # 4.更新源
@@ -194,6 +205,9 @@ mkdir -p /etc/containerd/certs.d/docker.io
 cat > /etc/containerd/certs.d/docker.io/hosts.toml << EOF
 server = "https://docker.io"
 
+[host."https://docker.1panel.live"]
+  capabilities = ["pull", "resolve"]
+  
 [host."https://docker.m.daocloud.io"]
   capabilities = ["pull", "resolve"]
 
@@ -208,20 +222,19 @@ server = "https://docker.io"
   capabilities = ["pull", "resolve"]
 EOF
 
-# 7.启动containerd
+# 8.启动containerd
 systemctl daemon-reload # 刷新服务守护
 systemctl restart containerd  # 重启服务
 systemctl enable containerd # 设置开机启动
 systemctl status containerd # 查看运行状态
  
-# （可选）8.配置crictl客户端连接的运行时位置 ，使用ctr管理时必须配置
+# （可选）9.配置crictl客户端连接的运行时位置 ，使用ctr管理时必须配置
 cat > /etc/crictl.yaml <<EOF
 runtime-endpoint: unix:///run/containerd/containerd.sock
 image-endpoint: unix:///run/containerd/containerd.sock
 timeout: 10
 debug: false
 EOF
-
 
 ```
 
@@ -396,7 +409,7 @@ kubeadm join {advertiseAddress}:6443 --token {token} \
 master节点默认存在污点，不允许运行pod，需要去污
 ```shell
 # 去污
-kubectl taint node {NodeName} node-role.kubernetes.io/control-plane:-
+kubectl taint node {NodeName} node-role.kubernetes.io/control-plane-
 ```
 
 ### 4. 安装kuboard监控
