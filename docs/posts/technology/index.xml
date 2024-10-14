@@ -18,5 +18,18 @@
 0.环境检查 # 先更新源，再把服务器重启下，有的服务器有问题，一次性的，关机后启动不了，由于安装k8s会修改内核参数，后面起不来了说不清楚，避免背锅 apt update shutdown -r now 1.环境准备 1.1 修改镜像源 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.1 写入通用源信息（ubuntu） cat &amp;gt; /etc/apt/sources.list &amp;lt;&amp;lt; EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb-src https://mirrors.</description>
     </item>
     
+    <item>
+      <title>空服务器部署K8S流程-龙蜥</title>
+      <link>https://blog.morz.cc/posts/technology/ops/k8s-anolis/</link>
+      <pubDate>Sun, 04 Aug 2024 10:50:34 +0800</pubDate>
+      
+      <guid>https://blog.morz.cc/posts/technology/ops/k8s-anolis/</guid>
+      <description>前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。
+于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。
+1.环境准备 预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装
+1.1 修改镜像源 # 1.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 2.安装工具 yum install -y curl wget vim lsb_release openssl 1.2 硬盘挂载 部分服务器存在没有挂载硬盘的情况，需要手动检查挂载
+# 0.查看是否有硬盘未挂载 df -h # 查看当前已挂载硬盘 fdisk -l # 查看所有硬盘 # 对比上面两个结果，若存在未挂载的硬盘，则继续挂载 # 1.对硬盘进行分区 fdisk /dev/sdb # 进入交互界面后，可以使用 m 查看帮助 # 构建一个新分区依次输入： n # 创建新分区，可以默认直接回车 p # 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可 t # 改变分区1的属性 L # 查看有个属性对应的命令 8e # 改变分区1为 Linux LVM格式 w # 将分区表写入磁盘并退出 # 2.</description>
+    </item>
+    
   </channel>
 </rss>

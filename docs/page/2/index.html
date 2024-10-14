@@ -165,6 +165,22 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>Drift使用说明
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简介 作为Flutter的半orm框架，Drift确实达到了好用的程度。本文不去对比其他框架，仅就使用过程中的一些坑或者技巧做一点小小的记录。
+相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
+官方文档 GitHub Pub 使用 参考文档，先这样，然后这样，再那样，就好啦～
+# 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。 $ dart run build_runner build 问题 Tables can’t override primaryKey and use autoIncrement() 设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。 数据文件路径（安卓虚拟机）
+/data/user/0/{包名}/app_flutter/db.sqlite </p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-19 23:40:15 +0800 CST'>七月 19, 2023</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to Drift使用说明" href="https://blog.morz.cc/posts/technology/flutter/drift/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>安装Hugo
     </h2>
   </header>

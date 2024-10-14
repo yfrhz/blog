@@ -179,6 +179,22 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>空服务器部署K8S流程-龙蜥
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。
+于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。
+1.环境准备 预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装
+1.1 修改镜像源 # 1.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 2.安装工具 yum install -y curl wget vim lsb_release openssl 1.2 硬盘挂载 部分服务器存在没有挂载硬盘的情况，需要手动检查挂载
+# 0.查看是否有硬盘未挂载 df -h # 查看当前已挂载硬盘 fdisk -l # 查看所有硬盘 # 对比上面两个结果，若存在未挂载的硬盘，则继续挂载 # 1.对硬盘进行分区 fdisk /dev/sdb # 进入交互界面后，可以使用 m 查看帮助 # 构建一个新分区依次输入： n # 创建新分区，可以默认直接回车 p # 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可 t # 改变分区1的属性 L # 查看有个属性对应的命令 8e # 改变分区1为 Linux LVM格式 w # 将分区表写入磁盘并退出 # 2....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-08-04 10:50:34 +0800 CST'>八月 4, 2024</span>&nbsp;·&nbsp;Carl</footer>
+  <a class="entry-link" aria-label="post link to 空服务器部署K8S流程-龙蜥" href="https://blog.morz.cc/posts/technology/ops/k8s-anolis/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>博弈论-第二篇
     </h2>
   </header>
@@ -405,22 +421,6 @@ GitHub Pub Pub上的文档挺全的
   </div>
   <footer class="entry-footer"><span title='2023-07-20 16:12:34 +0800 CST'>七月 20, 2023</span>&nbsp;·&nbsp;Carl</footer>
   <a class="entry-link" aria-label="post link to Hugo页面样式加载失败" href="https://blog.morz.cc/posts/technology/hugo/integrity/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Drift使用说明
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>简介 作为Flutter的半orm框架，Drift确实达到了好用的程度。本文不去对比其他框架，仅就使用过程中的一些坑或者技巧做一点小小的记录。
-相关文档 最权威的当然是各种官网的文档，建议优先参考，本文不赘述安装、导入过程。
-官方文档 GitHub Pub 使用 参考文档，先这样，然后这样，再那样，就好啦～
-# 注意：由于Dart不支持反射等操作，导致dao及相关类不能自动生成，需要手动执行以下指令进行生成。 $ dart run build_runner build 问题 Tables can’t override primaryKey and use autoIncrement() 设置自增就默认为主键，不用再额外指定主键了，但是指定了也只是警告，问题不大。 数据文件路径（安卓虚拟机）
-/data/user/0/{包名}/app_flutter/db.sqlite </p>
-  </div>
-  <footer class="entry-footer"><span title='2023-07-19 23:40:15 +0800 CST'>七月 19, 2023</span>&nbsp;·&nbsp;Carl</footer>
-  <a class="entry-link" aria-label="post link to Drift使用说明" href="https://blog.morz.cc/posts/technology/flutter/drift/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

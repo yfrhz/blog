@@ -5,13 +5,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>空服务器部署K8S流程 | 墨渍</title>
+<title>空服务器部署K8S流程-龙蜥 | 墨渍</title>
 <meta name="keywords" content="">
 <meta name="description" content="前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。
 于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。
-0.环境检查 # 先更新源，再把服务器重启下，有的服务器有问题，一次性的，关机后启动不了，由于安装k8s会修改内核参数，后面起不来了说不清楚，避免背锅 apt update shutdown -r now 1.环境准备 1.1 修改镜像源 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.1 写入通用源信息（ubuntu） cat &gt; /etc/apt/sources.list &lt;&lt; EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb-src https://mirrors.">
+1.环境准备 预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装
+1.1 修改镜像源 # 1.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 2.安装工具 yum install -y curl wget vim lsb_release openssl 1.2 硬盘挂载 部分服务器存在没有挂载硬盘的情况，需要手动检查挂载
+# 0.查看是否有硬盘未挂载 df -h # 查看当前已挂载硬盘 fdisk -l # 查看所有硬盘 # 对比上面两个结果，若存在未挂载的硬盘，则继续挂载 # 1.对硬盘进行分区 fdisk /dev/sdb # 进入交互界面后，可以使用 m 查看帮助 # 构建一个新分区依次输入： n # 创建新分区，可以默认直接回车 p # 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可 t # 改变分区1的属性 L # 查看有个属性对应的命令 8e # 改变分区1为 Linux LVM格式 w # 将分区表写入磁盘并退出 # 2.">
 <meta name="author" content="Carl">
-<link rel="canonical" href="https://blog.morz.cc/posts/technology/ops/k8s/">
+<link rel="canonical" href="https://blog.morz.cc/posts/technology/ops/k8s-anolis/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://blog.morz.cc/ico/favicon128x128.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://blog.morz.cc/ico/favicon16x16.ico">
@@ -57,20 +59,24 @@
 
     </style>
 </noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-<meta property="og:title" content="空服务器部署K8S流程" />
+<meta property="og:title" content="空服务器部署K8S流程-龙蜥" />
 <meta property="og:description" content="前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。
 于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。
-0.环境检查 # 先更新源，再把服务器重启下，有的服务器有问题，一次性的，关机后启动不了，由于安装k8s会修改内核参数，后面起不来了说不清楚，避免背锅 apt update shutdown -r now 1.环境准备 1.1 修改镜像源 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.1 写入通用源信息（ubuntu） cat &gt; /etc/apt/sources.list &lt;&lt; EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb-src https://mirrors." />
+1.环境准备 预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装
+1.1 修改镜像源 # 1.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 2.安装工具 yum install -y curl wget vim lsb_release openssl 1.2 硬盘挂载 部分服务器存在没有挂载硬盘的情况，需要手动检查挂载
+# 0.查看是否有硬盘未挂载 df -h # 查看当前已挂载硬盘 fdisk -l # 查看所有硬盘 # 对比上面两个结果，若存在未挂载的硬盘，则继续挂载 # 1.对硬盘进行分区 fdisk /dev/sdb # 进入交互界面后，可以使用 m 查看帮助 # 构建一个新分区依次输入： n # 创建新分区，可以默认直接回车 p # 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可 t # 改变分区1的属性 L # 查看有个属性对应的命令 8e # 改变分区1为 Linux LVM格式 w # 将分区表写入磁盘并退出 # 2." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.morz.cc/posts/technology/ops/k8s/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.morz.cc/posts/technology/ops/k8s-anolis/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-08-04T10:50:34+08:00" />
 <meta property="article:modified_time" content="2024-08-04T10:50:34+08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="空服务器部署K8S流程"/>
+<meta name="twitter:title" content="空服务器部署K8S流程-龙蜥"/>
 <meta name="twitter:description" content="前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。
 于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。
-0.环境检查 # 先更新源，再把服务器重启下，有的服务器有问题，一次性的，关机后启动不了，由于安装k8s会修改内核参数，后面起不来了说不清楚，避免背锅 apt update shutdown -r now 1.环境准备 1.1 修改镜像源 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.1 写入通用源信息（ubuntu） cat &gt; /etc/apt/sources.list &lt;&lt; EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb-src https://mirrors."/>
+1.环境准备 预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装
+1.1 修改镜像源 # 1.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 2.安装工具 yum install -y curl wget vim lsb_release openssl 1.2 硬盘挂载 部分服务器存在没有挂载硬盘的情况，需要手动检查挂载
+# 0.查看是否有硬盘未挂载 df -h # 查看当前已挂载硬盘 fdisk -l # 查看所有硬盘 # 对比上面两个结果，若存在未挂载的硬盘，则继续挂载 # 1.对硬盘进行分区 fdisk /dev/sdb # 进入交互界面后，可以使用 m 查看帮助 # 构建一个新分区依次输入： n # 创建新分区，可以默认直接回车 p # 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可 t # 改变分区1的属性 L # 查看有个属性对应的命令 8e # 改变分区1为 Linux LVM格式 w # 将分区表写入磁盘并退出 # 2."/>
 
 
 <script type="application/ld+json">
@@ -93,8 +99,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "空服务器部署K8S流程",
-      "item": "https://blog.morz.cc/posts/technology/ops/k8s/"
+      "name": "空服务器部署K8S流程-龙蜥",
+      "item": "https://blog.morz.cc/posts/technology/ops/k8s-anolis/"
     }
   ]
 }
@@ -103,14 +109,14 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "空服务器部署K8S流程",
-  "name": "空服务器部署K8S流程",
-  "description": "前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。\n于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。\n0.环境检查 # 先更新源，再把服务器重启下，有的服务器有问题，一次性的，关机后启动不了，由于安装k8s会修改内核参数，后面起不来了说不清楚，避免背锅 apt update shutdown -r now 1.环境准备 1.1 修改镜像源 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.1 写入通用源信息（ubuntu） cat \u0026gt; /etc/apt/sources.list \u0026lt;\u0026lt; EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb-src https://mirrors.",
+  "headline": "空服务器部署K8S流程-龙蜥",
+  "name": "空服务器部署K8S流程-龙蜥",
+  "description": "前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。\n于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。\n1.环境准备 预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装\n1.1 修改镜像源 # 1.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 2.安装工具 yum install -y curl wget vim lsb_release openssl 1.2 硬盘挂载 部分服务器存在没有挂载硬盘的情况，需要手动检查挂载\n# 0.查看是否有硬盘未挂载 df -h # 查看当前已挂载硬盘 fdisk -l # 查看所有硬盘 # 对比上面两个结果，若存在未挂载的硬盘，则继续挂载 # 1.对硬盘进行分区 fdisk /dev/sdb # 进入交互界面后，可以使用 m 查看帮助 # 构建一个新分区依次输入： n # 创建新分区，可以默认直接回车 p # 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可 t # 改变分区1的属性 L # 查看有个属性对应的命令 8e # 改变分区1为 Linux LVM格式 w # 将分区表写入磁盘并退出 # 2.",
   "keywords": [
     
   ],
-  "articleBody": "前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。\n于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。\n0.环境检查 # 先更新源，再把服务器重启下，有的服务器有问题，一次性的，关机后启动不了，由于安装k8s会修改内核参数，后面起不来了说不清楚，避免背锅 apt update shutdown -r now 1.环境准备 1.1 修改镜像源 # 1.备份原文件 mv /etc/apt/sources.list /etc/apt/sources.list.bak # 2.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 3.1 写入通用源信息（ubuntu） cat \u003e /etc/apt/sources.list \u003c\u003c EOF deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse deb https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse deb-src https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse EOF # 3.2 写入通用源信息（yum） cat \u003c",
-  "wordCount" : "987",
+  "articleBody": "前言 网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。\n于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。\n1.环境准备 预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装\n1.1 修改镜像源 # 1.查询系统版本号 cat /etc/os-release # 系统版本号，需要与国内源对应，否则可能会出问题。 # 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置 # 2.安装工具 yum install -y curl wget vim lsb_release openssl 1.2 硬盘挂载 部分服务器存在没有挂载硬盘的情况，需要手动检查挂载\n# 0.查看是否有硬盘未挂载 df -h # 查看当前已挂载硬盘 fdisk -l # 查看所有硬盘 # 对比上面两个结果，若存在未挂载的硬盘，则继续挂载 # 1.对硬盘进行分区 fdisk /dev/sdb # 进入交互界面后，可以使用 m 查看帮助 # 构建一个新分区依次输入： n # 创建新分区，可以默认直接回车 p # 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可 t # 改变分区1的属性 L # 查看有个属性对应的命令 8e # 改变分区1为 Linux LVM格式 w # 将分区表写入磁盘并退出 # 2.创建PV pvscan # 扫面系统PV pvcreate /dev/sdb1 # 创建PV pvdisplay # 查看PV # 3.创建 VG vgscan # 扫面系统VG vgcreate vg_test /dev/sdb1 # 创建VG vgdisplay # 查看VG # 4.创建LV lvscan # 扫面系统LV lvcreate -l ${上一步的EP total } -n lv_test vg_test # 创建LV lvdisplay # 查看LV # 5.格式化 # 对上一步完成的LVM进行格式化 # 2T 以上建议用 xfs 格式，2T以下建议 ext4 格式 mkfs.ext4 /dev/sdb1 # 6.创建一个目录并挂载 mkdir /data mount /dev/vg_test/lv_test /data # 7.添加自动挂载 echo '/dev/mapper/vg_test-lv_test /test ext4 defaults 1 2' \u003e\u003e /etc/fstab #注意这里是追加，别覆盖了 mount -a # 执行自动挂载 # 补充：如果k8s集群需要挂载nfs文件系统，服务器必须安装nfs-common yum -y install nfs-common showmount -e 192.168.10.100 cat '192.168.10.100:/nfs/share /share nfs vers=4,minorversion=0,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,_netdev,noresvport 0 0' \u003e\u003e /etc/fstab 1.3 修改系统配置 # 1.关闭防火墙 systemctl disable --now firewall # 2.关闭selinux setenforce 0 #临时关闭 sed -i s#SELINUX=enforcing#SELINUX=disabled# /etc/selinux/config #永久关闭 # 3.关闭交换空间 swapoff -a \u0026\u0026 sysctl -w vm.swappiness=0 sed -ri '/^[^#]*swap/s@^@#@' /etc/fstab # 4.同步时区 ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 5.配置limit cat \u003e\u003e /etc/security/limits.conf \u003c\u003c'EOF' * soft nofile 655360 * hard nofile 131072 * soft nproc 655350 * hard nproc 655350 * soft memlock unlimited * hard memlock unlimited EOF # 6.优化sshd连接配置 # UseDNS打开状态下，当客户端试图登录SSH服务器时，服务器端先根据客户端的IP地址进行PTR反向查询出客户端的主机名 # 然后根据查询出的客户端主机名进行DNS正向A记录查询，验证与其原始IP地址是否一致，这是防止客户端欺骗的一种措施， # 但一般我们的是动态IP不会有PTR记录，打开这个选项不过是在白白浪费时间而已，不如将其关闭。 sed -i 's@#UseDNS yes@UseDNS no@g' /etc/ssh/sshd_config # 当GSSAPIAuthentication选项开启时，登陆的时候客户端需要对服务器端的IP地址进行反解析， # 如果服务器的IP地址没有配置PTR记录，很容易在这里卡住到超时。 sed -i 's@^GSSAPIAuthentication yes@GSSAPIAuthentication no@g' /etc/ssh/sshd_config # 7.内核优化 cat \u003e /etc/sysctl.d/k8s.conf \u003c\u003c'EOF' net.ipv4.ip_forward = 1 net.bridge.bridge-nf-call-iptables = 1 net.bridge.bridge-nf-call-ip6tables = 1 net.ipv6.conf.all.disable_ipv6 = 1 fs.may_detach_mounts = 1 vm.overcommit_memory=1 vm.panic_on_oom=0 fs.inotify.max_user_watches=89100 fs.file-max=52706963 fs.nr_open=52706963 net.netfilter.nf_conntrack_max=2310720 net.ipv4.tcp_keepalive_time = 600 net.ipv4.tcp_keepalive_probes = 3 net.ipv4.tcp_keepalive_intvl =15 net.ipv4.tcp_max_tw_buckets = 36000 net.ipv4.tcp_tw_reuse = 1 net.ipv4.tcp_max_orphans = 327680 net.ipv4.tcp_orphan_retries = 3 net.ipv4.tcp_syncookies = 1 net.ipv4.tcp_max_syn_backlog = 16384 net.ipv4.ip_conntrack_max = 65536 net.ipv4.tcp_max_syn_backlog = 16384 net.ipv4.tcp_timestamps = 0 net.core.somaxconn = 16384 EOF sysctl --system #启用配置 2.安装组件 2.1 安装并启动containerd # 1.安装containerd dnf --enablerepo Plus install -y containerd cri-tools # 2.加载模块 # 临时生效 modprobe -- overlay modprobe -- br_netfilter # 持久化 cat \u003e /etc/modules-load.d/containerd.conf \u003c",
+  "wordCount" : "742",
   "inLanguage": "zh",
   "datePublished": "2024-08-04T10:50:34+08:00",
   "dateModified": "2024-08-04T10:50:34+08:00",
@@ -120,7 +126,7 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://blog.morz.cc/posts/technology/ops/k8s/"
+    "@id": "https://blog.morz.cc/posts/technology/ops/k8s-anolis/"
   },
   "publisher": {
     "@type": "Organization",
@@ -215,7 +221,7 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://blog.morz.cc/">主页</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://blog.morz.cc/posts/technology/">🐵技术</a></div>
     <h1 class="post-title">
-      空服务器部署K8S流程
+      空服务器部署K8S流程-龙蜥
     </h1>
     <div class="post-meta"><span title='2024-08-04 10:50:34 +0800 CST'>八月 4, 2024</span>&nbsp;·&nbsp;Carl
 
@@ -230,8 +236,6 @@
         <div class="inner"><ul>
                 <li>
                     <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
-                <li>
-                    <a href="#0%e7%8e%af%e5%a2%83%e6%a3%80%e6%9f%a5" aria-label="0.环境检查">0.环境检查</a></li>
                 <li>
                     <a href="#1%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87" aria-label="1.环境准备">1.环境准备</a><ul>
                         
@@ -248,9 +252,7 @@
                 <li>
                     <a href="#21-%e5%ae%89%e8%a3%85%e5%b9%b6%e5%90%af%e5%8a%a8containerd" aria-label="2.1 安装并启动containerd">2.1 安装并启动containerd</a></li>
                 <li>
-                    <a href="#22-%e5%ae%89%e8%a3%85%e5%b9%b6%e5%90%af%e5%8a%a8k8s" aria-label="2.2 安装并启动K8S">2.2 安装并启动K8S</a></li>
-                <li>
-                    <a href="#23-%e5%ae%89%e8%a3%85%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1haproxy" aria-label="2.3 安装负载均衡（HAProxy）">2.3 安装负载均衡（HAProxy）</a></li></ul>
+                    <a href="#22-%e5%ae%89%e8%a3%85%e5%b9%b6%e5%90%af%e5%8a%a8k8s" aria-label="2.2 安装并启动K8S">2.2 安装并启动K8S</a></li></ul>
                 </li>
                 <li>
                     <a href="#3%e9%85%8d%e7%bd%ae%e5%b9%b6%e4%bd%bf%e7%94%a8" aria-label="3.配置并使用">3.配置并使用</a><ul>
@@ -340,54 +342,18 @@
   <div class="post-content"><h3 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h3>
 <p>网上有很多安装K8S的流程，但有写文章覆盖不全，有些文章描述不清，给人带来很大困惑。<br>
 于是结合自己的安装经历和网上的流程，整合一篇从空服务器安装的过程，便于自己再次部署和给其他人提供参考。</p>
-<h3 id="0环境检查">0.环境检查<a hidden class="anchor" aria-hidden="true" href="#0环境检查">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 先更新源，再把服务器重启下，有的服务器有问题，一次性的，关机后启动不了，由于安装k8s会修改内核参数，后面起不来了说不清楚，避免背锅</span>
-</span></span><span style="display:flex;"><span>apt update 
-</span></span><span style="display:flex;"><span>shutdown -r now
-</span></span></code></pre></div><h3 id="1环境准备">1.环境准备<a hidden class="anchor" aria-hidden="true" href="#1环境准备">#</a></h3>
+<h3 id="1环境准备">1.环境准备<a hidden class="anchor" aria-hidden="true" href="#1环境准备">#</a></h3>
+<p>预先一遍环境，如果已经配置好了，则跳过此步骤，直接开始安装</p>
 <h4 id="11-修改镜像源">1.1 修改镜像源<a hidden class="anchor" aria-hidden="true" href="#11-修改镜像源">#</a></h4>
 <h5 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.备份原文件</span>
-</span></span><span style="display:flex;"><span>mv /etc/apt/sources.list /etc/apt/sources.list.bak
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.查询系统版本号</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1.查询系统版本号</span>
 </span></span><span style="display:flex;"><span>cat /etc/os-release
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 系统版本号，需要与国内源对应，否则可能会出问题。</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 可以在镜像站查找 https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/ 自己的系统版本版对应的配置</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.1 写入通用源信息（ubuntu）</span>
-</span></span><span style="display:flex;"><span>cat &gt; /etc/apt/sources.list <span style="color:#e6db74">&lt;&lt; EOF
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb-src https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb-src https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.2 写入通用源信息（yum）</span>
-</span></span><span style="display:flex;"><span>cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[kubernetes]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">name=Kubernetes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">enabled=1
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">gpgcheck=1
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4.更新源</span>
-</span></span><span style="display:flex;"><span>apt update <span style="color:#75715e">#更新软件列表</span>
-</span></span><span style="display:flex;"><span>apt upgrade <span style="color:#75715e">#更新本地软件</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5.安装工具</span>
-</span></span><span style="display:flex;"><span>apt install -y curl wget vim lsb_release openssl
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.安装工具</span>
+</span></span><span style="display:flex;"><span>yum install -y curl wget vim lsb_release openssl
 </span></span></code></pre></div><h4 id="12-硬盘挂载">1.2 硬盘挂载<a hidden class="anchor" aria-hidden="true" href="#12-硬盘挂载">#</a></h4>
 <p>部分服务器存在没有挂载硬盘的情况，需要手动检查挂载</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 0.查看是否有硬盘未挂载</span>
@@ -398,32 +364,51 @@
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 1.对硬盘进行分区</span>
 </span></span><span style="display:flex;"><span>fdisk /dev/sdb
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 进入交互界面后，可以使用 m 产看帮助</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 进入交互界面后，可以使用 m 查看帮助</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 构建一个新分区依次输入：</span>
 </span></span><span style="display:flex;"><span>n  <span style="color:#75715e"># 创建新分区，可以默认直接回车</span>
 </span></span><span style="display:flex;"><span>p  <span style="color:#75715e"># 创建主分区，可以默认直接回车，分区号和扇区如无特殊要求，默认即可</span>
+</span></span><span style="display:flex;"><span>t  <span style="color:#75715e"># 改变分区1的属性</span>
+</span></span><span style="display:flex;"><span>L  <span style="color:#75715e"># 查看有个属性对应的命令</span>
+</span></span><span style="display:flex;"><span>8e <span style="color:#75715e"># 改变分区1为 Linux LVM格式</span>
 </span></span><span style="display:flex;"><span>w  <span style="color:#75715e"># 将分区表写入磁盘并退出</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.格式化</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 对上一步完成的分区进行格式化</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.创建PV</span>
+</span></span><span style="display:flex;"><span>pvscan <span style="color:#75715e"># 扫面系统PV</span>
+</span></span><span style="display:flex;"><span>pvcreate /dev/sdb1 <span style="color:#75715e"># 创建PV</span>
+</span></span><span style="display:flex;"><span>pvdisplay <span style="color:#75715e"># 查看PV</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.创建 VG</span>
+</span></span><span style="display:flex;"><span>vgscan <span style="color:#75715e"># 扫面系统VG</span>
+</span></span><span style="display:flex;"><span>vgcreate vg_test /dev/sdb1 <span style="color:#75715e"># 创建VG</span>
+</span></span><span style="display:flex;"><span>vgdisplay <span style="color:#75715e"># 查看VG</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4.创建LV</span>
+</span></span><span style="display:flex;"><span>lvscan <span style="color:#75715e"># 扫面系统LV</span>
+</span></span><span style="display:flex;"><span>lvcreate -l <span style="color:#e6db74">${</span>上一步的EP total <span style="color:#e6db74">}</span> -n lv_test vg_test <span style="color:#75715e"># 创建LV</span>
+</span></span><span style="display:flex;"><span>lvdisplay <span style="color:#75715e"># 查看LV  </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5.格式化</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 对上一步完成的LVM进行格式化</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 2T 以上建议用 xfs 格式，2T以下建议 ext4 格式</span>
 </span></span><span style="display:flex;"><span>mkfs.ext4 /dev/sdb1
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.创建一个目录并挂载</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6.创建一个目录并挂载</span>
 </span></span><span style="display:flex;"><span>mkdir /data
-</span></span><span style="display:flex;"><span>mount /dev/sdb1 /data
+</span></span><span style="display:flex;"><span>mount /dev/vg_test/lv_test /data
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4.添加自动挂载</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;/dev/sdb1 /data ext4 defaults 0 0&#39;</span> &gt;&gt; /etc/fstab <span style="color:#75715e">#注意这里是追加，别覆盖了</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 7.添加自动挂载</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;/dev/mapper/vg_test-lv_test /test   ext4  defaults  1 2&#39;</span> &gt;&gt; /etc/fstab <span style="color:#75715e">#注意这里是追加，别覆盖了</span>
 </span></span><span style="display:flex;"><span>mount -a <span style="color:#75715e"># 执行自动挂载</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 补充：如果k8s集群需要挂载nfs文件系统，服务器必须安装nfs-common</span>
-</span></span><span style="display:flex;"><span>apt -y install nfs-common
+</span></span><span style="display:flex;"><span>yum -y install nfs-common
 </span></span><span style="display:flex;"><span>showmount -e 192.168.10.100
 </span></span><span style="display:flex;"><span>cat <span style="color:#e6db74">&#39;192.168.10.100:/nfs/share  /share nfs  vers=4,minorversion=0,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,_netdev,noresvport  0  0&#39;</span> &gt;&gt; /etc/fstab
 </span></span></code></pre></div><h4 id="13-修改系统配置">1.3 修改系统配置<a hidden class="anchor" aria-hidden="true" href="#13-修改系统配置">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.关闭防火墙</span>
-</span></span><span style="display:flex;"><span>systemctl disable --now ufw  
+</span></span><span style="display:flex;"><span>systemctl disable --now firewall  
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.关闭selinux </span>
 </span></span><span style="display:flex;"><span>setenforce <span style="color:#ae81ff">0</span> <span style="color:#75715e">#临时关闭</span>
@@ -488,21 +473,10 @@
 </span></span><span style="display:flex;"><span>sysctl --system <span style="color:#75715e">#启用配置</span>
 </span></span></code></pre></div><h3 id="2安装组件">2.安装组件<a hidden class="anchor" aria-hidden="true" href="#2安装组件">#</a></h3>
 <h4 id="21-安装并启动containerd">2.1 安装并启动containerd<a hidden class="anchor" aria-hidden="true" href="#21-安装并启动containerd">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.添加密钥</span>
-</span></span><span style="display:flex;"><span>curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add -
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.安装containerd</span>
+</span></span><span style="display:flex;"><span>dnf --enablerepo Plus install -y containerd cri-tools
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.写入Containerd源信息</span>
-</span></span><span style="display:flex;"><span>cat &gt; /etc/apt/sources.list.d/containerd.list <span style="color:#e6db74">&lt;&lt; EOF
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb https://mirrors.aliyun.com/docker-ce/linux/ubuntu noble stable
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.更新软件源</span>
-</span></span><span style="display:flex;"><span>apt update
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4.安装containerd组件</span>
-</span></span><span style="display:flex;"><span>apt -y install containerd.io
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5.加载模块</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.加载模块</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 临时生效</span>
 </span></span><span style="display:flex;"><span>modprobe -- overlay
 </span></span><span style="display:flex;"><span>modprobe -- br_netfilter
@@ -512,12 +486,12 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">br_netfilter
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6.重新初始化containerd的配置文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.重新初始化containerd的配置文件</span>
 </span></span><span style="display:flex;"><span>containerd config default | tee /etc/containerd/config.toml 
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 修改Cgroup的管理者为systemd组件</span>
 </span></span><span style="display:flex;"><span>sed -ri <span style="color:#e6db74">&#39;s#^(\s*SystemdCgroup = ).*$#\1true#&#39;</span> /etc/containerd/config.toml 
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 修改pause的基础镜像名称</span>
-</span></span><span style="display:flex;"><span>sed -ri <span style="color:#e6db74">&#39;s#^(\s*sandbox_image = ).*$#\1&#34;registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9&#34;#&#39;</span> /etc/containerd/config.toml
+</span></span><span style="display:flex;"><span>sed -ri <span style="color:#e6db74">&#39;s#^(\s*sandbox_image = ).*$#\1&#34;registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.10&#34;#&#39;</span> /etc/containerd/config.toml
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置镜像保存路径</span>
 </span></span><span style="display:flex;"><span>sed -ri <span style="color:#e6db74">&#39;s#^(\s*root = ).*$#\1&#34;/data/containerd/root&#34;#&#39;</span> /etc/containerd/config.toml  <span style="color:#75715e">#保存持久化数据,默认值/var/lib/containerd</span>
 </span></span><span style="display:flex;"><span>sed -ri <span style="color:#e6db74">&#39;s#^(\s*state = ).*$#\1&#34;/data/containerd/run&#34;#&#39;</span> /etc/containerd/config.toml <span style="color:#75715e">#保存运行时临时数据,默认值/run/containerd </span>
@@ -525,7 +499,7 @@
 </span></span><span style="display:flex;"><span>sed -ri <span style="color:#e6db74">&#39;s#^(\s*config_path = ).*$#\1&#34;/etc/containerd/certs.d&#34;#&#39;</span> /etc/containerd/config.toml
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 7.配置国内镜像（重要）</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4.配置国内镜像（重要）</span>
 </span></span><span style="display:flex;"><span>mkdir -p /etc/containerd/certs.d/docker.io
 </span></span><span style="display:flex;"><span>cat &gt; /etc/containerd/certs.d/docker.io/hosts.toml <span style="color:#e6db74">&lt;&lt; EOF
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">server = &#34;https://docker.io&#34;
@@ -536,24 +510,15 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[host.&#34;https://docker.m.daocloud.io&#34;]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  capabilities = [&#34;pull&#34;, &#34;resolve&#34;]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[host.&#34;https://dockerhub.timeweb.cloud&#34;]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  capabilities = [&#34;pull&#34;, &#34;resolve&#34;]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[host.&#34;https://4fb4b8dbaee8420cbcb88afdafa26584.mirror.swr.myhuaweicloud.com&#34;]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  capabilities = [&#34;pull&#34;, &#34;resolve&#34;]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># 此处URL需要去 https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors 查看
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[host.&#34;https://xxx.mirror.aliyuncs.com&#34;] 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  capabilities = [&#34;pull&#34;, &#34;resolve&#34;]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 8.启动containerd</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5.启动containerd</span>
 </span></span><span style="display:flex;"><span>systemctl daemon-reload <span style="color:#75715e"># 刷新服务守护</span>
 </span></span><span style="display:flex;"><span>systemctl restart containerd  <span style="color:#75715e"># 重启服务</span>
 </span></span><span style="display:flex;"><span>systemctl enable containerd <span style="color:#75715e"># 设置开机启动</span>
 </span></span><span style="display:flex;"><span>systemctl status containerd <span style="color:#75715e"># 查看运行状态</span>
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># （可选）9.配置crictl客户端连接的运行时位置 ，使用ctr管理时必须配置</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># （可选）6.配置crictl客户端连接的运行时位置 ，使用ctr管理时必须配置</span>
 </span></span><span style="display:flex;"><span>cat &gt; /etc/crictl.yaml <span style="color:#e6db74">&lt;&lt;EOF
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">runtime-endpoint: unix:///run/containerd/containerd.sock
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">image-endpoint: unix:///run/containerd/containerd.sock
@@ -561,86 +526,19 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">debug: false
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
 </span></span></code></pre></div><h4 id="22-安装并启动k8s">2.2 安装并启动K8S<a hidden class="anchor" aria-hidden="true" href="#22-安装并启动k8s">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.添加源密钥</span>
-</span></span><span style="display:flex;"><span>curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.30/deb/Release.key | apt-key add - 
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.写入K8S源信息</span>
-</span></span><span style="display:flex;"><span>cat &gt; /etc/apt/sources.list.d/kubernetes.list <span style="color:#e6db74">&lt;&lt;EOF
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">deb https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.30/deb/ /
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.添加k8s源</span>
+</span></span><span style="display:flex;"><span>cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[kubernetes]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">name=Kubernetes
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">enabled=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">gpgcheck=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.更新软件列表</span>
-</span></span><span style="display:flex;"><span>sudo apt update 
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4.安装k8s相关工具</span>
-</span></span><span style="display:flex;"><span>apt install -y kubelet kubeadm kubectl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.安装k8s相关工具</span>
+</span></span><span style="display:flex;"><span>yum install -y kubelet kubeadm kubectl
 </span></span><span style="display:flex;"><span>systemctl enable kubelet <span style="color:#75715e">#设置开机自启动</span>
-</span></span></code></pre></div><h4 id="23-安装负载均衡haproxy">2.3 安装负载均衡（HAProxy）<a hidden class="anchor" aria-hidden="true" href="#23-安装负载均衡haproxy">#</a></h4>
-<p>计划安装多个主节点，且没有外层负载均衡设备或服务时执行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.获取安装包</span>
-</span></span><span style="display:flex;"><span>wget https://www.haproxy.org/download/2.8/src/haproxy-2.8.3.tar.gz
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2.解压</span>
-</span></span><span style="display:flex;"><span>tar zxvf haproxy-2.8.3.tar.gz
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.编译</span>
-</span></span><span style="display:flex;"><span>cd haproxy-2.8.3/
-</span></span><span style="display:flex;"><span>make TARGET<span style="color:#f92672">=</span>linux-glibc PREFIX<span style="color:#f92672">=</span>/data/haproxy
-</span></span><span style="display:flex;"><span>make install PREFIX<span style="color:#f92672">=</span>/data/haproxy
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4.配置文件</span>
-</span></span><span style="display:flex;"><span>mkdir -p /data/haproxy/conf
-</span></span><span style="display:flex;"><span>cat &gt; /data/haproxy/conf/haproxy.cfg <span style="color:#e6db74">&lt;&lt;EOF 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">global
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    zero-warning
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    chroot                /data/haproxy
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    daemon
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    maxconn               4000
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    pidfile               /var/run/haproxy.pid
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    hard-stop-after       5m
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">defaults
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    timeout client        30s
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    timeout server        30s
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    timeout connect       30s
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    balance               roundrobin
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">listen k8s_control_plane
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    bind                  0.0.0.0:7443
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mode                  tcp
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    log                   global
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    balance               leastconn
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    option                tcp-check
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    server                serverA 192.168.10.10:6443 weight 6 check inter 3000 fastinter 1000 downinter 30000 rise 5 fall 3
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    server                serverB 192.168.10.11:6443 weight 4 check inter 3000 fastinter 1000 downinter 30000 rise 5 fall 3
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">listen stats
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    bind                  0.0.0.0:8080
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mode                  http
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    stats                 enable
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    log                   global
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    stats                 uri /haproxy-status
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    stats                 auth admin:123456
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5.注册服务</span>
-</span></span><span style="display:flex;"><span>cat &gt; /etc/systemd/system/haproxy.service <span style="color:#e6db74">&lt;&lt;EOF
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Unit]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Description=HAProxy
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">DefaultDependencies=no
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">After=network.target
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Service]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Type=forking
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStart=/data/haproxy/sbin/haproxy -f /data/haproxy/conf/haproxy.cfg
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">LimitNOFILE=infinity
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Install]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">WantedBy=multi-user.target
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6.启用服务</span>
-</span></span><span style="display:flex;"><span>systemctl daemon-reload
-</span></span><span style="display:flex;"><span>systemctl enable haproxy.service
-</span></span><span style="display:flex;"><span>systemctl start haproxy.service
 </span></span></code></pre></div><h3 id="3配置并使用">3.配置并使用<a hidden class="anchor" aria-hidden="true" href="#3配置并使用">#</a></h3>
 <h4 id="31-配置主节点">3.1 配置主节点<a hidden class="anchor" aria-hidden="true" href="#31-配置主节点">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1.生成默认配置文件</span>
