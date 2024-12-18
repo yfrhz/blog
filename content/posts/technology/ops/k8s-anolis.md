@@ -90,7 +90,7 @@ cat '192.168.10.100:/nfs/share  /share nfs  vers=4,minorversion=0,rsize=1048576,
 
 ```shell
 # 1.关闭防火墙
-systemctl disable --now firewall  
+systemctl disable --now firewalld  
 
 # 2.关闭selinux 
 setenforce 0 #临时关闭
@@ -162,7 +162,8 @@ sysctl --system #启用配置
 
 ```shell
 # 1.安装containerd
-dnf --enablerepo Plus install -y containerd cri-tools
+wget -O /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum install -y containerd
 
 # 2.加载模块
 # 临时生效
@@ -232,6 +233,9 @@ EOF
 # 2.安装k8s相关工具
 yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet #设置开机自启动
+
+# 3.安装其他依赖
+yum install iproute-tc socat -y 
 ```
 
 ### 3.配置并使用
@@ -274,7 +278,7 @@ kubeadm init --config kubeadm-master-config.yaml
 
 ```shell
 #root用户
-echo 'KUBECONFIG=/etc/kubernetes/admin.conf' >> ~/.bashrc
+echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> ~/.bashrc
 source ~/.bashrc
 #普通用户
 mkdir -p $HOME/.kube
