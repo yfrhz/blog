@@ -29,17 +29,16 @@ cat /etc/os-release
 
 # 3.1 写入通用源信息（ubuntu）
 cat > /etc/apt/sources.list << EOF
-deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
-deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
-
-deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
-deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
-
-deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
-deb-src https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
-
-deb https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
-deb-src https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse
 
 EOF
 
@@ -47,10 +46,10 @@ EOF
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
 exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
 
@@ -59,7 +58,7 @@ apt update #更新软件列表
 apt upgrade #更新本地软件
 
 # 5.安装工具
-apt install -y curl wget vim lsb_release openssl
+ 
 
 ```
 #### 1.2 硬盘挂载
@@ -101,7 +100,8 @@ cat '192.168.10.100:/nfs/share  /share nfs  vers=4,minorversion=0,rsize=1048576,
 #### 1.3 修改系统配置
 ```shell
 # 1.关闭防火墙
-systemctl disable --now ufw  
+systemctl disable --now ufw 
+apt purge ufw 
 
 # 2.关闭selinux 
 setenforce 0 #临时关闭
@@ -171,12 +171,10 @@ sysctl --system #启用配置
 #### 2.1 安装并启动containerd
 ```shell
 # 1.添加密钥
-curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add -
+curl -sS https://mirrors.aliyun.com/docker-ce/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/aliyun-docker-ce.gpg
 
 # 2.写入Containerd源信息
-cat > /etc/apt/sources.list.d/containerd.list << EOF
-deb https://mirrors.aliyun.com/docker-ce/linux/ubuntu noble stable
-EOF
+echo "deb [signed-by=/usr/share/keyrings/aliyun-docker-ce.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/aliyun-docker-ce.list
 
 # 3.更新软件源
 apt update
@@ -224,9 +222,6 @@ server = "https://docker.io"
 [host."https://4fb4b8dbaee8420cbcb88afdafa26584.mirror.swr.myhuaweicloud.com"]
   capabilities = ["pull", "resolve"]
 
-# 此处URL需要去 https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors 查看
-[host."https://xxx.mirror.aliyuncs.com"] 
-  capabilities = ["pull", "resolve"]
 EOF
 
 # 8.启动containerd
@@ -437,7 +432,20 @@ vim /etc/kubernetes/manifests/kube-controller-manager.yaml
 --allocate-node-cidrs=true
 --cluster-cidr=10.244.0.0/16 # 需要和init文件中配置的相同
 # 重启
+
+systemctl daemon-reload
 systemctl restart kubelet
 #再次安装
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+```
+
+```shell
+# 修改允许的端口
+vim /etc/kubernetes/manifests/kube-apiserver.yaml
+# 添加
+- --service-node-port-range=1-65535
+# 重启
+
+systemctl daemon-reload
+systemctl restart kubelet
 ```
