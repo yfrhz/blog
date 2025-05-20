@@ -98,7 +98,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv xxxx 错误提示：
 gpg: keyserver receive failed: Server indicated a failure
 gpg: 从公钥服务器接收失败：Server indicated a failure
 解决方案
-由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 </description>
+由于keyserver.ubuntu.com开放80端口，需要手动指定，否则会使用默认端口11371 添加协议名和端口后为： apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv xxxx 如果方案1中继续报错，可能是由于域名解析失败导致，可以在/etc/resolv.conf中修改dns配置为 nameserver 8.8.8.8 # Google DNS 或 nameserver 1.1.1.1 # Cloudflare 如果不可修改DNS或者修改后依旧失败，则可以使用ping来获取keyserver.ubuntu.com的真实IP，再替换到域名 ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27 apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名 签名失败 提示信息 gpg: 签名时失败： Inappropriate ioctl for device gpg: signing failed: Inappropriate ioctl for device 原因： gpg在签名时需要使用终端，但是当前终端没有输入输出，所以会报错。</description>
     </item>
     
     <item>

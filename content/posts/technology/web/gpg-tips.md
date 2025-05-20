@@ -31,3 +31,20 @@ gpg: 从公钥服务器接收失败：Server indicated a failure\
      ping keyserver.ubuntu.com #获取ip，我获取的是 185.125.188.27
      apt-key adv --keyserver hkp://185.125.188.27:80 --recv xxxx #使用IP替换域名
    ```
+## 签名失败
+### 提示信息
+```shell
+gpg: 签名时失败： Inappropriate ioctl for device
+gpg: signing failed: Inappropriate ioctl for device
+```
+### 原因：
+gpg在签名时需要使用终端，但是当前终端没有输入输出，所以会报错。
+### 解决方案：
+```shell
+# 临时
+export GPG_TTY=$(tty) 
+# 永久
+echo "export GPG_TTY=$(tty)" >> ~/.bashrc
+source ~/.bashrc
+```
+
