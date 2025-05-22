@@ -48,3 +48,78 @@ echo "export GPG_TTY=$(tty)" >> ~/.bashrc
 source ~/.bashrc
 ```
 
+## 修改密钥过期时间
+```shell
+
+# 1. 获取密钥ID
+gpg --list-secret-keys --keyid-format=long
+# 2.  修改密钥
+gpg --edit-key [密钥ID]
+# 3. 修改密钥过期时间
+expire
+#  4. 保存
+save 
+
+```
+
+## 其他命令
+```shell
+# 生成 gpg 密钥
+gpg --gen-key
+
+# 生成吊销证书
+gpg --gen-revoke [密钥ID]
+
+# 列出所有 gpg 公钥
+gpg --list-keys
+
+# 列出所有 gpg 私钥
+gpg --list-secret-keys
+
+# 删除 gpg 公钥
+gpg --delete-keys [密钥ID]
+
+# 删除 gpg 私钥
+gpg --delete-secret-keys [密钥ID]
+
+# 输出 gpg 公钥 ascii
+gpg --armor --output public.key --export [密钥ID]
+
+# 输出 gpg 私钥 ascii
+gpg --armor --output private.key --export-secret-keys [密钥ID]
+
+# 上传 gpg 公钥
+gpg --send-keys [密钥ID] --keyserver 
+
+# 查看 gpg 公钥指纹
+gpg --fingerprint [密钥ID]
+
+# 导入 gpg 密钥(导入私钥时会自动导入公钥)
+gpg --import private.key
+
+# 加密文件
+gpg --recipient [密钥ID] --output encrypt.file --encrypt origin.file
+
+# 解密文件
+gpg --output origin.file --decrypt encrypt.file
+
+# 文件签名，生成二进制的 gpg 文件
+gpg --sign file.txt
+
+# 文件签名，生成文本末尾追加 ASCII 签名的 asc 文件
+gpg --clearsign file.txt
+
+# 文件签名，生成二进制的 sig 文件
+gpg --detach-sign file.txt
+
+# 文件签名，生成 ASCII 格式的 asc 文件
+gpg --detach-sign file.txt
+
+# 签名并加密
+gpg --local-user [密钥ID] --recipient [密钥ID] --armor --sign --encrypt file.txt
+
+# 验证签名
+gpg --verify file.txt.asc file.txt
+
+```
+
