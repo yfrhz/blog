@@ -1,5 +1,5 @@
 ---
-title: "gpg小记"
+title: "GPG小记"
 date: 2023-10-06T10:24:36+08:00
 draft: false
 ---
@@ -60,6 +60,22 @@ expire
 #  4. 保存
 save 
 
+```
+
+## GPG备份
+```shell
+# 备份公钥
+gpg --export --export-options backup --output public.gpg
+# 备份私钥
+gpg --export-secret-keys --export-options backup --output private.gpg
+# 备份信任数据库
+gpg --export-ownertrust > trustdb.txt
+# 恢复公钥
+gpg --import public.gpg
+# 恢复私钥
+gpg --import private.gpg
+# 恢复信任数据库
+gpg --import-ownertrust trustdb.txt
 ```
 
 ## 其他命令
